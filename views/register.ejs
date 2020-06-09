@@ -7,7 +7,7 @@
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-        <link href="stylesheet1.css" rel="stylesheet" />
+        <link href="/css/stylesheet1.css" rel="stylesheet" />
 </head>
 <body>
   <div class="container">
@@ -16,30 +16,34 @@
         <div class="card card-signin my-5">
           <div class="card-body">
             <h5 class="card-title text-center"><b>РЕГИСТРАЦИОННА ФОРМА</b></h5>
-            <form class="form-signin">
+            <form class="form-signin" action="/auth/register" method="post">
+							<p>
+	        <%- include('./runners/messages') %>
+	            </p>
+	            <hr>
 			<div class="form-label-group">
-                <input type="text" id="firstname" class="form-control" placeholder="Собствено име" required>
+                <input type="text" id="firstname" class="form-control" name="fname" placeholder="Собствено име" required value="<%= typeof fname != 'undefined' ? fname : '' %>">
                 <label for="firstname">Собствено име</label>
               </div>
 			  <div class="form-label-group">
-                <input type="text" id="secname" class="form-control" placeholder="Фамилия" required>
+                <input type="text" id="secname" class="form-control" name="lname" placeholder="Фамилия" required value="<%= typeof lname != 'undefined' ? lname : '' %>">
                 <label for="secname">Фамилия</label>
               </div>
               <div class="form-label-group">
-                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required>
+                <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email address" required value="<%= typeof email != 'undefined' ? email : '' %>">
                 <label for="inputEmail">Email</label>
               </div>
               <div class="form-label-group">
-                <input type="password" id="inputPassword" class="form-control" placeholder="Парола" required>
+                <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Парола" required value="<%= typeof password != 'undefined' ? password : '' %>">
                 <label for="inputPassword">Парола</label>
               </div>
 			  <div class="form-label-group">
-                <input type="password" id="confPassword" class="form-control" placeholder="Парола" required>
+                <input type="password" id="confPassword" class="form-control" name="password2" placeholder="Повтори парола" required value="<%= typeof password2 != 'undefined' ? password2 : '' %>">
                 <label for="confPassword">Потвърди парола</label>
               </div>
               <button class="btn btn-success btn-primary btn-block text-uppercase" type="submit">РЕГИСТРАЦИЯ</button>
               <hr class="my-4">
-			  <div class="a-divider a-divider-break" style = "font-size: 10pt; text-align: center;"><a href = "vlezform.php"><h5>ВЛЕЗ В ПРОФИЛ</h5></a></div>
+			  <div class="a-divider a-divider-break" style = "font-size: 10pt; text-align: center;"><a href = "/auth/login"><h5>ВЛЕЗ В ПРОФИЛ</h5></a></div>
             </form>
           </div>
         </div>

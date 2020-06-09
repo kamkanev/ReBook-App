@@ -1,0 +1,27 @@
+<% if(typeof errs != 'undefined'){ %>
+
+  <% errs.forEach((err) => { %>
+
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong><%= err.msg %></strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <% }); %>
+
+<% } %>
+
+<% if(typeof registered != 'undefined'){ %>
+
+  <% if(registered){ %>
+
+    <div class="alert alert-dismissible alert-success">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>Ти се регистрира успешно</strong>
+</div>
+
+  <% } %>
+
+<% } %>
