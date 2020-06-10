@@ -29,4 +29,5 @@ app.get('/', (req, res) => {
 //load server on port
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
+  console.error(`Join here: http://localhost:${PORT}`);
 });
