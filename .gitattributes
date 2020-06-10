@@ -1,0 +1,2 @@
+# Example of a `.gitattributes` file which reclassifies `.rb` files as Node.js:
+*.rb linguist-language=JavaScript
