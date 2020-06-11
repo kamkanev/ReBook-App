@@ -8,15 +8,15 @@ const cookieSession = require('cookie-session');
 const passport = require('passport');
 
 const app = express();
-const port = process.env.PORT || 1025;
+const port = process.env.PORT || 2004;
 
 //set up view engine
 app.set('view engine', 'ejs');
 
 
-app.use('/img', express.static(__dirname + '/img'));
-app.use('/css', express.static(__dirname + '/css'));
-app.use('/js', express.static(__dirname + '/js'));
+app.use('/images', express.static(__dirname + '/images'));
+app.use('/sounds', express.static(__dirname + '/sounds'));
+app.use('/Items', express.static(__dirname + '/Items'));
 
 //cookieKey
 app.use(cookieSession({
