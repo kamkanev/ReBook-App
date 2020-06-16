@@ -4,7 +4,7 @@ const User = require("../models/user");
 router.get('/', (req, res) => {
   if(req.user){
     
-        res.render("profile",{
+        res.render("dashboard",{
           user: req.user
         });
 
