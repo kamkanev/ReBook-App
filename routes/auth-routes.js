@@ -24,14 +24,14 @@ router.post('/signup', (req, res) => {
   var errs = [];
 
   if(!fname || !lname || !uname || !email || !password || !password2){
-    errs.push({ msg: "Please, fill up all fields!" });
+    errs.push({ msg: "Моля попълнете всички полете!" });
   }
   if(password.length < 6){
-    errs.push({ msg: "Your password must be at least 6 charaters!" });
+    errs.push({ msg: "Паролата трябва да е поне 6 символа." });
   }
 
   if(password != password2){
-    errs.push({ msg: "Passwords do not match!" });
+    errs.push({ msg: "Паролите не съвпадат!" });
   }
 
   if(errs.length > 0){
@@ -66,7 +66,7 @@ router.post('/signup', (req, res) => {
     //  console.log("Proveri dali sushtestvuva...    -------");
       if (currentUser) {
       //  console.log(currentUser);
-        errs.push({ msg: "User with this email already exists!" });
+        errs.push({ msg: "Вече има потребител с този email!" });
         res.render("signup", {
             fname,
             lname,
@@ -88,7 +88,7 @@ router.post('/signup', (req, res) => {
         }).save(function (err, userN) {
           if (err){
 
-            errs.push({ msg: "User with this username already exists!" });
+            errs.push({ msg: "Това потребителско име вече е заето!" });
             res.render("signup", {
                 fname,
                 lname,

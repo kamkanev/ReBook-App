@@ -48,6 +48,9 @@ passport.use(new GoogleStrategy({
     if(currentUser){
       //already exists
     //  console.log(`user is: ${currentUser}`);
+//        console.log();
+
+
       done(null, currentUser);
     }else{
       //not exist

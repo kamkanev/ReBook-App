@@ -17,10 +17,11 @@ app.set('view engine', 'ejs');
 app.use('/img', express.static(__dirname + '/img'));
 app.use('/css', express.static(__dirname + '/css'));
 app.use('/js', express.static(__dirname + '/js'));
+app.use('/fonts', express.static(__dirname + '/fonts'));
 
 //cookieKey
 app.use(cookieSession({
-	maxAge: 24 * 60 * 60 * 1000,
+	maxAge: 7 * 24 * 60 * 60 * 1000,
 	keys: [keys.cookie.secret]
 }));
 
@@ -59,5 +60,6 @@ app.get('/', (req, res) => {
 
 app.listen(port, ()=>{
   console.log(`Server started on port ${port}`);
+    console.log(`http://localhost:${port}`);
   //console.log(authRoutes);
 });

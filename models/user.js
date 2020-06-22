@@ -29,7 +29,10 @@ const userSchema = new Schema({
 	},
   googleid: {
     type: String
-  }
+  },
+    school: {
+        type: String
+    }
 });
 
 const User = mongoose.model('user', userSchema);
