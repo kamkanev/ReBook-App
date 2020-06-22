@@ -159,6 +159,18 @@ router.get("/ebooks", (req, res) => {
     }
 });
 
+router.get("/calendar", (req, res) => {
+    if(req.user){
+
+        res.render("calendar", {
+            user: req.user
+        });
+
+    }else{
+        res.redirect('/');
+    }
+});
+
 router.get("/user", (req, res) => {
     if(req.user){
 
