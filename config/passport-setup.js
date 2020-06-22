@@ -58,6 +58,7 @@ passport.use(new GoogleStrategy({
         first_name: profile.name.givenName,
         last_name: profile.name.familyName,
         username: getUsernameByMail(profile.emails[0].value),
+		image: profile.photos[0].value,
         email: profile.emails[0].value,
         friends: [],
         googleid: profile.id

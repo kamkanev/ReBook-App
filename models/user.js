@@ -15,6 +15,11 @@ const userSchema = new Schema({
 		required: true,
     index: { unique: true }
 	},
+  image: {
+		type: String,
+		required: true,
+		default: "../img/georgi_1.png"
+  },
   email: {
 		type: String,
 		required: true,

@@ -61,3 +61,24 @@
   max-width: 530px;
   margin: 0 auto;
 }
+.file-upload {
+    display: none;
+}
+.upload-button {
+  padding-right:135px;
+  padding-left: 0px;
+  font-size: 1.4em;
+  position:relative;
+  float:right;
+}
+.upload-button:hover {
+  transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+  color: #999;
+}
+.p-image {
+  position: absolute;
+  top: 167px;
+  right: 30px;
+  color: #666666;
+  transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+}

@@ -4679,6 +4679,7 @@ Created using IcoMoon - icomoon.io
   overflow: hidden;
   border-radius: 50%;
   margin-bottom: 15px;
+  margin-right: 0px;
 }
 
 .card label {
@@ -4774,10 +4775,14 @@ Created using IcoMoon - icomoon.io
   text-align: center;
   text-transform: none;
   margin-top: -77px;
+  margin-right: 0px;
+  padding-right: 0px;
 }
 
 .card-user .author a+p.description {
   margin-top: -7px;
+  margin-right: 0px;
+  padding-right: 0px;
 }
 
 .card-user .avatar {
