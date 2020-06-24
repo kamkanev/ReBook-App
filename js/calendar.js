@@ -1,6 +1,7 @@
   document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
 
+
     var calendar = new FullCalendar.Calendar(calendarEl, {
       headerToolbar: {
         left: 'prev,next today',
@@ -22,33 +23,91 @@
       selectMirror: true,
       select: function(arg) {
         var title;
-		Swal.fire({
-			title: 'Добави събитие',
-			type: 'question',
-			showCancelButton: true,
-			confirmButtonText: 'Запази',
-			cancelButtonText: 'Отказ',
-			input: 'text',
-			inputValue: title,
-			inputValidator: (value) => {
-				if(!value)
-				{
-					return 'Полето не може да е празно!'
-				}
-			},
-			
-		}).then((result) => {
-			title = result.value;
-			if (title) {
-          calendar.addEvent({
-            title: title,
-            start: arg.start,
-            end: arg.end,
-            allDay: arg.allDay
-          })
-        }
-        calendar.unselect()
-		});
+//		Swal.fire({
+//			title: 'Добави събитие',
+//			type: 'question',
+//			showCancelButton: true,
+//			confirmButtonText: 'Запази',
+//			cancelButtonText: 'Отказ',
+//			input: 'text',
+//			inputValue: title,
+//			inputValidator: (value) => {
+//				if(!value)
+//				{
+//					return 'Полето не може да е празно!'
+//				}
+//			},
+//
+//		}).then((result) => {
+//			title = result.value;
+//			if (title) {
+//          calendar.addEvent({
+//            title: title,
+//            start: arg.start,
+//            end: arg.end,
+//            allDay: arg.allDay,
+//            description: "Something"
+//          })
+//        }
+//        calendar.unselect()
+//		});
+
+          const inputOptions = new Promise((resolve) => {
+              setTimeout(() => {
+                resolve({
+                  '#ff0000': 'Червено',
+                  '#00ff00': 'Зелено',
+                  '#0000ff': 'Синьо'
+                })
+              }, 500)
+            });
+
+          Swal.mixin({
+              confirmButtonText: 'Напред &rarr;',
+              cancelButtonText: 'Отказ',
+              showCancelButton: true,
+              progressSteps: ['1', '2', '3']
+            }).queue([
+              {
+                title: 'Въведи заглавие на събитието',
+                  input: 'text',
+                    inputValidator: (value) => {
+                        if(!value)
+                        {
+                            return 'Полето не може да е празно!'
+                        }
+			         },
+              },
+              {
+                  title: 'Въведи описание на събитието',
+                  text: 'Не е задължително.',
+                  input: 'textarea'
+              },
+              {
+                  title: 'Избери цвят за събитието',
+                  input: 'radio',
+                  inputOptions: inputOptions,
+                  inputValidator: (value) => {
+                    if (!value) {
+                      return 'Полето не може да е празно!'
+                    }
+                  }
+              }
+            ]).then((result) => {
+
+                if (result.value != undefined) {
+                    title = result.value[0];
+                  calendar.addEvent({
+                    title: title,
+                    start: arg.start,
+                    end: arg.end,
+                    allDay: arg.allDay,
+                    description: result.value[1],
+                      color: result.value[2]
+                  })
+                }
+              calendar.unselect();
+            })
 		
         
       },
@@ -65,9 +124,11 @@
   if (result.value) {
 	  arg.event.remove()
     Swal.fire({
-		
+		position: 'top-end',
 		title: 'Изтрито!',
-        type: 'success'
+        type: 'success',
+        showConfirmButton: false,
+        timer: 700
 	})
   }
 })
