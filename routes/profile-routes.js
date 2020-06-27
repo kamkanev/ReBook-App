@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const User = require("../models/user");
+const fs = require('fs');
 
 router.get('/', (req, res) => {
   if(req.user){
@@ -162,9 +163,12 @@ router.get("/ebooks", (req, res) => {
 router.get("/calendar", (req, res) => {
     if(req.user){
 
-        res.render("calendar", {
-            user: req.user
-        });
+
+            res.render("calendar", {
+                user: req.user
+            });
+
+
 
     }else{
         res.redirect('/');

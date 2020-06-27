@@ -1,17 +1,3 @@
-//var Calendar = tui.Calendar;
-//
-//var calendar = new Calendar('#calendar', {
-//  defaultView: 'month',
-//  taskView: true,
-//    useCreationPopup: useCreationPopup,
-//    useDetailPopup: useDetailPopup,
-//  template: {
-//    monthDayname: function(dayname) {
-//      return '<span class="calendar-week-dayname-name">' + dayname.label + '</span>';
-//    }
-//  }
-//});
-
 'use strict';
 
 /* eslint-disable */
@@ -19,23 +5,26 @@
 /* global moment, tui, chance */
 /* global findCalendar, CalendarList, ScheduleList, generateSchedule */
 
-var sch = null;
-
 (function(window, Calendar) {
     var cal, resizeThrottled;
     var useCreationPopup = true;
     var useDetailPopup = true;
-    var datePicker, selectedCalendar
-
+    var datePicker, selectedCalendar;
 
     cal = new Calendar('#calendar', {
-        defaultView: 'month',
+        defaultView: 'week',
         useCreationPopup: useCreationPopup,
         useDetailPopup: useDetailPopup,
         calendars: CalendarList,
         template: {
-            monthDayname: function(dayname){
-                return '<span class="calendar-week-dayname-name">' + dayname.label + '</span>';
+            milestone: function(model) {
+                return '<span class="calendar-font-icon ic-milestone-b"></span> <span style="background-color: ' + model.bgColor + '">' + model.title + '</span>';
+            },
+            allday: function(schedule) {
+                return getTimeTemplate(schedule, true);
+            },
+            time: function(schedule) {
+                return getTimeTemplate(schedule, false);
             }
         }
     });
@@ -149,6 +138,21 @@ var sch = null;
             case 'toggle-monthly':
                 options.month.visibleWeeksCount = 0;
                 viewName = 'month';
+                break;
+            case 'toggle-weeks2':
+                options.month.visibleWeeksCount = 2;
+                viewName = 'month';
+                break;
+            case 'toggle-weeks3':
+                options.month.visibleWeeksCount = 3;
+                viewName = 'month';
+                break;
+            case 'toggle-narrow-weekend':
+                options.month.narrowWeekend = !options.month.narrowWeekend;
+                options.week.narrowWeekend = !options.week.narrowWeekend;
+                viewName = cal.getViewName();
+
+                target.querySelector('input').checked = options.month.narrowWeekend;
                 break;
             case 'toggle-start-day-1':
                 options.month.startDayOfWeek = options.month.startDayOfWeek ? 0 : 1;
@@ -287,7 +291,7 @@ var sch = null;
             schedule.bgColor = calendar.bgColor;
             schedule.borderColor = calendar.borderColor;
         }
-        sch = schedule;
+
         cal.createSchedules([schedule]);
 
         refreshScheduleVisibility();

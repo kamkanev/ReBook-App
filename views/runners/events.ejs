@@ -1,0 +1,15 @@
+<% if(typeof events != 'undefined'){ %>
+
+    <% events.forEach((eve) => { %>
+
+        <input type="hidden" name="tit" value = "<%= eve.title %>"/>
+        <input type="hidden" name="des" value = "<%= eve.description %>"/>
+        <input type="hidden" name="sta" value = "<%= eve.start %>"/>
+        <input type='hidden' name="end" value = "<%= eve.end %>"/>
+        <input type="hidden" name="all" value = "<%= eve.allDay %>"/>
+        <input type="hidden" name="col" value = "<%= eve.color %>"/>
+        <input type="hidden" name='id'  value="<%= user.id %>"/>
+
+    <% }); %>
+
+<% } %>
