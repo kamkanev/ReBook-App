@@ -352,10 +352,10 @@ var sch = null;
         var iconClassName;
 
         if (type === 'day') {
-            type = 'Daily';
+            type = 'За деня';
             iconClassName = 'calendar-icon ic_view_day';
         } else if (type === 'week') {
-            type = 'Weekly';
+            type = 'За седмицата';
             iconClassName = 'calendar-icon ic_view_week';
         } else if (options.month.visibleWeeksCount === 2) {
             type = '2 weeks';
@@ -364,7 +364,7 @@ var sch = null;
             type = '3 weeks';
             iconClassName = 'calendar-icon ic_view_week';
         } else {
-            type = 'Monthly';
+            type = 'За месеца';
             iconClassName = 'calendar-icon ic_view_month';
         }
 

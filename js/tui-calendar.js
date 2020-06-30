@@ -8696,10 +8696,10 @@ var mmin = Math.min;
  *             return 'All Day';
  *         },
  *         popupStateFree: function() {
- *             return 'Free';
+ *             return 'Свободен';
  *         },
  *         popupStateBusy: function() {
- *             return 'Busy';
+ *             return 'Зает';
  *         },
  *         titlePlaceholder: function() {
  *             return 'Subject';
@@ -17854,7 +17854,7 @@ function Schedule() {
     this.recurrenceRule = '';
 
     /**
-     * state. 'Busy' is default.
+     * state. 'Зает' is default.
      * @type {string}
      */
     this.state = '';
@@ -19015,7 +19015,7 @@ function Month(options, container, controller) {
         },
         startDayOfWeek: 0,
         renderMonth: '2018-01',
-        daynames: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        daynames: ['Неделя', 'Понеделник', 'Вторник', 'Сряда', 'Четвъртък', 'Петък', 'Събота'],
         narrowWeekend: false,
         visibleWeeksCount: null,
         isAlways6Week: true,
@@ -21330,47 +21330,47 @@ var helpers = {
     },
 
     'popupIsAllDay-tmpl': function() {
-        return 'All day';
+        return 'За деня';
     },
 
     'popupStateFree-tmpl': function() {
-        return 'Free';
+        return 'Свободен';
     },
 
     'popupStateBusy-tmpl': function() {
-        return 'Busy';
+        return 'Зает';
     },
 
     'titlePlaceholder-tmpl': function() {
-        return 'Subject';
+        return 'Тема';
     },
 
     'locationPlaceholder-tmpl': function() {
-        return 'Location';
+        return 'Място';
     },
 
     'startDatePlaceholder-tmpl': function() {
-        return 'Start date';
+        return 'Начална дата';
     },
 
     'endDatePlaceholder-tmpl': function() {
-        return 'End date';
+        return 'Крайна дата';
     },
     'popupSave-tmpl': function() {
-        return 'Save';
+        return 'Запази';
     },
     'popupUpdate-tmpl': function() {
-        return 'Update';
+        return 'Обнови';
     },
     'popupDetailDate-tmpl': function(isAllDay, start, end) {
         var isSameDate = datetime.isSameDate(start, end);
-        var endFormat = (isSameDate ? '' : 'YYYY.MM.DD ') + 'hh:mm tt';
+        var endFormat = (isSameDate ? '' : 'DD.MM.YYYY') + 'hh:mm tt';
 
         if (isAllDay) {
-            return datetime.format(start, 'YYYY.MM.DD') + (isSameDate ? '' : ' - ' + datetime.format(end, 'YYYY.MM.DD'));
+            return datetime.format(start, 'DD.MM.YYYY') + (isSameDate ? '' : ' - ' + datetime.format(end, 'DD.MM.YYYY'));
         }
 
-        return (datetime.format(start, 'YYYY.MM.DD hh:mm tt') + ' - ' + datetime.format(end, endFormat));
+        return (datetime.format(start, 'DD.MM.YYYY hh:mm tt') + ' - ' + datetime.format(end, endFormat));
     },
     'popupDetailLocation-tmpl': function(schedule) {
         return schedule.location;
@@ -21379,7 +21379,7 @@ var helpers = {
         return (schedule.attendees || []).join(', ');
     },
     'popupDetailState-tmpl': function(schedule) {
-        return schedule.state || 'Busy';
+        return schedule.state || 'Зает';
     },
     'popupDetailRepeat-tmpl': function(schedule) {
         return schedule.recurrenceRule;
@@ -21388,10 +21388,10 @@ var helpers = {
         return schedule.body;
     },
     'popupEdit-tmpl': function() {
-        return 'Edit';
+        return 'Промени';
     },
     'popupDelete-tmpl': function() {
-        return 'Delete';
+        return 'Изтрий';
     }
 };
 
@@ -24357,7 +24357,7 @@ function DayGrid(name, options, container, theme) {
 
     this.options = util.extend({
         viewName: name,
-        daynames: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        daynames: ['Неделя', 'Понеделник', 'Вторник', 'Сряда', 'Четвъртък', 'Петък', 'Събота'],
         renderStartDate: '',
         renderEndDate: '',
         containerBottomGutter: 18,
@@ -24805,7 +24805,7 @@ function DayName(options, container, theme) {
     );
 
     this.options = util.extend({
-        daynames: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        daynames: ['Неделя', 'Понеделник', 'Вторник', 'Сряда', 'Четвъртък', 'Петък', 'Събота'],
         timezones: options.timezones
     }, options.week);
 

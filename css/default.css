@@ -1,10 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Noto+Sans);
 
-body {
-  font-family: 'Noto Sans', sans-serif;
-  color: '#333';
-  font-size: 12px;
-}
+
 
 /**  custom bootstrap - start */
 .btn {
@@ -13,19 +9,20 @@ body {
 }
 
 .btn:hover {
-  border: solid 1px #bbb;
+  border: none;
   background-color: #fff;
+  outline: none;
 }
 
 .btn:active {
   background-color: #f9f9f9;
-  border: solid 1px #bbb;
+  border: none;
   outline: none;
 }
 
 .btn:disabled {
   background-color: #f9f9f9;
-  border: solid 1px #ddd;
+  border: none;
   color: #bbb;
 }
 
@@ -72,21 +69,12 @@ body {
   font-size: 10px;
 }
 
-#lnb {
-  position: absolute;
-  width: 200px;
-  top: 49px;
-  bottom: 0;
-  border-right: 1px solid #d5d5d5;
-  padding: 12px 10px;
-  background: #fafafa;
-}
 
 #right {
   position: absolute;
-  left: 200px;
-  top: 49px;
-  right: 0;
+  left: 250px;
+  top: -30px;
+  right: 20px;
   bottom: 0;
 }
 
@@ -102,6 +90,7 @@ body {
 
 .lnb-new-schedule-btn {
   height: 100%;
+  width: 200px;
   font-size: 14px;
   background-color: #ff6618;
   color: #ffffff;
@@ -137,6 +126,7 @@ body {
   padding: 12px 16px;
   border-bottom: 1px solid #e5e5e5;
   font-weight: normal;
+  width: 200px;
 }
 
 .lnb-calendars-d1 {
@@ -162,7 +152,7 @@ body {
 }
 
 #menu {
-  padding: 16px;
+  padding: 50px;
 }
 
 #dropdownMenu-calendarType {
@@ -217,10 +207,10 @@ body {
 
 #calendar {
     position: absolute;
-    left: 0;
+    left: 20px;
     right: 0;
-    bottom: 5px;
-    top: 64px;
+    bottom: 10px;
+    top: 100px;
 }
 
 /** custom fontawesome */
