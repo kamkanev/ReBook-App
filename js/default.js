@@ -5,6 +5,8 @@ function init() {
   setRenderRangeText();
   setSchedules();
   setEventListener();
+
+//    cal.clear();
 }
 
 function getDataAction(target) {

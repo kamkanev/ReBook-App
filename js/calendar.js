@@ -400,7 +400,7 @@ var sch = null;
     function setSchedules() {
         cal.clear();
         generateSchedule(cal.getViewName(), cal.getDateRangeStart(), cal.getDateRangeEnd());
-        cal.createSchedules(ScheduleList);
+//        cal.createSchedules(ScheduleList);
 
         refreshScheduleVisibility();
     }
