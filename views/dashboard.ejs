@@ -18,6 +18,8 @@
   <link href="../css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../css/demo.css" rel="stylesheet" />
+      <link href="../css/sweetalert2.css" rel="stylesheet"/>
+  <script src="../js/sweetalert2.all.js"></script>
 </head>
 
 <body class="">
@@ -207,16 +209,21 @@
         </div>
         <div class="row">
           <div class="col-md-6">
-            <div class="card  card-tasks">
+            <div class="card card-chart">
               <div class="card-header ">
-                <h5 class="card-category">Backend development</h5>
+<!--                <h5 class="card-category">Backend development</h5>-->
                 <h4 class="card-title">Tasks</h4>
+                  <div class="dropdown">
+                  <button type="button" class="btn btn-round btn-outline-default dropdown-toggle btn-simple btn-icon no-caret" data-toggle="dropdown" onclick="createTask()">
+                    <b><i class="now-ui-icons ui-1_simple-add"></i></b>
+                  </button>
+                </div>
               </div>
               <div class="card-body ">
                 <div class="table-full-width table-responsive">
-                  <table class="table">
+                  <table id="task-table" class="table">
                     <tbody>
-                      <tr>
+                      <tr id="task-3">
                         <td>
                           <div class="form-check">
                             <label class="form-check-label">
@@ -227,15 +234,15 @@
                         </td>
                         <td class="text-left">Sign contract for "What are conference organizers afraid of?"</td>
                         <td class="td-actions text-right">
-                          <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit Task">
+                          <button onclick="editTask('task-3')" type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit Task">
                             <i class="now-ui-icons ui-2_settings-90"></i>
                           </button>
-                          <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
+                          <button onclick="deleteTask('task-3')" type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
                             <i class="now-ui-icons ui-1_simple-remove"></i>
                           </button>
                         </td>
                       </tr>
-                      <tr>
+                      <tr id="task-2">
                         <td>
                           <div class="form-check">
                             <label class="form-check-label">
@@ -246,15 +253,15 @@
                         </td>
                         <td class="text-left">Lines From Great Russian Literature? Or E-mails From My Boss?</td>
                         <td class="td-actions text-right">
-                          <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit Task">
+                          <button onclick="editTask('task-2')" type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit Task">
                             <i class="now-ui-icons ui-2_settings-90"></i>
                           </button>
-                          <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
+                          <button onclick="deleteTask('task-2')" type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
                             <i class="now-ui-icons ui-1_simple-remove"></i>
                           </button>
                         </td>
                       </tr>
-                      <tr>
+                      <tr id="task-1">
                         <td>
                           <div class="form-check">
                             <label class="form-check-label">
@@ -266,10 +273,10 @@
                         <td class="text-left">Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
                         </td>
                         <td class="td-actions text-right">
-                          <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit Task">
+                          <button onclick="editTask('task-1')" type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit Task">
                             <i class="now-ui-icons ui-2_settings-90"></i>
                           </button>
-                          <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
+                          <button onclick="deleteTask('task-1')" type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
                             <i class="now-ui-icons ui-1_simple-remove"></i>
                           </button>
                         </td>
@@ -401,6 +408,7 @@
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../js/now-ui-dashboard.min.js?v=1.5.0" type="text/javascript"></script><!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
   <script src="../js/demo.js"></script>
+    <script src="../js/main.js"></script>
   <script>
 
 //      console.log("<%# user.id %>" );
