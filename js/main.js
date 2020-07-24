@@ -12,10 +12,14 @@ async function createTask(){
 //                  var table = document.getElementById("task-table");
 //            var nid = generateNextId(table.rows[0].id);
                 var num = table.rows.length;
+            var nid = 'task-1';//'task-'+(num+1);
+            if(num > 0){
+                nid = generateNextId(table.rows[0].id);
+            }
 //            console.log(table.rows[0].id);
               var row = table.insertRow(0);
-            var nid = table.rows[0].id = generateNextId(table.rows[1].id);//'task-'+(num+1);
 
+                table.rows[0].id = nid;
 
             console.log(table.rows[0].id);
               var cell1 = row.insertCell(0);
@@ -35,6 +39,14 @@ function generateNextId(Tid){
     var nId = parseInt(cId);
 
     return 'task-'+(nId+1);
+}
+
+function getRowById(Tid){
+    for(var i = 0; i < table.rows.length; i++){
+        if(table.rows[i].id == Tid){
+            return table.rows[i];
+        }
+    }
 }
 
 async function deleteTask(Tid){
@@ -59,4 +71,17 @@ async function deleteTask(Tid){
 
 async function editTask(Tid){
     console.log(Tid);
+
+    Swal.fire({
+        input: 'text',
+        showCancelButton: true,
+        icon: 'question',
+        title: 'Въведи задача',
+        inputValue: getRowById(Tid).cells[1].innerHTML
+
+    }).then((res) => {
+        if(res.value){
+            getRowById(Tid).cells[1].innerHTML = res.value;
+        }
+    });
 }
