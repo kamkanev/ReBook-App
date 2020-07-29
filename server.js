@@ -8,7 +8,7 @@ const cookieSession = require('cookie-session');
 const passport = require('passport');
 
 const app = express();
-const port = process.env.PORT || 2004;
+const port = process.env.PORT || 1025;
 
 //set up view engine
 app.set('view engine', 'ejs');

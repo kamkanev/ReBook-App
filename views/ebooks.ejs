@@ -152,6 +152,32 @@
                 <button type="button" onclick="execCmd('insertUnorderedList');"><i class="fas fa-list-ul"></i></button>
                 <button type="button" onclick="execCmd('insertOrderedList');"><i class="fas fa-list-ol"></i></button>
                 <button type="button" onclick="execCmd('insertParagraph');"><i class="fas fa-paragraph"></i></button>
+                <select onclick="execCommandWithArg('formatBlock', this.value);">
+                  <option value="H1"></option>
+                  <option value="H2"></option>
+                  <option value="H3"></option>
+                  <option value="H4"></option>
+                  <option value="H5"></option>
+                  <option value="H6"></option>
+                </select>
+                <button type="button" onclick="">HR</button>
+                <button type="button" onclick=""><i class="fas fa-link"></i></button>
+                <button type="button" onclick=""><i class="fas fa-unlink"></i></button>
+                <button type="button" onclick="">Toggle Edit</button>
+                <br>
+                <select>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                </select>
+                Fore Color: <input type="color">
+                Background Color: <input type="color">
+                <button type="button" onclick=""><i class="fas fa-file-image-o"></i></button>
+                <button type="button" onclick="">Select All</button>
 
               </div>
               <iframe name="textEditor" width="1000" height="500"></iframe>
