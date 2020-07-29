@@ -18,6 +18,7 @@
   <link href="../css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../css/demo.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/ebooks.css">
 </head>
 
 <body onload="enableEditMode()">
@@ -152,20 +153,31 @@
                 <button type="button" onclick="execCmd('insertUnorderedList');"><i class="fas fa-list-ul"></i></button>
                 <button type="button" onclick="execCmd('insertOrderedList');"><i class="fas fa-list-ol"></i></button>
                 <button type="button" onclick="execCmd('insertParagraph');"><i class="fas fa-paragraph"></i></button>
-                <select onclick="execCommandWithArg('formatBlock', this.value);">
-                  <option value="H1"></option>
-                  <option value="H2"></option>
-                  <option value="H3"></option>
-                  <option value="H4"></option>
-                  <option value="H5"></option>
-                  <option value="H6"></option>
+                <select onchange="execCommandWithArg('formatBlock', this.value);">
+                  <option value="0">Select</option>
+                  <option value="H1">H1</option>
+                  <option value="H2">H2</option>
+                  <option value="H3">H3</option>
+                  <option value="H4">H4</option>
+                  <option value="H5">H5</option>
+                  <option value="H6">H6</option>
                 </select>
-                <button type="button" onclick="">HR</button>
-                <button type="button" onclick=""><i class="fas fa-link"></i></button>
-                <button type="button" onclick=""><i class="fas fa-unlink"></i></button>
-                <button type="button" onclick="">Toggle Edit</button>
+                <button type="button" onclick="execCmd('insertHorizontalRule');">HR</button>
+                <button type="button" onclick="execCommandWithArg('createLink', prompt('Enter a URL', 'http://'));"><i class="fas fa-link"></i></button>
+                <button type="button" onclick="execCmd('unlink')"><i class="fas fa-unlink"></i></button>
+                <button type="button" onclick="toggleEdit();">Toggle Edit</button>
                 <br>
-                <select>
+                <select onchange="execCommandWithArg('fontName', this.value);">
+                  <option value="Arial">Arial</option>
+                  <option value="Courier">Courier</option>
+                  <option value="Georgia">Georgia</option>
+                  <option value="Tahoma">Tahoma</option>
+                  <option value="Times New Roman">Times New Roman</option>
+                  <option value="Verdana">Verdana</option>
+                  <option value="Comic Sans MS">Comic Sans MS</option>
+                </select>
+                <select onchange="execCommandWithArg('fontSize', this.value);">
+                  <option value="0">Select</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -174,13 +186,18 @@
                   <option value="6">6</option>
                   <option value="7">7</option>
                 </select>
-                Fore Color: <input type="color">
-                Background Color: <input type="color">
-                <button type="button" onclick=""><i class="fas fa-file-image-o"></i></button>
-                <button type="button" onclick="">Select All</button>
+                <select onchange="changeBackground(this.value);">
+                  <option value="0">Select</option>
+                  <option value="1">Type 1</option>
+                  <option value="2">Type 2</option>
+                </select>
+                Fore Color: <input type="color" onchange="execCommandWithArg('foreColor', this.value);">
+                Background Color: <input type="color" onchange="execCommandWithArg('hiliteColor', this.value);">
+                <!-- <button type="button" onclick="execCommandWithArg()"><i class="far fa-file-image"></i></button> -->
+                <button type="button" onclick="execCmd('selectAll')">Select All</button>
 
               </div>
-              <iframe name="textEditor" width="1000" height="500"></iframe>
+              <iframe id="textEditor" name="textEditor" width="1000" height="500"></iframe>
             </div>
           </div>
           <div class="col-md-12">
