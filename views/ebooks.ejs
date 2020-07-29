@@ -19,6 +19,8 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../css/demo.css" rel="stylesheet" />
   <link rel="stylesheet" href="../css/ebooks.css">
+  <link href="../css/sweetalert2.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 
 <body onload="enableEditMode()">
@@ -154,7 +156,7 @@
                 <button type="button" onclick="execCmd('insertOrderedList');"><i class="fas fa-list-ol"></i></button>
                 <button type="button" onclick="execCmd('insertParagraph');"><i class="fas fa-paragraph"></i></button>
                 <select onchange="execCommandWithArg('formatBlock', this.value);">
-                  <option value="0">Select</option>
+                  <option value="0">Select heading</option>
                   <option value="H1">H1</option>
                   <option value="H2">H2</option>
                   <option value="H3">H3</option>
@@ -165,7 +167,7 @@
                 <button type="button" onclick="execCmd('insertHorizontalRule');">HR</button>
                 <button type="button" onclick="execCommandWithArg('createLink', prompt('Enter a URL', 'http://'));"><i class="fas fa-link"></i></button>
                 <button type="button" onclick="execCmd('unlink')"><i class="fas fa-unlink"></i></button>
-                <button type="button" onclick="toggleEdit();">Toggle Edit</button>
+                <button type="button" onclick="toggleEdit();"><i class="fas fa-edit"></i></button>
                 <br>
                 <select onchange="execCommandWithArg('fontName', this.value);">
                   <option value="Arial">Arial</option>
@@ -177,7 +179,7 @@
                   <option value="Comic Sans MS">Comic Sans MS</option>
                 </select>
                 <select onchange="execCommandWithArg('fontSize', this.value);">
-                  <option value="0">Select</option>
+                  <option value="0">Select font size</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -187,9 +189,11 @@
                   <option value="7">7</option>
                 </select>
                 <select onchange="changeBackground(this.value);">
-                  <option value="0">Select</option>
+                  <option value="0">Select Background</option>
                   <option value="1">Type 1</option>
                   <option value="2">Type 2</option>
+                  <option value="3">Type 3</option>
+                  <option value="4">Type 4</option>
                 </select>
                 Fore Color: <input type="color" onchange="execCommandWithArg('foreColor', this.value);">
                 Background Color: <input type="color" onchange="execCommandWithArg('hiliteColor', this.value);">
