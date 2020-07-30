@@ -223,11 +223,11 @@
                 <div class="table-full-width table-responsive">
                   <table id="task-table" class="table">
                     <tbody>
-                      <tr id="task-3">
+                      <!-- <tr id="task-3">
                         <td>
                           <div class="form-check">
                             <label class="form-check-label">
-                              <input class="form-check-input" type="checkbox" checked>
+                              <input id="task-3-id"  onclick="createForm(`task-3`, `update`)" class="form-check-input" type="checkbox" checked>
                               <span class="form-check-sign"></span>
                             </label>
                           </div>
@@ -246,7 +246,7 @@
                         <td>
                           <div class="form-check">
                             <label class="form-check-label">
-                              <input class="form-check-input" type="checkbox">
+                              <input id="task-2-id" onclick="createForm(`task-2`, `update`)" class="form-check-input" type="checkbox">
                               <span class="form-check-sign"></span>
                             </label>
                           </div>
@@ -265,7 +265,7 @@
                         <td>
                           <div class="form-check">
                             <label class="form-check-label">
-                              <input class="form-check-input" type="checkbox" checked>
+                              <input id="task-1-id" onclick="createForm(`task-1`, `update`)" class="form-check-input" type="checkbox" checked>
                               <span class="form-check-sign"></span>
                             </label>
                           </div>
@@ -280,7 +280,8 @@
                             <i class="now-ui-icons ui-1_simple-remove"></i>
                           </button>
                         </td>
-                      </tr>
+                      </tr> -->
+                      <%- include('./runners/tasks') %>
                     </tbody>
                   </table>
                 </div>

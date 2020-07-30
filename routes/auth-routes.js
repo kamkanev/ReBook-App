@@ -2,6 +2,7 @@ const router = require("express").Router();
 const User = require("../models/user");
 const md5 = require('md5');
 const passport = require('passport');
+const fs = require('fs');
 
 router.get('/login', (req, res) => {
   if(req.user){
@@ -119,7 +120,19 @@ router.post('/login',
   passport.authenticate('local', { failureRedirect: '/auth/login' }),
   function(req, res) {
     res.redirect('/profile/');
+    //fs create folder
     //res.send(req.user.username);
+
+    var dir = "./users/"+req.user.id;
+
+    // console.log(fs.existsSync(dir));
+    if(!fs.existsSync(dir)){
+      fs.mkdirSync(dir);
+      fs.mkdirSync(dir+"/nbook");
+      fs.mkdirSync(dir+"/vbook");
+      fs.mkdirSync(dir+"/uploads");
+    }
+
   });
 
   router.get('/google', passport.authenticate('google', {
@@ -129,6 +142,17 @@ router.post('/login',
 
   router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
     //res.send(req.user);
+
+    //fs create folder
+    var dir = "./users/"+req.user.id;
+
+    // console.log(fs.existsSync(dir));
+    if(!fs.existsSync(dir)){
+      fs.mkdirSync(dir);
+      fs.mkdirSync(dir+"/nbook");
+      fs.mkdirSync(dir+"/vbook");
+      fs.mkdirSync(dir+"/uploads");
+    }
 
     res.redirect('/profile/')
   })
