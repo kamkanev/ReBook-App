@@ -23,22 +23,22 @@ function toggleEdit() {
     textEditor.document.designMode = 'Off';
     isInEditMode = false;
     Swal.fire({
-    position: 'top-end',
-    icon: 'success',
-    title: 'Файла вече може да се редактира сега!',
-    showConfirmButton: false,
-    timer: 2000
-  })
+      position: 'top-end',
+      icon: 'success',
+      title: 'Файла не може да се редактира сега!',
+      showConfirmButton: false,
+      timer: 2000
+    })
   }else{
     textEditor.document.designMode = 'On';
     isInEditMode = true;
     Swal.fire({
-    position: 'top-end',
-    icon: 'success',
-    title: 'Файла не може да се редактира сега!',
-    showConfirmButton: false,
-    timer: 2000
-  })
+      position: 'top-end',
+      icon: 'success',
+      title: 'Файла вече може да се редактира сега!',
+      showConfirmButton: false,
+      timer: 2000
+    })
   }
 
 }
