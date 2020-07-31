@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 
       var arr1 = data.split('\n');
 
-      for(var i = 0; i< arr1.length; i++){
+      for(var i = arr1.length-1; i>= 0; i--){
         var rawData = arr1[i].split('~');
         var task = {
           id: rawData[0],
@@ -313,11 +313,17 @@ router.post('/deleteTask', (req, res) => {
 
       var newData = newArr[0];
 
+
       for(var i = 1; i< newArr.length; i++){
           newData+= '\n' + newArr[i];
       }
 
-      fs.writeFileSync(dir, newData);
+
+      if(newData == undefined){
+        fs.unlinkSync(dir);
+      }else{
+        fs.writeFileSync(dir, newData);
+      }
 
     }
 

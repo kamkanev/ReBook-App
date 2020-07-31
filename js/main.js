@@ -109,17 +109,17 @@ async function deleteTask(Tid){
 
     var index = -1;
 
-    for(var i = 0; i<table.rows.length; i++){
-        if(table.rows[i].id == Tid){
-            index = i;
-            console.log(index);
-            break;
-        }
-    }
-
-    if(index != -1){
-        table.deleteRow(index);
-    }
+    // for(var i = 0; i<table.rows.length; i++){
+    //     if(table.rows[i].id == Tid){
+    //         index = i;
+    //         console.log(index);
+    //         break;
+    //     }
+    // }
+    //
+    // if(index != -1){
+    //     table.deleteRow(index);
+    // }
 
 }
 
