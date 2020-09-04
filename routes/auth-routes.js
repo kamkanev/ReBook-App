@@ -123,19 +123,8 @@ router.post('/login',
     //fs create folder
     //res.send(req.user.username);
 
-    var dir = "./users/"+req.user.id;
-
-    // console.log(fs.existsSync(dir));
-    if(!fs.existsSync("./users")){
-      fs.mkdirSync("./users")
-    }
-
-    if(!fs.existsSync(dir)){
-      fs.mkdirSync(dir);
-      fs.mkdirSync(dir+"/nbook");
-      fs.mkdirSync(dir+"/vbook");
-      fs.mkdirSync(dir+"/uploads");
-    }
+    createUserFolder(req.user.id);
+    updateUserLogin(req.user.id);
 
   });
 
@@ -148,19 +137,7 @@ router.post('/login',
     //res.send(req.user);
 
     //fs create folder
-    var dir = "./users/"+req.user.id;
-
-    // console.log(fs.existsSync(dir));
-    if(!fs.existsSync("./users")){
-      fs.mkdirSync("./users")
-    }
-
-    if(!fs.existsSync(dir)){
-      fs.mkdirSync(dir);
-      fs.mkdirSync(dir+"/nbook");
-      fs.mkdirSync(dir+"/vbook");
-      fs.mkdirSync(dir+"/uploads");
-    }
+    createUserFolder(req.user.id);
 
     res.redirect('/profile/')
   })
@@ -172,6 +149,62 @@ router.get('/logout', (req, res) => {
   });
 
 //google s passport
+
+function createUserFolder(id) {
+  var dir = "./users/"+id;
+
+  // console.log(fs.existsSync(dir));
+  if(!fs.existsSync("./users")){
+    fs.mkdirSync("./users")
+  }
+
+  if(!fs.existsSync(dir)){
+    fs.mkdirSync(dir);
+    fs.mkdirSync(dir+"/nbook");
+    fs.mkdirSync(dir+"/vbook");
+    fs.mkdirSync(dir+"/uploads");
+  }
+
+  if(!fs.existsSync((dir+"/logins.txt"))){
+    try{
+        fs.writeFileSync(dir+'/logins.txt', "0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0");
+    }catch (e){
+        console.log("Cannot write file ", e);
+    }
+  }
+}
+
+function updateUserLogin(id) {
+  var dir = "./users/"+id;
+  var login = dir+"/logins.txt";
+
+  const data = fs.readFileSync(login, {
+    encoding: 'utf8'
+  });
+  var nowDate = new Date();
+  var months = data.split("\n");
+  var mon = parseInt(months[nowDate.getMonth()]);
+
+  mon++;
+
+  var newData = "";
+
+  for(var i = 0; i < 12; i++){
+    if(i == nowDate.getMonth()){
+      newData+= mon+"\n";
+    }else{
+      newData+=months[i]+"\n";
+    }
+
+  }
+  // console.log(data);
+
+  try{
+      fs.writeFileSync(login, newData);
+  }catch (e){
+      console.log("Cannot write file ", e);
+  }
+}
 
 
 module.exports = router;
