@@ -126,6 +126,10 @@ router.post('/login',
     var dir = "./users/"+req.user.id;
 
     // console.log(fs.existsSync(dir));
+    if(!fs.existsSync("./users")){
+      fs.mkdirSync("./users")
+    }
+
     if(!fs.existsSync(dir)){
       fs.mkdirSync(dir);
       fs.mkdirSync(dir+"/nbook");
@@ -147,6 +151,10 @@ router.post('/login',
     var dir = "./users/"+req.user.id;
 
     // console.log(fs.existsSync(dir));
+    if(!fs.existsSync("./users")){
+      fs.mkdirSync("./users")
+    }
+
     if(!fs.existsSync(dir)){
       fs.mkdirSync(dir);
       fs.mkdirSync(dir+"/nbook");
