@@ -1,6 +1,6 @@
 var logins = document.getElementById('loginsD').value;
 
-console.log(logins);
+var monthly = logins.split('\n');
 
 demo = {
   initPickColor: function() {

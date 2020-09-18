@@ -15,8 +15,6 @@ router.get('/', (req, res) => {
       var data = fs.readFileSync(dir,
             {encoding:'utf8', flag:'r'});
 
-      var dataLogins = fs.readFileSync('./users/'+req.user.id+'/logins.txt',
-            {encoding: 'utf8', flag:'r'});
 
       var arr1 = data.split('\n');
 
@@ -31,6 +29,11 @@ router.get('/', (req, res) => {
       }
 
     }
+
+    var dataLogins = fs.readFileSync('./users/'+req.user.id+'/logins.txt',
+          {encoding: 'utf8', flag:'r'});
+
+          // console.log(dataLogins);
 
         res.render("dashboard",{
           user: req.user,
