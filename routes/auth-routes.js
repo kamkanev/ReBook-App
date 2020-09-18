@@ -138,6 +138,7 @@ router.post('/login',
 
     //fs create folder
     createUserFolder(req.user.id);
+    updateUserLogin(req.user.id);
 
     res.redirect('/profile/')
   })

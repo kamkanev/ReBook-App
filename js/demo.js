@@ -1,3 +1,7 @@
+var logins = document.getElementById('loginsD').value;
+
+var monthly = logins.split('\n');
+
 demo = {
   initPickColor: function() {
     $('.pick-class-label').click(function() {
