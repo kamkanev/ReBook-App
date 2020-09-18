@@ -1,6 +1,13 @@
 var logins = document.getElementById('loginsD').value;
 
 var monthly = logins.split('\n');
+monthly.pop();
+
+var montlyNumbers = [];
+
+for(var i in monthly){
+  montlyNumbers.push(JSON.parse(monthly[i]));
+}
 
 demo = {
   initPickColor: function() {
@@ -101,7 +108,8 @@ demo = {
           fill: true,
           backgroundColor: gradientFill,
           borderWidth: 2,
-          data: [542, 480, 430, 550, 530, 453, 380, 434, 568, 610, 700, 630]
+          data: [montlyNumbers[0], montlyNumbers[1], montlyNumbers[2], montlyNumbers[3],
+           montlyNumbers[4], montlyNumbers[5], montlyNumbers[6], montlyNumbers[7], montlyNumbers[8], montlyNumbers[9], montlyNumbers[10], montlyNumbers[11]]
         }]
       },
       options: gradientChartOptionsConfiguration
@@ -241,7 +249,8 @@ demo = {
           fill: true,
           backgroundColor: gradientFill,
           borderWidth: 2,
-          data: [50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95]
+          data: [montlyNumbers[0], montlyNumbers[1], montlyNumbers[2], montlyNumbers[3],
+           montlyNumbers[4], montlyNumbers[5], montlyNumbers[6], montlyNumbers[7], montlyNumbers[8], montlyNumbers[9], montlyNumbers[10], montlyNumbers[11]]
         }]
       },
       options: {
