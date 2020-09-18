@@ -1,3 +1,7 @@
+var logins = document.getElementById('loginsD').value;
+
+console.log(logins);
+
 demo = {
   initPickColor: function() {
     $('.pick-class-label').click(function() {

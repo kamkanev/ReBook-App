@@ -15,6 +15,9 @@ router.get('/', (req, res) => {
       var data = fs.readFileSync(dir,
             {encoding:'utf8', flag:'r'});
 
+      var dataLogins = fs.readFileSync('./users/'+req.user.id+'/logins.txt',
+            {encoding: 'utf8', flag:'r'});
+
       var arr1 = data.split('\n');
 
       for(var i = arr1.length-1; i>= 0; i--){
@@ -31,7 +34,8 @@ router.get('/', (req, res) => {
 
         res.render("dashboard",{
           user: req.user,
-          tasks: tasks
+          tasks: tasks,
+          logins: dataLogins
         });
 
   }else{
