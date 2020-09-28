@@ -3793,7 +3793,10 @@ Created using IcoMoon - icomoon.io
 #tables .table-responsive {
   margin-bottom: 30px;
 }
-
+.max-table-hight
+{
+	height: 300px;
+}
 .wrapper {
   position: relative;
   top: 0;
