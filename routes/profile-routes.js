@@ -403,4 +403,16 @@ router.get("/settings", (req, res) => {
     }
 });
 
+router.get("/tools", (req, res) => {
+    if(req.user){
+
+        res.render("tools", {
+            user: req.user
+        });
+
+    }else{
+        res.redirect('/');
+    }
+});
+
 module.exports = router;

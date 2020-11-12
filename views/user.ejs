@@ -52,6 +52,12 @@
               <p>Електронна тетрадка</p>
             </a>
           </li>
+          <li>
+                <a href="/profile/tools">
+                  <i class="fas fa-tools"></i>
+                  <p>Инструменти</p>
+                </a>
+              </li>
             <li>
             <a href="/profile/calendar">
               <i class="fas fa-calendar-check"></i>
@@ -175,7 +181,7 @@
                     </div>
 					<br><br>
 					<button class="btn btn-primary btn-block text-uppercase" style = "background-color: #409131;" type="submit"><b>ЗАПАЗИ ПРОМЕНИТЕ</b></button>
-                  
+
                   <!--<div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
@@ -249,7 +255,7 @@
       </div>
     </div>
   </div>
-  
+
   <%- include('./runners/daylilogin') %>
 
   <!--   Core JS Files   -->
@@ -265,7 +271,7 @@
   <script>
 	$(document).ready(function() {
 
-    
+
     var readURL = function(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -273,16 +279,16 @@
             reader.onload = function (e) {
                 $('.avatar').attr('src', e.target.result);
             }
-    
+
             reader.readAsDataURL(input.files[0]);
         }
     }
-    
+
 
     $(".file-upload").on('change', function(){
         readURL(this);
     });
-    
+
     $(".upload-button").on('click', function() {
        $(".file-upload").click();
     });
