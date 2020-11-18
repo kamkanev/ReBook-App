@@ -104,3 +104,87 @@ function changeBackground(val) {
   }
 
 }
+
+async function createNewBook(){
+
+  const inputOptions = new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        '#ff0000': 'Тетрадка за писане',
+        '#0000ff': 'Тетрадка речник'
+      })
+    }, 1000)
+  })
+
+  const inputOptionsIcons = new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+      'Fruits': {
+        apples: 'Apples',
+        bananas: 'Bananas',
+        grapes: 'Grapes',
+        oranges: 'Oranges'
+      },
+      'Vegetables': {
+        potato: 'Potato',
+        broccoli: 'Broccoli',
+        carrot: 'Carrot'
+      },
+      'icecream': 'Ice cream'
+      })
+    }, 1000)
+  })
+
+  Swal.mixin({
+  input: 'text',
+  confirmButtonText: 'Next &rarr;',
+  showCancelButton: true,
+  progressSteps: ['1', '2', '3']
+}).queue([
+  {
+    title: 'Въпрос 1',
+    text: 'Заглавие на тетрадката:',
+    input: "text",
+    inputValidator: (value) => {
+      if(!value){
+        return "Не може полето да е празно!"
+      }
+    }
+  },
+  {
+    title: 'Въпрос 2',
+    input: 'radio',
+    text: "Вид на тетрадката:",
+    inputOptions: inputOptions,
+    inputValidator: (value) => {
+      if (!value) {
+        return 'Трябва да изберете опция!'
+      }
+    }
+  },
+  {
+    title: 'Въпрос 3',
+    input: 'select',
+    inputPlaceholder: 'Изберете икона',
+    text: 'Икона за тетрадката:',
+    inputOptions: inputOptionsIcons,
+    inputValidator: (value) => {
+      if(! value || value == 'Изберете икона'){
+        return 'Трябва да изберете опция!'
+      }
+    }
+  }
+]).then((result) => {
+  if (result.value) {
+    const answers = JSON.stringify(result.value)
+    Swal.fire({
+      title: 'All done!',
+      html: `
+        Your answers:
+        <pre><code>${answers}</code></pre>
+      `,
+      confirmButtonText: 'Lovely!'
+    })
+  }
+})
+}
