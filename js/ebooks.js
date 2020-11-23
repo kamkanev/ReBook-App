@@ -110,8 +110,8 @@ async function createNewBook(){
   const inputOptions = new Promise((resolve) => {
     setTimeout(() => {
       resolve({
-        '#ff0000': 'Тетрадка за писане',
-        '#0000ff': 'Тетрадка речник'
+        'nbook': 'Тетрадка за писане',
+        'vbook': 'Тетрадка речник'
       })
     }, 1000)
   })
@@ -120,21 +120,21 @@ async function createNewBook(){
     setTimeout(() => {
       resolve({
       'Тетрадка за писане': {
-        '../img/georgi_1.png': "Английски",
-        bananas: 'Български',
-        nsh: 'Испански',
-        grapes: 'Немски',
-        oranges: 'Руски',
-        fr: 'Френски',
-        dr: "Други езици",
-        math: "Матеметика",
-        phy: 'Физика',
-        hm: 'Химия',
-        bio: 'Биология',
+        'en.png': "Английски",
+        'bg.png': 'Български',
+        'sp.png': 'Испански',
+        'de.png': 'Немски',
+        'ru.png': 'Руски',
+        'fr.png': 'Френски',
+        'ot.png': "Други езици",
+        'ma.png': "Матеметика",
+        'ph.png': 'Физика',
+        'ch.png': 'Химия',
+        'bi.png': 'Биология',
 
       },
       'Тетрадка речник': {
-        potato: 'Българо-английска',
+        'en-bg.png': 'Българо-английска',
         broccoli: 'Българо-немска',
         carrot: 'Българо-руска'
       }
@@ -184,14 +184,46 @@ async function createNewBook(){
 ]).then((result) => {
   if (result.value) {
     const answers = JSON.stringify(result.value)
-    Swal.fire({
-      title: 'All done!',
-      html: `
-        Your answers:
-        <pre><code>${answers}</code></pre>
-      `,
-      confirmButtonText: 'Lovely!'
-    })
+    // console.log(result.value);
+    //console.log(answers);
+
+    var f = document.createElement("form");
+    f.setAttribute('method',"post");
+    f.setAttribute('action',"/profile/createBook");
+
+    var tit = document.createElement("input"); //input element, text
+    tit.setAttribute('type',"hidden");
+    tit.setAttribute('value',result.value[0]);
+    tit.setAttribute('name',"title");
+
+    var typ = document.createElement("input"); //input element, Submit button
+    typ.setAttribute('type',"hidden");
+    typ.setAttribute('value',result.value[1]);
+    typ.setAttribute('name',"type");
+
+    var ico = document.createElement("input"); //input element, Submit button
+    ico.setAttribute('type',"hidden");
+    ico.setAttribute('value',result.value[2]);
+    ico.setAttribute('name',"icon");
+
+    f.appendChild(ico);
+    f.appendChild(tit);
+    f.appendChild(typ);
+
+    document.body.appendChild(f);
+
+    console.log(f);
+
+    f.submit();
+
+    // Swal.fire({
+    //   title: 'All done!',
+    //   html: `
+    //     Your answers:
+    //     <pre><code>${answers}</code></pre>
+    //   `,
+    //   confirmButtonText: 'Lovely!'
+    // })
   }
 })
 }

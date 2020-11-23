@@ -355,13 +355,77 @@ router.get("/classrooms", (req, res) => {
 router.get("/ebooks", (req, res) => {
     if(req.user){
 
+      var books = []
+
+      const directoryPathNBooks = './users/'+req.user.id+'/nbook'
+      const directoryPathVBooks = './users/'+req.user.id+'/vbook'
+
+      var files1 = fs.readdirSync(directoryPathNBooks);
+      var files2 = fs.readdirSync(directoryPathVBooks);
+
+      for(var i =0; i < files1.length; i++){
+        var file = files1[i];
+        var fileDir = directoryPathNBooks + '/' + file + "/info.txt";
+        var data = fs.readFileSync(fileDir,
+                                    {encoding:'utf8', flag:'r'}).split('\n');
+
+        books.push({
+          title: data[0],
+          type: data[1],
+          icon: data[2]
+        });
+
+      }
+
+      for(var i =0; i < files2.length; i++){
+        var file = files2[i];
+        var fileDir = directoryPathVBooks + '/' + file + "/info.txt";
+        var data = fs.readFileSync(fileDir,
+                                    {encoding:'utf8', flag:'r'}).split('\n');
+
+        books.push({
+          title: data[0],
+          type: data[1],
+          icon: data[2]
+        });
+
+      }
+
+      console.log(books);
+
         res.render("ebooks", {
-            user: req.user
+            user: req.user,
+            books: books
         });
 
     }else{
         res.redirect('/');
     }
+});
+
+router.post("/createBook", (req, res) => {
+  if(req.user){
+
+    var data = req.body;
+
+    var length = 0;
+    //joining path of directory
+    const directoryPath = './users/'+req.user.id+'/'+req.body.type;
+
+        //console.log(length);
+        var dir = directoryPath + "/" + req.body.title;
+        var infoPath = dir + "/" + "info.txt";
+
+        let info = req.body.title+"\n"+req.body.type+"\n"+"../img/books/covers"+req.body.icon;
+
+        fs.mkdirSync(dir);
+        fs.writeFileSync(infoPath, info);
+
+
+    res.redirect('/profile/ebooks');
+
+  }
+
 });
 
 router.get("/calendar", (req, res) => {
