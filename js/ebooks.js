@@ -119,18 +119,25 @@ async function createNewBook(){
   const inputOptionsIcons = new Promise((resolve) => {
     setTimeout(() => {
       resolve({
-      'Fruits': {
-        apples: 'Apples',
-        bananas: 'Bananas',
-        grapes: 'Grapes',
-        oranges: 'Oranges'
+      'Тетрадка за писане': {
+        '../img/georgi_1.png': "Английски",
+        bananas: 'Български',
+        nsh: 'Испански',
+        grapes: 'Немски',
+        oranges: 'Руски',
+        fr: 'Френски',
+        dr: "Други езици",
+        math: "Матеметика",
+        phy: 'Физика',
+        hm: 'Химия',
+        bio: 'Биология',
+
       },
-      'Vegetables': {
-        potato: 'Potato',
-        broccoli: 'Broccoli',
-        carrot: 'Carrot'
-      },
-      'icecream': 'Ice cream'
+      'Тетрадка речник': {
+        potato: 'Българо-английска',
+        broccoli: 'Българо-немска',
+        carrot: 'Българо-руска'
+      }
       })
     }, 1000)
   })
