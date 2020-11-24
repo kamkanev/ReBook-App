@@ -1,5 +1,18 @@
 <% if(books.length > 0){ %>
-
+	<div style = "height: 60px;">
+	</div>
+    <div style = "float: left;">
+	<% books.forEach((book) => { %>
+		<div style = "border-radius: 8px; background-color: #7bb2ed; width: 150px; height: 150px; margin: 30px 10px 15px 30px; overflow: hidden; float: left;">
+			<div style = "text-align: center; padding: 13px 10px 5px 10px;">
+				<b><%= book.title %></b>
+			</div>
+			<div style = "text-align: center; padding: 13px 10px 5px 10px;">
+				<img width = "70px" src = "<%= '../' + book.icon %>" alt = "ne6o">
+			</div>
+		</div>
+	<% }); %>
+	</div>
 <% }else{ %>
-    <h1>Няма налични тетрадки</h1>
+    <h1 style = "text-align: center; margin: auto; padding: 350px 0 350px 0">Няма налични тетрадки</h1>
   <% } %>

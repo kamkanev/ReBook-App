@@ -416,7 +416,7 @@ router.post("/createBook", (req, res) => {
         var dir = directoryPath + "/" + req.body.title;
         var infoPath = dir + "/" + "info.txt";
 
-        let info = req.body.title+"\n"+req.body.type+"\n"+"../img/books/covers"+req.body.icon;
+        let info = req.body.title+"\n"+req.body.type+"\n"+"../img/books/covers/"+req.body.icon;
 
         fs.mkdirSync(dir);
         fs.writeFileSync(infoPath, info);

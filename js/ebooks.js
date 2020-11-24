@@ -156,6 +156,9 @@ async function createNewBook(){
       if(!value){
         return "Не може полето да е празно!"
       }
+	  else if(value.length > 25){
+		return "Заглавието трябва да е до 25 символа!"
+	  }		  
     }
   },
   {
