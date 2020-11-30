@@ -16,6 +16,7 @@ app.set('view engine', 'ejs');
 
 app.use('/img', express.static(__dirname + '/img'));
 app.use('/images', express.static(__dirname + '/images'));
+app.use('/users', express.static(__dirname + '/users'));
 app.use('/css', express.static(__dirname + '/css'));
 app.use('/js', express.static(__dirname + '/js'));
 app.use('/fonts', express.static(__dirname + '/fonts'));

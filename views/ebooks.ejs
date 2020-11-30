@@ -21,9 +21,10 @@
   <link rel="stylesheet" href="../css/ebooks.css">
   <link href="../css/sweetalert2.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <script type="text/javascript" src="../js/ebooks.js"></script>
 </head>
 
-<body><!--  onload="enableEditMode()"> -->
+<body onload="enableEditMode()">
   <div class="wrapper ">
       <b>
     <div class="sidebar" data-color="orange">
@@ -139,91 +140,105 @@
           <div class="col-md-12">
             <div class="card" style = "width: 100%; height: 100%;">
 			<div class="card-header">
-                  <button type="button" onclick="createNewBook()" class="btn btn-outline-info float-right"><i class="fas fa-user-edit"></i> Създай тетрадка</button>
+
+          <div class="btn-group mr-2" role="group" aria-label="First group">
+            <button id="backToAll" style="display: none;" onclick="exitBook()" type="button" class="btn btn-info"><i class="fas fa-chevron-left"></i></button>
+            <h4 id="titleBook" class="card-title" style="display: none;">Тетрадки</h4>
+          </div>
+                  <button id="createBooks" type="button" onclick="createNewBook()" class="btn btn-outline-info float-right"><i class="fas fa-user-edit"></i> Създай тетрадка</button>
+                  <button id="savePage" style="display:none;" type="button" onclick="savePage()" class="btn btn-success float-right"><i class="fas fa-save"></i> Запази</button>
               </div>
 
+              <div id="notebook" style="display: none;" class="row">
+                      <div class="col-lg-3" style="margin-left: 20px;">
+                <button style="margin-bottom: 10px;" type="button" onclick="execCmd('undo');"><i class="fas fa-undo"></i></button>
+                        <button style="margin-bottom: 10px;" type="button" onclick="execCmd('redo');"><i class="fas fa-redo"></i></button>
+                <br>
+                        <button style="margin-bottom: 10px;" type="button" onclick="execCmd('bold');"><i class="fas fa-bold"></i></button>
+                        <button style="margin-bottom: 10px;" type="button" onclick="execCmd('italic');"><i class="fas fa-italic"></i></button>
+                        <button style="margin-bottom: 10px;" type="button" onclick="execCmd('underline');"><i class="fas fa-underline"></i></button>
+                        <button style="margin-bottom: 10px;" type="button" onclick="execCmd('strikethrough');"><i class="fas fa-strikethrough"></i></button>
+                <br>
+                        <button style="margin-bottom: 10px;" type="button" onclick="execCmd('justifyLeft');"><i class="fas fa-align-left"></i></button>
+                        <button style="margin-bottom: 10px;" type="button" onclick="execCmd('justifyCenter');"><i class="fas fa-align-center"></i></button>
+                        <button style="margin-bottom: 10px;" type="button" onclick="execCmd('justifyRight');"><i class="fas fa-align-right"></i></button>
+                        <button style="margin-bottom: 10px;" type="button" onclick="execCmd('justifyFull');"><i class="fas fa-align-justify"></i></button>
+                <br>
+                        <button style="margin-bottom: 10px;" type="button" onclick="execCmd('cut');"><i class="fas fa-cut"></i></button>
+                        <button style="margin-bottom: 10px;" type="button" onclick="execCmd('copy');"><i class="fas fa-copy"></i></button>
+                <br>
+                        <button style="margin-bottom: 10px;" type="button" onclick="execCmd('indent');"><i class="fas fa-indent"></i></button>
+                        <button style="margin-bottom: 10px;" type="button" onclick="execCmd('outdent');"><i class="fas fa-outdent"></i></button>
+                        <button style="margin-bottom: 10px;" type="button" onclick="execCmd('subscript');"><i class="fas fa-subscript"></i></button>
+                        <button style="margin-bottom: 10px;" type="button" onclick="execCmd('superscript');"><i class="fas fa-superscript"></i></button>
+                        <button style="margin-bottom: 10px;" type="button" onclick="execCmd('insertUnorderedList');"><i class="fas fa-list-ul"></i></button>
+                        <button style="margin-bottom: 10px;" type="button" onclick="execCmd('insertOrderedList');"><i class="fas fa-list-ol"></i></button>
+                <br>
+                        <button style="margin-bottom: 10px;" type="button" onclick="execCmd('insertParagraph');"><i class="fas fa-paragraph"></i></button>
+                <button style="margin-bottom: 10px;" type="button" onclick="execCmd('insertHorizontalRule');">HR</button>
+                        <button style="margin-bottom: 10px;" type="button" onclick="execCommandWithArg('createLink', prompt('Enter a URL', 'http://'));"><i class="fas fa-link"></i></button>
+                        <button style="margin-bottom: 10px;" type="button" onclick="execCmd('unlink')"><i class="fas fa-unlink"></i></button>
+                        <button style="margin-bottom: 10px;" type="button" onclick="toggleEdit();"><i class="fas fa-edit"></i></button>
+                <br>
+                        Вид на заглавие: <select style="margin-bottom: 10px;" onchange="execCommandWithArg('formatBlock', this.value);">
+                          <option value="0">Изберете вид заглавие</option>
+                          <option value="H1">H1</option>
+                          <option value="H2">H2</option>
+                          <option value="H3">H3</option>
+                          <option value="H4">H4</option>
+                          <option value="H5">H5</option>
+                          <option value="H6">H6</option>
+                        </select>
+                        <br>
+                        Шрифт: <select style="margin-bottom: 10px;" onchange="execCommandWithArg('fontName', this.value);">
+                          <option value="Arial">Arial</option>
+                          <option value="Courier">Courier</option>
+                          <option value="Georgia">Georgia</option>
+                          <option value="Tahoma">Tahoma</option>
+                          <option value="Times New Roman">Times New Roman</option>
+                          <option value="Verdana">Verdana</option>
+                          <option value="Comic Sans MS">Comic Sans MS</option>
+                        </select>
+                <br>
+                        Размер на шрифта: <select style="margin-bottom: 10px;" onchange="execCommandWithArg('fontSize', this.value);">
+                          <option value="0">0</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                        </select>
+                <br>
+                        Вид на листа: <select style="margin-bottom: 10px;" onchange="changeBackground(this.value);">
+                          <option value="0">Лист</option>
+                          <option value="1">Жълт лист</option>
+                          <option value="2">Бял лист без редове</option>
+                          <option value="3">Бял лист</option>
+                          <option value="4">Бял лист 2</option>
+                        </select>
+                <br>
+                        Цвят на текста: <input style="margin-bottom: 10px;" type="color" onchange="execCommandWithArg('foreColor', this.value);">
+                <br>
+                        Фон на текста: <input style="margin-bottom: 10px;" type="color" onchange="execCommandWithArg('hiliteColor', this.value);">
+                        <!-- <button type="button" onclick="execCommandWithArg()"><i class="far fa-file-image"></i></button> -->
+                        <br>
+                <button type="button" onclick="execCmd('selectAll')">Маркирай всичко</button>
+                <div class="btn-group mr-2" role="group" aria-label="Second group">
+                  <button type="button" class="btn btn-secondary"><i class="fas fa-chevron-left"></i></button>
+                  <button id="pageNum" type="button" class="btn btn-secondary">0</button>
+                  <button type="button" class="btn btn-secondary"><i class="fas fa-arrow-right"></i></button>
+                </div>
+                      </div>
+              <div style="margin-left: 70px; margin-top: -30px;" class="col-lg-3">
+                      <iframe id="textEditor" name="textEditor" width="1000" height="500"></iframe>
+                    </div>
+
+               </div>
+
               <%- include('./runners/loadBooks') %>
-			<div id="notebook" style="display: none" class="row">
-              <div class="col-lg-3" style="margin-left: 20px;">
-				<button style="margin-bottom: 10px;" type="button" onclick="execCmd('undo');"><i class="fas fa-undo"></i></button>
-                <button style="margin-bottom: 10px;" type="button" onclick="execCmd('redo');"><i class="fas fa-redo"></i></button>
-				<br>
-                <button style="margin-bottom: 10px;" type="button" onclick="execCmd('bold');"><i class="fas fa-bold"></i></button>
-                <button style="margin-bottom: 10px;" type="button" onclick="execCmd('italic');"><i class="fas fa-italic"></i></button>
-                <button style="margin-bottom: 10px;" type="button" onclick="execCmd('underline');"><i class="fas fa-underline"></i></button>
-                <button style="margin-bottom: 10px;" type="button" onclick="execCmd('strikethrough');"><i class="fas fa-strikethrough"></i></button>
-				<br>
-                <button style="margin-bottom: 10px;" type="button" onclick="execCmd('justifyLeft');"><i class="fas fa-align-left"></i></button>
-                <button style="margin-bottom: 10px;" type="button" onclick="execCmd('justifyCenter');"><i class="fas fa-align-center"></i></button>
-                <button style="margin-bottom: 10px;" type="button" onclick="execCmd('justifyRight');"><i class="fas fa-align-right"></i></button>
-                <button style="margin-bottom: 10px;" type="button" onclick="execCmd('justifyFull');"><i class="fas fa-align-justify"></i></button>
-				<br>
-                <button style="margin-bottom: 10px;" type="button" onclick="execCmd('cut');"><i class="fas fa-cut"></i></button>
-                <button style="margin-bottom: 10px;" type="button" onclick="execCmd('copy');"><i class="fas fa-copy"></i></button>
-				<br>
-                <button style="margin-bottom: 10px;" type="button" onclick="execCmd('indent');"><i class="fas fa-indent"></i></button>
-                <button style="margin-bottom: 10px;" type="button" onclick="execCmd('outdent');"><i class="fas fa-outdent"></i></button>
-                <button style="margin-bottom: 10px;" type="button" onclick="execCmd('subscript');"><i class="fas fa-subscript"></i></button>
-                <button style="margin-bottom: 10px;" type="button" onclick="execCmd('superscript');"><i class="fas fa-superscript"></i></button>
-                <button style="margin-bottom: 10px;" type="button" onclick="execCmd('insertUnorderedList');"><i class="fas fa-list-ul"></i></button>
-                <button style="margin-bottom: 10px;" type="button" onclick="execCmd('insertOrderedList');"><i class="fas fa-list-ol"></i></button>
-				<br>
-                <button style="margin-bottom: 10px;" type="button" onclick="execCmd('insertParagraph');"><i class="fas fa-paragraph"></i></button>
-				<button style="margin-bottom: 10px;" type="button" onclick="execCmd('insertHorizontalRule');">HR</button>
-                <button style="margin-bottom: 10px;" type="button" onclick="execCommandWithArg('createLink', prompt('Enter a URL', 'http://'));"><i class="fas fa-link"></i></button>
-                <button style="margin-bottom: 10px;" type="button" onclick="execCmd('unlink')"><i class="fas fa-unlink"></i></button>
-                <button style="margin-bottom: 10px;" type="button" onclick="toggleEdit();"><i class="fas fa-edit"></i></button>
-				<br>
-                Вид на заглавие: <select style="margin-bottom: 10px;" onchange="execCommandWithArg('formatBlock', this.value);">
-                  <option value="0">Изберете вид заглавие</option>
-                  <option value="H1">H1</option>
-                  <option value="H2">H2</option>
-                  <option value="H3">H3</option>
-                  <option value="H4">H4</option>
-                  <option value="H5">H5</option>
-                  <option value="H6">H6</option>
-                </select>
-                <br>
-                Шрифт: <select style="margin-bottom: 10px;" onchange="execCommandWithArg('fontName', this.value);">
-                  <option value="Arial">Arial</option>
-                  <option value="Courier">Courier</option>
-                  <option value="Georgia">Georgia</option>
-                  <option value="Tahoma">Tahoma</option>
-                  <option value="Times New Roman">Times New Roman</option>
-                  <option value="Verdana">Verdana</option>
-                  <option value="Comic Sans MS">Comic Sans MS</option>
-                </select>
-				<br>
-                Размер на шрифта: <select style="margin-bottom: 10px;" onchange="execCommandWithArg('fontSize', this.value);">
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                </select>
-				<br>
-                Вид на листа: <select style="margin-bottom: 10px;" onchange="changeBackground(this.value);">
-                  <option value="0">Лист</option>
-                  <option value="1">Жълт лист</option>
-                  <option value="2">Бял лист без редове</option>
-                  <option value="3">Бял лист</option>
-                  <option value="4">Бял лист 2</option>
-                </select>
-				<br>
-                Цвят на текста: <input style="margin-bottom: 10px;" type="color" onchange="execCommandWithArg('foreColor', this.value);">
-				<br>
-                Фон на текста: <input style="margin-bottom: 10px;" type="color" onchange="execCommandWithArg('hiliteColor', this.value);">
-                <!-- <button type="button" onclick="execCommandWithArg()"><i class="far fa-file-image"></i></button> -->
-                <br>
-				<button type="button" onclick="execCmd('selectAll')">Маркирай всичко</button>
-              </div>
-			<div style="margin-left: 70px; margin-top: -30px;" class="col-lg-3">
-              <iframe id="textEditor" name="textEditor" width="1000" height="500"></iframe>
-            </div>
-		   </div>
+
           </div>
         </div>
       </div>
@@ -242,7 +257,6 @@
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../js/now-ui-dashboard.min.js?v=1.5.0" type="text/javascript"></script><!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
   <script src="../js/demo.js"></script>
-  <script type="text/javascript" src="../js/ebooks.js"></script>
 </body>
 
 </html>

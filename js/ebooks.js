@@ -135,8 +135,8 @@ async function createNewBook(){
       },
       'Тетрадка речник': {
         'en-bg.png': 'Българо-английска',
-        broccoli: 'Българо-немска',
-        carrot: 'Българо-руска'
+        'ne-bg.png': 'Българо-немска',
+        'ru-bg.png': 'Българо-руска'
       }
       })
     }, 1000)
@@ -158,7 +158,7 @@ async function createNewBook(){
       }
 	  else if(value.length > 25){
 		return "Заглавието трябва да е до 25 символа!"
-	  }		  
+	  }
     }
   },
   {
@@ -209,9 +209,15 @@ async function createNewBook(){
     ico.setAttribute('value',result.value[2]);
     ico.setAttribute('name',"icon");
 
+    var ope = document.createElement("input"); //input element, Submit button
+    ope.setAttribute('type',"hidden");
+    ope.setAttribute('value',false);
+    ope.setAttribute('name',"opened");
+
     f.appendChild(ico);
     f.appendChild(tit);
     f.appendChild(typ);
+    f.appendChild(ope);
 
     document.body.appendChild(f);
 
@@ -229,4 +235,133 @@ async function createNewBook(){
     // })
   }
 })
+}
+
+function goToBook(link, title, type, icon, length, page) {
+  console.log(title, type, icon, length, page);
+  document.getElementById("booksLoader").style.display = "none";
+  document.getElementById("createBooks").style.display = "none";
+  document.getElementById('titleBook').style.display = "";
+  document.getElementById('titleBook').innerHTML = title;
+  document.getElementById('backToAll').style.display = "";
+
+  document.getElementById('savePage').style.display = "";
+
+  document.getElementById("notebook").style.display = "";
+  if(length <= 0){
+  }else{
+    document.getElementById("textEditor").src = "." + link + "/seite"+page+".html"
+  }
+
+  document.getElementById("pageNum").innerHTML = page+1;
+
+
+  var f = document.createElement("form");
+  f.setAttribute('method',"post");
+  f.setAttribute('action',"/profile/openBook");
+  f.setAttribute('id',"exitForm");
+
+  var tit = document.createElement("input"); //input element, text
+  tit.setAttribute('type',"hidden");
+  tit.setAttribute('value',title);
+  tit.setAttribute('name',"title");
+
+  var typ = document.createElement("input"); //input element, Submit button
+  typ.setAttribute('type',"hidden");
+  typ.setAttribute('value',type);
+  typ.setAttribute('name',"type");
+
+  var ope = document.createElement("input"); //input element, Submit button
+  ope.setAttribute('type',"hidden");
+  ope.setAttribute('value',false);
+  ope.setAttribute('name',"opened");
+
+  var pag = document.createElement("input"); //input element, Submit button
+  pag.setAttribute('type',"hidden");
+  pag.setAttribute('value',page);
+  pag.setAttribute('name',"page");
+
+  f.appendChild(tit);
+  f.appendChild(typ);
+  f.appendChild(ope);
+  f.appendChild(pag);
+
+  document.body.appendChild(f);
+
+}
+
+function openBook(title, type, icon, length, open, page) {
+
+  var f = document.createElement("form");
+  f.setAttribute('method',"post");
+  f.setAttribute('action',"/profile/openBook");
+  f.setAttribute('id',"openForm");
+
+  var tit = document.createElement("input"); //input element, text
+  tit.setAttribute('type',"hidden");
+  tit.setAttribute('value',title);
+  tit.setAttribute('name',"title");
+
+  var typ = document.createElement("input"); //input element, Submit button
+  typ.setAttribute('type',"hidden");
+  typ.setAttribute('value',type);
+  typ.setAttribute('name',"type");
+
+  var ope = document.createElement("input"); //input element, Submit button
+  ope.setAttribute('type',"hidden");
+  ope.setAttribute('value',open);
+  ope.setAttribute('name',"opened");
+
+  var pag = document.createElement("input"); //input element, Submit button
+  pag.setAttribute('type',"hidden");
+  pag.setAttribute('value',page);
+  pag.setAttribute('name',"page");
+
+  f.appendChild(tit);
+  f.appendChild(typ);
+  f.appendChild(ope);
+  f.appendChild(pag);
+
+  document.body.appendChild(f);
+
+  f.submit();
+
+}
+
+function animateBgOut(x){
+
+  x.style.backgroundColor = "#7bb2ed";
+
+}
+
+function animateBgIn(x){
+
+  x.style.backgroundColor = "#5299ff";
+
+}
+
+function exitBook() {
+  var form = document.getElementById('exitForm');
+
+  form.submit();
+}
+
+function savePage() {
+
+  var form = document.getElementById('exitForm');
+  form.setAttribute('action',"/profile/savePage");
+
+  var info = document.getElementById("textEditor").contentWindow.document.body.innerHTML;
+
+  var text = document.createElement("input"); //input element, Submit button
+  text.setAttribute('type',"hidden");
+  text.setAttribute('value', info);
+  text.setAttribute('name',"text");
+
+  form.appendChild(text);
+
+  // console.log(form);
+
+  form.submit();
+
 }

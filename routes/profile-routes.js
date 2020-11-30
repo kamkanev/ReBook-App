@@ -366,13 +366,18 @@ router.get("/ebooks", (req, res) => {
       for(var i =0; i < files1.length; i++){
         var file = files1[i];
         var fileDir = directoryPathNBooks + '/' + file + "/info.txt";
+        var filesInNbook = fs.readdirSync(directoryPathNBooks + '/' + file);
         var data = fs.readFileSync(fileDir,
                                     {encoding:'utf8', flag:'r'}).split('\n');
 
         books.push({
           title: data[0],
           type: data[1],
-          icon: data[2]
+          icon: data[2],
+          len: (filesInNbook.length-1),
+          opened: JSON.parse(data[3].toLowerCase()),
+          openPage: parseInt(data[4]),
+          fullLink: ( directoryPathNBooks + '/' + file)
         });
 
       }
@@ -380,14 +385,19 @@ router.get("/ebooks", (req, res) => {
       for(var i =0; i < files2.length; i++){
         var file = files2[i];
         var fileDir = directoryPathVBooks + '/' + file + "/info.txt";
+        var filesInVbook = fs.readdirSync(directoryPathVBooks + '/' + file);
         var data = fs.readFileSync(fileDir,
                                     {encoding:'utf8', flag:'r'}).split('\n');
 
-        books.push({
-          title: data[0],
-          type: data[1],
-          icon: data[2]
-        });
+                                    books.push({
+                                      title: data[0],
+                                      type: data[1],
+                                      icon: data[2],
+                                      len: (filesInNbook.length-1),
+                                      opened: JSON.parse(data[3].toLowerCase()),
+                                      openPage: parseInt(data[4]),
+                                      fullLink: ( directoryPathVBooks + '/' + file)
+                                    });
 
       }
 
@@ -416,7 +426,7 @@ router.post("/createBook", (req, res) => {
         var dir = directoryPath + "/" + req.body.title;
         var infoPath = dir + "/" + "info.txt";
 
-        let info = req.body.title+"\n"+req.body.type+"\n"+"../img/books/covers/"+req.body.icon;
+        let info = req.body.title+"\n"+req.body.type+"\n"+"../img/books/covers/"+req.body.icon+"\n"+req.body.opened+"\n"+0;
 
         fs.mkdirSync(dir);
         fs.writeFileSync(infoPath, info);
@@ -425,6 +435,53 @@ router.post("/createBook", (req, res) => {
     res.redirect('/profile/ebooks');
 
   }
+
+});
+
+router.post("/savePage", (req, res) => {
+
+  if(req.user){
+
+    var data = req.body;
+
+    const directoryPath = './users/'+req.user.id+'/'+req.body.type;
+
+    var fileDir = directoryPath +"/"+req.body.title+"/info.txt";
+    var filePage = directoryPath +"/"+req.body.title+"/seite"+req.body.page+".html";
+
+    // var fileData = fs.readFileSync(fileDir,
+    //                             {encoding:'utf8', flag:'r'}).split('\n');
+    //
+    // var newInfo = fileData[0]+"\n"+fileData[1]+"\n"+fileData[2]+"\n"+req.body.opened+"\n"+(req.body.page);
+
+    fs.writeFileSync(filePage, req.body.text);
+
+  }
+
+  res.redirect('/profile/ebooks');
+
+});
+
+router.post('/openBook', (req, res) =>{
+
+if(req.user){
+
+  var data = req.body;
+
+  const directoryPath = './users/'+req.user.id+'/'+req.body.type;
+
+  var fileDir = directoryPath +"/"+req.body.title+"/info.txt";
+
+  var fileData = fs.readFileSync(fileDir,
+                              {encoding:'utf8', flag:'r'}).split('\n');
+
+  var newInfo = fileData[0]+"\n"+fileData[1]+"\n"+fileData[2]+"\n"+req.body.opened+"\n"+req.body.page;
+
+  fs.writeFileSync(fileDir, newInfo);
+
+}
+
+  res.redirect('/profile/ebooks');
 
 });
 

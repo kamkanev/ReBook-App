@@ -1,16 +1,25 @@
 <% if(books.length > 0){ %>
 	<div style = "height: 60px;">
 	</div>
-    <div style = "float: left;">
+    <div id="booksLoader" style = "float: left;">
 	<% books.forEach((book) => { %>
-		<div style = "border-radius: 8px; background-color: #7bb2ed; width: 150px; height: 150px; margin: 30px 10px 15px 30px; overflow: hidden; float: left;">
+		<div onmouseover="animateBgIn(this)" onmouseout="animateBgOut(this)" onclick="openBook('<%= book.title %>', '<%= book.type %>', '<%= book.icon %>', <%= book.len %>, true, <%= book.openPage %>)" style = "border-radius: 8px; background-color: #7bb2ed; width: 150px; height: 150px; margin: 30px 10px 15px 30px; overflow: hidden; float: left;">
 			<div style = "text-align: center; padding: 13px 10px 5px 10px;">
 				<b><%= book.title %></b>
 			</div>
 			<div style = "text-align: center; padding: 13px 10px 5px 10px;">
 				<img width = "70px" src = "<%= '../' + book.icon %>" alt = "ne6o">
 			</div>
+			<div style = "text-align: center; padding: 13px 10px 5px 10px;">
+				<b><%= book.len %></b>
+			</div>
 		</div>
+		<% if(book.opened){ %>
+				<script>
+					goToBook('<%= book.fullLink %>','<%= book.title %>', '<%= book.type %>', '<%= book.icon %>', <%= book.len %>, <%= book.openPage %>)
+				</script>
+				<% return; %>
+		<% } %>
 	<% }); %>
 	</div>
 <% }else{ %>
