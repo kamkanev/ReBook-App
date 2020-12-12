@@ -393,7 +393,7 @@ router.get("/ebooks", (req, res) => {
                                       title: data[0],
                                       type: data[1],
                                       icon: data[2],
-                                      len: (filesInNbook.length-1),
+                                      len: (filesInVbook.length-1 < 0),
                                       opened: JSON.parse(data[3].toLowerCase()),
                                       openPage: parseInt(data[4]),
                                       fullLink: ( directoryPathVBooks + '/' + file)
