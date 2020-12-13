@@ -239,18 +239,20 @@ async function createNewBook(){
 
 function goToBook(link, title, type, icon, length, page) {
   console.log(title, type, icon, length, page);
-  document.getElementById("booksLoader").style.display = "none";
-  document.getElementById("createBooks").style.display = "none";
-  document.getElementById('titleBook').style.display = "";
-  document.getElementById('titleBook').innerHTML = title;
-  document.getElementById('backToAll').style.display = "";
+  if(type == "nbook"){
+    document.getElementById("booksLoader").style.display = "none";
+    document.getElementById("createBooks").style.display = "none";
+    document.getElementById('titleBook').style.display = "";
+    document.getElementById('titleBook').innerHTML = title;
+    document.getElementById('backToAll').style.display = "";
 
-  document.getElementById('savePage').style.display = "";
+    document.getElementById('savePage').style.display = "";
 
-  document.getElementById("notebook").style.display = "";
-  if(length <= 0){
-  }else{
-    document.getElementById("textEditor").src = "." + link + "/seite"+page+".html"
+    document.getElementById("notebook").style.display = "";
+    if(length <= 0){
+    }else{
+        document.getElementById("textEditor").src = "." + link + "/seite"+page+".html"
+    }
   }
 
   document.getElementById("pageNum").innerHTML = page+1;
@@ -337,6 +339,7 @@ function animateBgOut(x){
 function animateBgIn(x){
 
   x.style.backgroundColor = "#5299ff";
+  x.style.cursor = "pointer";
 
 }
 
