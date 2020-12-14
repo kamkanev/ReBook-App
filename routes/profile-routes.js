@@ -425,7 +425,7 @@ router.post("/createBook", (req, res) => {
         //console.log(length);
         var dir = directoryPath + "/" + req.body.title;
         var infoPath = dir + "/" + "info.txt";
-        var seitePath = dir + "/" + "seite0.txt";
+        var seitePath = dir + "/" + "seite0.html";
 
         let info = req.body.title+"\n"+req.body.type+"\n"+"../img/books/covers/"+req.body.icon+"\n"+req.body.opened+"\n"+0;
 
