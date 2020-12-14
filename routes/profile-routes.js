@@ -431,7 +431,7 @@ router.post("/createBook", (req, res) => {
 
         fs.mkdirSync(dir);
         fs.writeFileSync(infoPath, info);
-        fs.writeFileSync(seite, "");
+        fs.writeFileSync(seitePath, "");
 
 
     res.redirect('/profile/ebooks');
