@@ -442,7 +442,7 @@ router.post("/savePage", (req, res) => {
 
   if(req.user){
 
-    var data = req.body;
+    // var data = req.body;
 
     const directoryPath = './users/'+req.user.id+'/'+req.body.type;
 
@@ -456,6 +456,71 @@ router.post("/savePage", (req, res) => {
 
     fs.writeFileSync(filePage, req.body.text);
 
+  }
+
+  res.redirect('/profile/ebooks');
+
+});
+
+router.post("/createPage", (req, res) => {
+
+  if(req.user){
+
+    // var data = req.body;
+
+    const directoryPath = './users/'+req.user.id+'/'+req.body.type;
+
+    var nextPageNum = (parseInt(req.body.page)+1);
+
+    var fileDir = directoryPath +"/"+req.body.title+"/info.txt";
+
+    var data = fs.readFileSync(fileDir,
+                                {encoding:'utf8', flag:'r'}).split('\n');
+
+        data[4] = parseInt(data[4])+1;
+
+    var filePage = directoryPath +"/"+req.body.title+"/seite"+req.body.page+".html";
+    var fileNextPage = directoryPath +"/"+req.body.title+"/seite"+nextPageNum+".html";
+
+    // var fileData = fs.readFileSync(fileDir,
+    //                             {encoding:'utf8', flag:'r'}).split('\n');
+    //
+    // var newInfo = fileData[0]+"\n"+fileData[1]+"\n"+fileData[2]+"\n"+req.body.opened+"\n"+(req.body.page);
+
+    fs.writeFileSync(filePage, req.body.text);
+    fs.writeFileSync(fileNextPage, "");
+    fs.writeFileSync(fileDir, data[0]+"\n"+data[1]+"\n"+data[2]+"\n"+data[3]+"\n"+data[4]+"\n");
+
+  }
+
+  res.redirect('/profile/ebooks');
+
+});
+
+router.post("/goToPage", (req, res) => {
+
+  if(req.user){
+
+    const directoryPath = './users/'+req.user.id+'/'+req.body.type;
+
+    var number = parseInt(req.body.where);
+
+    var len = fs.readdirSync(directoryPath +"/"+req.body.title+"/").length - 1;
+
+    var fileDir = directoryPath +"/"+req.body.title+"/info.txt";
+
+    var data = fs.readFileSync(fileDir,
+                                {encoding:'utf8', flag:'r'}).split('\n');
+
+        data[4] = parseInt(data[4])+number;
+
+        if(data[4] >= len){
+          data[4] = len-1;
+        }else if(data[4] <= 0){
+          data[4] = 0;
+        }
+
+      fs.writeFileSync(fileDir, data[0]+"\n"+data[1]+"\n"+data[2]+"\n"+data[3]+"\n"+data[4]+"\n");
   }
 
   res.redirect('/profile/ebooks');

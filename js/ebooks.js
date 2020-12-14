@@ -249,6 +249,25 @@ function goToBook(link, title, type, icon, length, page) {
     document.getElementById('savePage').style.display = "";
 
     document.getElementById("notebook").style.display = "";
+
+    // document.getElementById("pageNum").innerHTML = page;
+
+    // document.getElementById("nextPage").onclick = function(){ createPage() };
+
+    if(page == (length-1)){
+      document.getElementById("nextPage").innerHTML = '<i class="fas fa-plus"></i>';
+      document.getElementById("nextPage").onclick = function(){ createPage() };
+    }else{
+      document.getElementById("nextPage").onclick = function(){ goToPage(1) };
+    }
+
+    if(page <= 0){
+      document.getElementById("prevPage").classList.add("disabled");
+    }
+
+    document.getElementById("prevPage").onclick = function(){ goToPage(-1) };
+
+
     if(length <= 0){
     }else{
         document.getElementById("textEditor").src = "." + link + "/seite"+page+".html"
@@ -293,6 +312,8 @@ function goToBook(link, title, type, icon, length, page) {
 }
 
 function openBook(title, type, icon, length, open, page) {
+
+  open = type == "nbook";
 
   var f = document.createElement("form");
   f.setAttribute('method',"post");
@@ -360,6 +381,46 @@ function savePage() {
   text.setAttribute('type',"hidden");
   text.setAttribute('value', info);
   text.setAttribute('name',"text");
+
+  form.appendChild(text);
+
+  // console.log(form);
+
+  form.submit();
+
+}
+
+function createPage() {
+
+  var form = document.getElementById('exitForm');
+  form.setAttribute('action',"/profile/createPage");
+
+  var info = document.getElementById("textEditor").contentWindow.document.body.innerHTML;
+
+  var text = document.createElement("input"); //input element, Submit button
+  text.setAttribute('type',"hidden");
+  text.setAttribute('value', info);
+  text.setAttribute('name',"text");
+
+  form.appendChild(text);
+
+  // console.log(form);
+
+  form.submit();
+
+}
+
+function goToPage(num) {
+
+  var form = document.getElementById('exitForm');
+  form.setAttribute('action',"/profile/goToPage");
+
+  var info = document.getElementById("textEditor").contentWindow.document.body.innerHTML;
+
+  var text = document.createElement("input"); //input element, Submit button
+  text.setAttribute('type',"hidden");
+  text.setAttribute('value', num);
+  text.setAttribute('name',"where");
 
   form.appendChild(text);
 
