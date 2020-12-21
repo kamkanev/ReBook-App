@@ -3,7 +3,7 @@
 	</div>
     <div id="booksLoader" style = "float: left;">
 	<% books.forEach((book) => { %>
-		<div onmouseover="animateBgIn(this)" onmouseout="animateBgOut(this)" onclick="openBook('<%= book.title %>', '<%= book.type %>', '<%= book.icon %>', <%= book.len %>, true, <%= book.openPage %>)" style = "border-radius: 8px; background-color: #7bb2ed; width: 150px; height: 150px; margin: 30px 10px 15px 30px; overflow: hidden; float: left;">
+		<div id="b<%= book.title %>" onmouseover="animateBgIn(this)" onmouseout="animateBgOut(this)" onclick="makeBookAction('<%= book.title %>', '<%= book.type %>', '<%= book.icon %>', <%= book.len %>, true, <%= book.openPage %>)" style = "border-radius: 8px; background-color: #7bb2ed; width: 150px; height: 150px; margin: 30px 10px 15px 30px; overflow: hidden; float: left;">
 			<div style = "text-align: center; padding: 13px 10px 5px 10px;">
 				<b><%= book.title %></b>
 			</div>
@@ -11,7 +11,7 @@
 				<img width = "70px" src = "<%= '../' + book.icon %>" alt = "ne6o">
 			</div>
 			<div style = "text-align: center; padding: 13px 10px 5px 10px;">
-				<b><%= book.len %></b>
+				<input style="display:none;" type="checkbox" name="ch" id="ch<%= book.title %>" value="<%= book.title %>|<%= book.type %>">
 			</div>
 		</div>
 		<% if(book.opened){ %>

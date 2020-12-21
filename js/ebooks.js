@@ -1,5 +1,7 @@
 var isInEditMode = true;
 
+var isInSelectMode = false;
+
 function enableEditMode() {
   textEditor.document.designMode = 'On';
 }
@@ -242,6 +244,8 @@ function goToBook(link, title, type, icon, length, page) {
   if(type == "nbook"){
     document.getElementById("booksLoader").style.display = "none";
     document.getElementById("createBooks").style.display = "none";
+    document.getElementById("deleteBooks").style.display = "none";
+    document.getElementById("selectBooks").style.display = "none";
     document.getElementById('titleBook').style.display = "";
     document.getElementById('titleBook').innerHTML = title;
     document.getElementById('backToAll').style.display = "";
@@ -428,4 +432,86 @@ function goToPage(num) {
 
   form.submit();
 
+}
+
+function selectBook(title) {
+
+  var input = document.getElementById("ch"+title);
+
+  if(input.style.display != "none"){
+    input.checked = !input.checked;
+    document.getElementById("b"+title).style.border = input.checked ?"thick solid #00FFFF":"none";
+    // console.log("select book "+title);
+    // console.log(input.style.display);
+  }
+
+}
+
+function enableSelectModeBooks(){
+  document.getElementsByName('ch').forEach((input) => {
+      input.style.display = input.style.display != "none"?"none":"inline";
+
+  });
+
+  isInSelectMode = !isInSelectMode;
+      document.getElementById("deleteBooks").style.display = !isInSelectMode? "none":"inline";
+      document.getElementById("createBooks").style.display = isInSelectMode? "none":"inline";
+  if(!isInSelectMode){
+
+    location.reload();
+
+  }
+}
+
+function makeBookAction(title, type, icon, length, open, page) {
+
+  if(isInSelectMode){
+      selectBook(title);
+  }else{
+    openBook(title, type, icon, length, open, page);
+  }
+
+}
+
+function deleteBooks() {
+  if(isInSelectMode){
+
+     // document.getElementById('deleteForm').remove();
+     var len = 0;
+
+    var form = document.createElement('form');
+
+    form.setAttribute('method',"post");
+    form.setAttribute('action',"/profile/deleteBooks");
+    // f.setAttribute('id',"deleteForm");
+
+    document.getElementsByName('ch').forEach((input) => {
+
+      if(input.checked){
+        var title = document.createElement("input"); //input element, Submit button
+        title.setAttribute('type',"hidden");
+        title.setAttribute('value', input.value);
+        title.setAttribute('name',"titles");
+
+        form.appendChild(title);
+        len++;
+      }
+
+    });
+
+    console.log(form);
+
+    document.body.appendChild(form);
+
+    if(len > 0){
+      form.submit();
+    }else{
+      Swal.fire({
+        icon: 'error',
+        title: 'Грешка',
+        text: 'Избери тетрадка първо!'
+      })
+    }
+
+  }
 }

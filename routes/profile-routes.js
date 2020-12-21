@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const User = require("../models/user");
 const fs = require('fs');
+var rimraf = require("rimraf");
 
 router.get('/', (req, res) => {
   if(req.user){
@@ -438,6 +439,52 @@ router.post("/createBook", (req, res) => {
 
   }
 
+});
+
+router.post("/deleteBooks", (req, res) => {
+  if(req.user){
+
+    var data = req.body;
+
+    // console.log("delete data - ");
+
+    const directoryPath = './users/'+req.user.id+'/';
+
+    if(data.titles instanceof Array){
+      for(var i = 0; i < data.titles.length; i++){
+
+        var books = data.titles[i];
+
+        console.log(books);
+
+        var tit = books.split("|")[0];
+        var typ = books.split("|")[1];
+
+        console.log(tit, typ);
+
+        console.log(directoryPath+typ+"/"+tit);
+        rimraf.sync(directoryPath+typ+"/"+tit);
+      }
+    }else{
+
+      var books = data.titles;
+
+      console.log(books);
+
+      var tit = books.split("|")[0];
+      var typ = books.split("|")[1];
+
+      console.log(tit, typ);
+
+      console.log(directoryPath+typ+"/"+tit);
+      rimraf.sync(directoryPath+typ+"/"+tit);
+
+    }
+        console.log("data delete - ", data);
+
+  }
+
+  res.redirect('/profile/ebooks');
 });
 
 router.post("/savePage", (req, res) => {
