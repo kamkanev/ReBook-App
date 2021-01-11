@@ -9,6 +9,12 @@ router.get('/', (req, res) => {
     var tasks = undefined;
 
     var dir = './users/'+req.user.id+'/tasks.txt';
+
+    if(!fs.existsSync('./users/'+req.user.id)){
+      createUserFolder(req.user.id);
+      updateUserLogin(req.user.id);
+    }
+
     if(fs.existsSync(dir)){
 
       tasks = [];
@@ -420,6 +426,9 @@ router.post("/createBook", (req, res) => {
     var data = req.body;
 
     var length = 0;
+
+    const directoryPathNBooks = './users/'+req.user.id+'/nbook';
+    const directoryPathVBooks = './users/'+req.user.id+'/vbook';
     //joining path of directory
     const directoryPath = './users/'+req.user.id+'/'+req.body.type;
 
@@ -430,9 +439,13 @@ router.post("/createBook", (req, res) => {
 
         let info = req.body.title+"\n"+req.body.type+"\n"+"../img/books/covers/"+req.body.icon+"\n"+req.body.opened+"\n"+0;
 
-        fs.mkdirSync(dir);
-        fs.writeFileSync(infoPath, info);
-        fs.writeFileSync(seitePath, "");
+        if(!fs.existsSync(directoryPathNBooks + "/" + req.body.title)){
+          if(!fs.existsSync(directoryPathVBooks + "/" + req.body.title)){
+            fs.mkdirSync(dir);
+            fs.writeFileSync(infoPath, info);
+            fs.writeFileSync(seitePath, "");
+          }
+        }
 
 
     res.redirect('/profile/ebooks');
@@ -481,6 +494,51 @@ router.post("/deleteBooks", (req, res) => {
 
     }
         console.log("data delete - ", data);
+
+  }
+
+  res.redirect('/profile/ebooks');
+});
+
+router.post("/editBooks", (req, res) => {
+  if(req.user){
+
+    var data = req.body;
+
+    // console.log("delete data - ");
+
+    const directoryPath = './users/'+req.user.id+'/';
+
+      var books = data.titles;
+      var newbooks = data.newtitles;
+
+      console.log(books);
+
+      var tit = books.split("|")[0];
+      var typ = books.split("|")[1];
+      var icon = books.split("|")[2];
+
+      var newtit = newbooks.split("|")[0];
+      var newtyp = newbooks.split("|")[1];
+      var newicon = newbooks.split("|")[2];
+
+      console.log(tit, typ, icon);
+
+      console.log(directoryPath+typ+"/"+tit);
+      fs.renameSync(directoryPath+typ+"/"+tit, directoryPath+typ+"/"+newtit);
+
+      const directoryPath2 = directoryPath+typ;
+
+      var fileDir = directoryPath2 +"/"+newtit+"/info.txt";
+
+      var fileData = fs.readFileSync(fileDir,
+                                  {encoding:'utf8', flag:'r'}).split('\n');
+
+      var fullIconLink = "../img/books/covers/"+newicon;
+
+      var newInfo = newtit+"\n"+fileData[1]+"\n"+fullIconLink+"\n"+fileData[3]+"\n"+fileData[4];
+
+      fs.writeFileSync(fileDir, newInfo);
 
   }
 
@@ -649,5 +707,61 @@ router.get("/tools", (req, res) => {
         res.redirect('/');
     }
 });
+
+function createUserFolder(id) {
+  var dir = "./users/"+id;
+
+  // console.log(fs.existsSync(dir));
+  if(!fs.existsSync("./users")){
+    fs.mkdirSync("./users")
+  }
+
+  if(!fs.existsSync(dir)){
+    fs.mkdirSync(dir);
+    fs.mkdirSync(dir+"/nbook");
+    fs.mkdirSync(dir+"/vbook");
+    fs.mkdirSync(dir+"/uploads");
+  }
+
+  if(!fs.existsSync((dir+"/logins.txt"))){
+    try{
+        fs.writeFileSync(dir+'/logins.txt', "0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0");
+    }catch (e){
+        console.log("Cannot write file ", e);
+    }
+  }
+}
+
+function updateUserLogin(id) {
+  var dir = "./users/"+id;
+  var login = dir+"/logins.txt";
+
+  const data = fs.readFileSync(login, {
+    encoding: 'utf8'
+  });
+  var nowDate = new Date();
+  var months = data.split("\n");
+  var mon = parseInt(months[nowDate.getMonth()]);
+
+  mon++;
+
+  var newData = "";
+
+  for(var i = 0; i < 12; i++){
+    if(i == nowDate.getMonth()){
+      newData+= mon+"\n";
+    }else{
+      newData+=months[i]+"\n";
+    }
+
+  }
+  // console.log(data);
+
+  try{
+      fs.writeFileSync(login, newData);
+  }catch (e){
+      console.log("Cannot write file ", e);
+  }
+}
 
 module.exports = router;

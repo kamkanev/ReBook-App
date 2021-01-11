@@ -2,6 +2,8 @@ var isInEditMode = true;
 
 var isInSelectMode = false;
 
+var bookTitles = [];
+
 function enableEditMode() {
   textEditor.document.designMode = 'On';
 }
@@ -156,11 +158,18 @@ async function createNewBook(){
     input: "text",
     inputValidator: (value) => {
       if(!value){
+
         return "Не може полето да е празно!"
+
+      }else if(value.length > 25){
+
+    		return "Заглавието трябва да е до 25 символа!"
+
+      }else if(bookTitles.includes(value)){
+
+        return "Вече съществува тетрадка с това заглавие!"
+
       }
-	  else if(value.length > 25){
-		return "Заглавието трябва да е до 25 символа!"
-	  }
     }
   },
   {
@@ -245,6 +254,7 @@ function goToBook(link, title, type, icon, length, page) {
     document.getElementById("booksLoader").style.display = "none";
     document.getElementById("createBooks").style.display = "none";
     document.getElementById("deleteBooks").style.display = "none";
+    document.getElementById("editBooks").style.display = "none";
     document.getElementById("selectBooks").style.display = "none";
     document.getElementById('titleBook').style.display = "";
     document.getElementById('titleBook').innerHTML = title;
@@ -455,6 +465,7 @@ function enableSelectModeBooks(){
 
   isInSelectMode = !isInSelectMode;
       document.getElementById("deleteBooks").style.display = !isInSelectMode? "none":"inline";
+      document.getElementById("editBooks").style.display = !isInSelectMode? "none":"inline";
       document.getElementById("createBooks").style.display = isInSelectMode? "none":"inline";
   if(!isInSelectMode){
 
@@ -499,7 +510,7 @@ function deleteBooks() {
 
     });
 
-    console.log(form);
+    // console.log(form);
 
     document.body.appendChild(form);
 
@@ -514,4 +525,136 @@ function deleteBooks() {
     }
 
   }
+}
+
+async function editBooks() {
+
+  if(isInSelectMode){
+    var len = 0;
+    var index = 0;
+
+    var form = document.createElement('form');
+
+    form.setAttribute('method',"post");
+    form.setAttribute('action',"/profile/editBooks");
+
+    var inputs = document.getElementsByName('ch');
+
+    for (var i = 0; i < inputs.length; i++) {
+      if(inputs[i].checked){
+        len++;
+        index = i;
+      }
+    }
+
+    if(len == 1){
+
+      var chinput = document.getElementsByName('ch')[index];
+      var title = document.getElementsByName('ch')[index].value.split("|")[0];
+      var type = document.getElementsByName('ch')[index].value.split("|")[1];
+      var icon = document.getElementsByName('ch')[index].value.split("|")[2].split("/")[4];
+
+      console.log(icon);
+
+      const inputOptionsIcons = new Promise((resolve) => {
+        setTimeout(() => {
+          resolve({
+          'Тетрадка за писане': {
+            'en.png': "Английски",
+            'bg.png': 'Български',
+            'sp.png': 'Испански',
+            'de.png': 'Немски',
+            'ru.png': 'Руски',
+            'fr.png': 'Френски',
+            'ot.png': "Други езици",
+            'ma.png': "Матеметика",
+            'ph.png': 'Физика',
+            'ch.png': 'Химия',
+            'bi.png': 'Биология',
+
+          },
+          'Тетрадка речник': {
+            'en-bg.png': 'Българо-английска',
+            'ne-bg.png': 'Българо-немска',
+            'ru-bg.png': 'Българо-руска'
+          }
+          })
+        }, 1000)
+      })
+
+      Swal.mixin({
+      input: 'text',
+      confirmButtonText: 'Next &rarr;',
+      showCancelButton: true,
+      progressSteps: ['1', '2']
+    }).queue([
+      {
+        title: 'Въпрос 1',
+        text: 'Заглавие на тетрадката:',
+        input: "text",
+        inputValue: title,
+        inputValidator: (value) => {
+          if(!value){
+
+            return "Не може полето да е празно!"
+
+          }else if(value.length > 25){
+
+        		return "Заглавието трябва да е до 25 символа!"
+
+          }else if(value != title && bookTitles.includes(value)){
+
+            return "Вече съществува тетрадка с това заглавие!"
+
+          }
+        }
+      },
+      {
+        title: 'Въпрос 2',
+        input: 'select',
+        inputPlaceholder: 'Изберете икона',
+        text: 'Икона за тетрадката:',
+        inputValue: icon,
+        inputOptions: inputOptionsIcons,
+        inputValidator: (value) => {
+          if(! value || value == 'Изберете икона'){
+            return 'Трябва да изберете опция!'
+          }
+        }
+      }
+    ]).then((result) => {
+      if (result.value) {
+        if(result.value[0] != title || result.value[1] != icon){
+
+          var newInput = result.value[0]+"|"+type+"|"+result.value[1];
+
+          var title = document.createElement("input"); //input element, Submit button
+          title.setAttribute('type',"hidden");
+          title.setAttribute('value', chinput.value);
+          title.setAttribute('name',"titles");
+
+          var newtitle = document.createElement("input"); //input element, Submit button
+          newtitle.setAttribute('type',"hidden");
+          newtitle.setAttribute('value', newInput);
+          newtitle.setAttribute('name',"newtitles");
+
+          form.appendChild(title);
+          form.appendChild(newtitle);
+          document.body.appendChild(form);
+          form.submit();
+
+        }
+      }
+    });
+
+    }else{
+      Swal.fire({
+        icon: 'error',
+        title: "Грешка",
+        text: 'Може да се редактира по една тетрадка!'
+      });
+    }
+
+  }
+
 }
