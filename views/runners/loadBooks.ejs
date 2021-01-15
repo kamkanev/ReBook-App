@@ -13,9 +13,11 @@
 			<div style = "text-align: center; padding: 13px 10px 5px 10px;">
 				<img width = "70px" src = "<%= '../' + book.icon %>" alt = "ne6o">
 			</div>
-			<div style = "text-align: center; padding: 13px 10px 5px 10px;">
-				<input style="display:none;" type="checkbox" name="ch" id="ch<%= book.title %>" value="<%= book.title %>|<%= book.type %>|<%= book.icon %>">
+
+			<div style = "text-align: center; padding: 13px 10px 5px 10px; position:relative;">
+				<input style="display:none; visibility: hidden;" type="checkbox" name="ch" id="ch<%= book.title %>" value="<%= book.title %>|<%= book.type %>|<%= book.icon %>">
 			</div>
+			
 		</div>
 		<% if(book.opened){ %>
 				<script>
