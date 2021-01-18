@@ -2,6 +2,8 @@ var isInEditMode = true;
 
 var isInSelectMode = false;
 
+var isInPageShowingMode = false;
+
 var bookTitles = [];
 
 function enableEditMode() {
@@ -248,6 +250,23 @@ async function createNewBook(){
 })
 }
 
+function showAllPages(link, page, len){
+
+  var notebook = document.getElementById("notebooks");
+
+  for(var i = 0; i < len; i++){
+
+    var fr = document.createElement("iframe");
+
+    fr.width = 200;
+    fr.height = 300;
+    fr.src = "." + link + "/seite"+i+".html";
+
+    notebook.appendChild(fr);
+  }
+
+}
+
 function goToBook(link, title, type, icon, length, page) {
   console.log(title, type, icon, length, page);
   if(type == "nbook"){
@@ -263,7 +282,6 @@ function goToBook(link, title, type, icon, length, page) {
     document.getElementById('savePage').style.display = "";
 
     document.getElementById("notebook").style.display = ""; // edit pages
-    // document.getElementById("pagesShow").style.display = "";
 
     // document.getElementById("pageNum").innerHTML = page;
 
