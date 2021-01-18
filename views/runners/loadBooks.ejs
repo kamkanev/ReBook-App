@@ -17,15 +17,24 @@
 			<div style = "text-align: center; padding: 13px 10px 5px 10px; position:relative;">
 				<input style="display:none; visibility: hidden;" type="checkbox" name="ch" id="ch<%= book.title %>" value="<%= book.title %>|<%= book.type %>|<%= book.icon %>">
 			</div>
-			
+
 		</div>
-		
+
 		<% if(book.opened){ %>
+
+				<div id="pagesShow" style="display: none;">
+					<% for(var i = 0; i < book.len; i++){ %>
+
+							<iframe src="<%= '.' + book.fullLink + '/seite'+ i +'.html' %>" width="200" height="300"></iframe>
+
+					<% } %>
+				</div>
+
 				<script>
 					goToBook('<%= book.fullLink %>','<%= book.title %>', '<%= book.type %>', '<%= book.icon %>', <%= book.len %>, <%= book.openPage %>)
 				</script>
 				<% return; %>
-				
+
 		<% } %>
 	<% }); %>
 	</div>

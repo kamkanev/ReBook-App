@@ -262,7 +262,8 @@ function goToBook(link, title, type, icon, length, page) {
 
     document.getElementById('savePage').style.display = "";
 
-    document.getElementById("notebook").style.display = "";
+    document.getElementById("notebook").style.display = ""; // edit pages
+    // document.getElementById("pagesShow").style.display = "";
 
     // document.getElementById("pageNum").innerHTML = page;
 
