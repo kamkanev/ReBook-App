@@ -19,11 +19,13 @@
 			</div>
 			
 		</div>
+		
 		<% if(book.opened){ %>
 				<script>
 					goToBook('<%= book.fullLink %>','<%= book.title %>', '<%= book.type %>', '<%= book.icon %>', <%= book.len %>, <%= book.openPage %>)
 				</script>
 				<% return; %>
+				
 		<% } %>
 	<% }); %>
 	</div>
