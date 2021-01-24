@@ -741,7 +741,7 @@ router.post("/upload-profile-pic", (req, res) => {
       if(errs.length<= 0){
         User.findById(req.user.id).then((currUser) => {
 
-          currUser.image = '/users/'+ req.user.id +'/uploads/account';
+          currUser.image = '../users/'+ req.user.id +'/uploads/account';
 
           currUser.save((err) => {
 
