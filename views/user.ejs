@@ -222,11 +222,14 @@
               <div class="card-body">
                 <div class="author">
                   <a>
-                    <img style = "padding-right: 0px;" class="avatar border-gray" src="<%= typeof user.image != 'undefined' ? user.image : '../img/georgi_1.png' %>" alt="...">
-					<div class="p-image">
-						<i style = "padding-left: 0px;" class="fa fa-camera upload-button"></i>
-						<input style = "padding-right: 0px;" class="file-upload" type="file" accept="image/*"/>
-					</div>
+                    <img style = "padding-right: 0px;" class="avatar border-gray" src="<%= typeof user.image != 'undefined' ? '..'+user.image : '../img/georgi_1.png' %>" alt="..." onerror="this.onerror=null; this.src = '../img/georgi_1.png'">
+					<form class="" action="/profile/upload-profile-pic" method="post" enctype="multipart/form-data">
+            <div class="p-image">
+  						<i style = "padding-left: 0px;" class="fa fa-camera upload-button"></i>
+  						<input style = "padding-right: 0px;" class="file-upload" type="file" name="profile_pic" accept="image/*"/>
+  					</div>
+            <input type="submit" id="btn_upload_profile_pic" name="btn_upload_profile_pic" style="display:none" value="Запази">
+          </form>
                     <h5 class="title" style = "color: #1d6fc2"><%= user.first_name %> <%= user.last_name %></h5>
                   </a>
                   <p class="description" style="color: #1d6fc2">
@@ -278,6 +281,7 @@
 
             reader.onload = function (e) {
                 $('.avatar').attr('src', e.target.result);
+                document.getElementById('btn_upload_profile_pic').style.display = "";
             }
 
             reader.readAsDataURL(input.files[0]);

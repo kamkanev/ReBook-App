@@ -1,7 +1,9 @@
 const router = require("express").Router();
 const User = require("../models/user");
 const fs = require('fs');
-var rimraf = require("rimraf");
+const multer = require('multer');
+const path = require('path');
+const rimraf = require("rimraf");
 
 router.get('/', (req, res) => {
   if(req.user){
@@ -682,6 +684,88 @@ router.get("/user", (req, res) => {
     }else{
         res.redirect('/');
     }
+});
+
+router.post("/upload-profile-pic", (req, res) => {
+
+  if(req.user){
+    var errs = [];
+    const storage = multer.diskStorage({
+      destination: function(reqS, file, cb) {
+          cb(null, './users/'+ req.user.id +'/uploads/');
+      },
+
+      // By default, multer removes file extensions so let's add them back
+      filename: function(reqF, file, cb) {
+          cb(null, "account");
+      }
+  });
+
+  const fileFIlter = function (req, file, callback) {
+          var ext = path.extname(file.originalname);
+          if(ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+              return callback(new Error('Only images are allowed'))
+          }
+          callback(null, true)
+      };
+
+  let upload = multer({ storage: storage, fileFilter: fileFIlter }).single('profile_pic');
+
+  upload(req, res, function(err) {
+      // req.file contains information of uploaded file
+      // req.body contains information of text fields, if there were any
+
+      if (req.fileValidationError) {
+          errs.push({
+              msg: req.fileValidationError
+          });
+      }
+      else if (!req.file) {
+          errs.push({
+              msg: 'Моля изберете първо снимка!'
+          });
+      }
+      else if (err instanceof multer.MulterError) {
+          errs.push({
+              msg: err
+          });
+      }
+      else if (err) {
+          errs.push({
+              msg: err
+          });
+      }
+
+      //console.log(req);
+
+      if(errs.length<= 0){
+        User.findById(req.user.id).then((currUser) => {
+
+          currUser.image = '/users/'+ req.user.id +'/uploads/account';
+
+          currUser.save((err) => {
+
+              if(err){
+                  return console.log("Error saving: " + err);
+              }
+              res.render("user", {
+                user: currUser
+              });
+
+          });
+
+        });
+      }else{
+        res.render("user",{
+          user: req.user,
+          errs
+        })
+      }
+
+  });
+  }
+  // res.redirect('/');
+
 });
 
 router.get("/settings", (req, res) => {
