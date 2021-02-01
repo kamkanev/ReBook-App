@@ -422,6 +422,40 @@ router.get("/ebooks", (req, res) => {
     }
 });
 
+router.post("/createNewWord", (req, res) => {
+  if(req.user){
+
+    const directoryPath = './users/'+req.user.id+'/'+req.body.bookType + '/' + req.body.bookTitle;
+
+    var readDir1 = fs.readdirSync(directoryPath);
+
+    if(readDir1.length - 1 <= 0){
+      console.log("create FIle");
+
+      console.log(req.body.wType);
+
+      var word = {
+        name: req.body.word,
+        multiple: req.body.Mword,
+        translate: req.body.trWord,
+        type: "" + req.body.wType
+      }
+
+      var words = [];
+      words.push(word);
+
+      let data = JSON.stringify(words);
+
+      fs.writeFileSync(directoryPath+"/data.json", data);
+
+    }else{
+      console.log("updateFIle");
+    }
+
+    res.redirect('/profile/ebooks');
+  }
+});
+
 router.post("/createBook", (req, res) => {
   if(req.user){
 
@@ -445,7 +479,9 @@ router.post("/createBook", (req, res) => {
           if(!fs.existsSync(directoryPathVBooks + "/" + req.body.title)){
             fs.mkdirSync(dir);
             fs.writeFileSync(infoPath, info);
-            fs.writeFileSync(seitePath, "");
+            if(req.type == 'nbook'){
+              fs.writeFileSync(seitePath, "");
+            }
           }
         }
 

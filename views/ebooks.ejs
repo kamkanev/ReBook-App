@@ -151,6 +151,25 @@
                   <button id="createBooks" type="button" onclick="createNewBook()" class="btn btn-outline-info float-right"><i class="fas fa-user-edit"></i><b>Създай тетрадка<b></button>
                   <button id="savePage" style="display:none;" type="button" onclick="savePage()" class="btn btn-success float-right"><i class="fas fa-save"></i> <b>Запази<b></button>
               </div>
+              <div id="vocabulary" style="display:none">
+                <form id="addWord" action="/profile/createNewWord" method="post">
+                  <input type="text" name="word" placeholder="Думата на чужд език." required>
+                  <input type="text" name="Mword" value="" placeholder="Множествено число(ако има).">
+                  <input type="text" name="trWord" placeholder="Думата на български." required>
+                  <input type="text" name="transcr" placeholder="Транскрипция.">
+                  <br>
+                  <input type="radio" id="ajective" name="wType" value="ajective">
+                  <label for="ajective">Прилагателно</label><br>
+                  <input type="radio" id="noun" name="wType" value="noun">
+                  <label for="noun">Съществително</label><br>
+                  <input type="radio" id="verb" name="wType" value="verb">
+                  <label for="verb">Глагол</label><br>
+                  <input type="radio" id="otherW" name="wType" value="otherW">
+                  <label for="otherW">Други</label>
+                  <hr>
+                  <input type="submit" class="btn btn-success" value="Добави">
+                </form>
+              </div>
               <div id="notebooks" style="display: none;" class="row">
               </div>
               <div id="notebook" style="display: none;" class="row">

@@ -295,18 +295,19 @@ function enablePageSelection(){
 
 function goToBook(link, title, type, icon, length, page) {
   console.log(title, type, icon, length, page);
+
+  document.getElementById("booksLoader").style.display = "none";
+  document.getElementById("createBooks").style.display = "none";
+  document.getElementById("deleteBooks").style.display = "none";
+  document.getElementById("editBooks").style.display = "none";
+  document.getElementById("selectBooks").style.display = "none";
+  document.getElementById('titleBook').style.display = "";
+  document.getElementById('titleBook').innerHTML = title;
+  document.getElementById('backToAll').style.display = "";
+
   if(type == "nbook"){
 
     showAllPages(link, page, length);
-
-    document.getElementById("booksLoader").style.display = "none";
-    document.getElementById("createBooks").style.display = "none";
-    document.getElementById("deleteBooks").style.display = "none";
-    document.getElementById("editBooks").style.display = "none";
-    document.getElementById("selectBooks").style.display = "none";
-    document.getElementById('titleBook').style.display = "";
-    document.getElementById('titleBook').innerHTML = title;
-    document.getElementById('backToAll').style.display = "";
 
     document.getElementById('savePage').style.display = "";
 
@@ -334,6 +335,29 @@ function goToBook(link, title, type, icon, length, page) {
     }else{
         document.getElementById("textEditor").src = "." + link + "/seite"+page+".html"
     }
+  }else{
+
+    document.getElementById("vocabulary").style.display = "";
+
+    var cform = document.getElementById('addWord');
+
+    var bType = document.createElement("input");
+
+    bType.setAttribute('type', 'hidden');
+    bType.setAttribute('name', 'bookType');
+    bType.setAttribute('value', type);
+
+    var bTit = document.createElement("input");
+
+    bTit.setAttribute('type', 'hidden');
+    bTit.setAttribute('name', 'bookTitle');
+    bTit.setAttribute('value', title);
+
+    cform.appendChild(bType);
+    cform.appendChild(bTit);
+
+    //document.body.appendChild(cform);
+
   }
 
   document.getElementById("pageNum").innerHTML = page+1;
@@ -375,7 +399,7 @@ function goToBook(link, title, type, icon, length, page) {
 
 function openBook(title, type, icon, length, open, page) {
 
-  open = type == "nbook";
+  //open = type == "nbook";
 
   var f = document.createElement("form");
   f.setAttribute('method',"post");
