@@ -293,7 +293,7 @@ function enablePageSelection(){
   document.getElementById("notebook").style.display = "none"; // edit pages
 }
 
-function goToBook(link, title, type, icon, length, page) {
+function goToBook(link, title, type, icon, length, page, data) {
   console.log(title, type, icon, length, page);
 
   document.getElementById("booksLoader").style.display = "none";
@@ -358,6 +358,15 @@ function goToBook(link, title, type, icon, length, page) {
 
     //document.body.appendChild(cform);
 
+    console.log(typeof data != 'undefined');
+
+    if(length > 0){
+      let words = JSON.parse(data);
+      console.log(words);
+
+      addAllWords(words);
+    }
+
   }
 
   document.getElementById("pageNum").innerHTML = page+1;
@@ -394,6 +403,63 @@ function goToBook(link, title, type, icon, length, page) {
   f.appendChild(pag);
 
   document.body.appendChild(f);
+
+}
+
+function addAllWords(words) {
+
+
+  var tbodyRef = document.getElementById("vkWords").getElementsByTagName('tbody')[0];
+
+  for(var i =0; i < words.length; i++){
+    var newRow = tbodyRef.insertRow();
+
+    switch (words[i].type) {
+      case 'ajective':
+        newRow.setAttribute("class", "table-success");
+        break;
+      case 'verb':
+        newRow.setAttribute("class", "table-danger");
+        break;
+      case 'otherW':
+        newRow.setAttribute("class", "table-secondary");
+        break;
+      default:
+        newRow.setAttribute("class", "table-primary");
+    }
+
+    var nameCell = newRow.insertCell();
+
+    var newWord = document.createTextNode(words[i].name);
+
+    nameCell.appendChild(newWord);
+
+      var multCell = newRow.insertCell();
+
+      var multWord = document.createTextNode(words[i].multiple);
+
+      multCell.appendChild(multWord);
+
+        var bgCell = newRow.insertCell();
+
+        var bgWord = document.createTextNode(words[i].translate);
+
+        bgCell.appendChild(bgWord);
+
+          var transCell = newRow.insertCell();
+
+          var transWord = document.createTextNode(words[i].transcr);
+
+          transCell.appendChild(transWord);
+
+          var typeCell = newRow.insertCell();
+
+          var typeWord = document.createTextNode(words[i].type == 'otherW' ? 'other' : words[i].type);
+
+          typeCell.appendChild(typeWord);
+  }
+
+
 
 }
 

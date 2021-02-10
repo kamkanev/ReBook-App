@@ -394,9 +394,13 @@ router.get("/ebooks", (req, res) => {
       for(var i =0; i < files2.length; i++){
         var file = files2[i];
         var fileDir = directoryPathVBooks + '/' + file + "/info.txt";
+        var filebookDir = directoryPathVBooks + '/' + file + "/data.json";
         var filesInVbook = fs.readdirSync(directoryPathVBooks + '/' + file);
-        var data = fs.readFileSync(fileDir,
-                                    {encoding:'utf8', flag:'r'}).split('\n');
+        var data = fs.readFileSync(fileDir,{encoding:'utf8', flag:'r'}).split('\n');
+
+        var bookData = fs.readFileSync(filebookDir,{encoding:'utf8', flag:'r'});
+
+        console.log("bookData: "+bookData);
 
                                     books.push({
                                       title: data[0],
@@ -405,7 +409,8 @@ router.get("/ebooks", (req, res) => {
                                       len: (filesInVbook.length-1),
                                       opened: JSON.parse(data[3].toLowerCase()),
                                       openPage: parseInt(data[4]),
-                                      fullLink: ( directoryPathVBooks + '/' + file)
+                                      fullLink: ( directoryPathVBooks + '/' + file),
+                                      data: bookData
                                     });
 
       }
@@ -429,17 +434,18 @@ router.post("/createNewWord", (req, res) => {
 
     var readDir1 = fs.readdirSync(directoryPath);
 
+    var word = {
+      name: req.body.word,
+      multiple: req.body.Mword,
+      translate: req.body.trWord,
+      transcr: req.body.transcr,
+      type: "" + req.body.wType
+    }
+
     if(readDir1.length - 1 <= 0){
       console.log("create FIle");
 
-      console.log(req.body.wType);
-
-      var word = {
-        name: req.body.word,
-        multiple: req.body.Mword,
-        translate: req.body.trWord,
-        type: "" + req.body.wType
-      }
+      //console.log(req.body.wType);
 
       var words = [];
       words.push(word);
@@ -449,7 +455,27 @@ router.post("/createNewWord", (req, res) => {
       fs.writeFileSync(directoryPath+"/data.json", data);
 
     }else{
+
+      var fileData = fs.readFileSync(directoryPath+"/data.json",
+                                  {encoding:'utf8', flag:'r'});
+
+      var words = JSON.parse(fileData);
+
+      //console.log(word);
+
+      if(words.findIndex(x => x.name === word.name) < 0){
+
+        words.push(word);
+
+      }
+
+      console.log(words);
+
       console.log("updateFIle");
+
+      let data = JSON.stringify(words);
+
+      fs.writeFileSync(directoryPath+"/data.json", data);
     }
 
     res.redirect('/profile/ebooks');

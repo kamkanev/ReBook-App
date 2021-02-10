@@ -158,7 +158,7 @@
                   <input type="text" name="trWord" placeholder="Думата на български." required>
                   <input type="text" name="transcr" placeholder="Транскрипция.">
                   <br>
-                  <input type="radio" id="ajective" name="wType" value="ajective">
+                  <input type="radio" id="ajective" name="wType" value="ajective" checked>
                   <label for="ajective">Прилагателно</label><br>
                   <input type="radio" id="noun" name="wType" value="noun">
                   <label for="noun">Съществително</label><br>
@@ -169,6 +169,23 @@
                   <hr>
                   <input type="submit" class="btn btn-success" value="Добави">
                 </form>
+
+
+                <table id="vkWords" class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">Дума</th>
+                      <th scope="col">Множествено число</th>
+                      <th scope="col">Думата на български</th>
+                      <th scope="col">Транскрипция</th>
+                      <th scope="col">Вид</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                  </tbody>
+                </table>
+
               </div>
               <div id="notebooks" style="display: none;" class="row">
               </div>

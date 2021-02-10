@@ -23,7 +23,7 @@
 		<% if(book.opened){ %>
 
 				<script>
-					goToBook('<%= book.fullLink %>','<%= book.title %>', '<%= book.type %>', '<%= book.icon %>', <%= book.len %>, <%= book.openPage %>)
+					goToBook('<%= book.fullLink %>','<%= book.title %>', '<%= book.type %>', '<%= book.icon %>', <%= book.len %>, <%= book.openPage %>, <%- JSON.stringify(book.data ) %>)
 				</script>
 				<% return; %>
 
