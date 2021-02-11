@@ -428,6 +428,12 @@ function addAllWords(words) {
         newRow.setAttribute("class", "table-primary");
     }
 
+    var numCell = newRow.insertCell();
+
+    var num = document.createTextNode(i+1);
+
+    numCell.appendChild(num);
+
     var nameCell = newRow.insertCell();
 
     var newWord = document.createTextNode(words[i].name);

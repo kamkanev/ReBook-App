@@ -406,7 +406,7 @@ router.get("/ebooks", (req, res) => {
                                       title: data[0],
                                       type: data[1],
                                       icon: data[2],
-                                      len: (filesInVbook.length-1),
+                                      len: (bookData.length <= 0)? 0 : (filesInVbook.length-1),
                                       opened: JSON.parse(data[3].toLowerCase()),
                                       openPage: parseInt(data[4]),
                                       fullLink: ( directoryPathVBooks + '/' + file),
@@ -456,10 +456,9 @@ router.post("/createNewWord", (req, res) => {
 
     }else{
 
-      var fileData = fs.readFileSync(directoryPath+"/data.json",
-                                  {encoding:'utf8', flag:'r'});
+      var fileData = fs.readFileSync(directoryPath+"/data.json",{encoding:'utf8', flag:'r'});
 
-      var words = JSON.parse(fileData);
+      var words = (fileData.length<=0) ? [] : JSON.parse(fileData);
 
       //console.log(word);
 
@@ -498,6 +497,7 @@ router.post("/createBook", (req, res) => {
         var dir = directoryPath + "/" + req.body.title;
         var infoPath = dir + "/" + "info.txt";
         var seitePath = dir + "/" + "seite0.html";
+        var dataPath = dir + "/" + "data.json";
 
         let info = req.body.title+"\n"+req.body.type+"\n"+"../img/books/covers/"+req.body.icon+"\n"+req.body.opened+"\n"+0;
 
@@ -507,6 +507,8 @@ router.post("/createBook", (req, res) => {
             fs.writeFileSync(infoPath, info);
             if(req.type == 'nbook'){
               fs.writeFileSync(seitePath, "");
+            }else{
+              fs.writeFileSync(dataPath, "");
             }
           }
         }
