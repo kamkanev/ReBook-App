@@ -283,6 +283,13 @@ function showAllPages(link, page, len){
 
     });
 
+    fr.addEventListener("click", function() {
+
+      console.log(a);
+      console.log(event.target.id.split("page")[1]);
+
+    });
+
     notebook.appendChild(fr);
   }
 
@@ -414,19 +421,7 @@ function addAllWords(words) {
   for(var i =0; i < words.length; i++){
     var newRow = tbodyRef.insertRow();
 
-    switch (words[i].type) {
-      case 'ajective':
-        newRow.setAttribute("class", "table-success");
-        break;
-      case 'verb':
-        newRow.setAttribute("class", "table-danger");
-        break;
-      case 'otherW':
-        newRow.setAttribute("class", "table-secondary");
-        break;
-      default:
-        newRow.setAttribute("class", "table-primary");
-    }
+
 
     var numCell = newRow.insertCell();
 
@@ -460,7 +455,25 @@ function addAllWords(words) {
 
           var typeCell = newRow.insertCell();
 
-          var typeWord = document.createTextNode(words[i].type == 'otherW' ? 'other' : words[i].type);
+          var typeWord;
+
+          switch (words[i].type) {
+            case 'ajective':
+              newRow.setAttribute("class", "table-success");
+              typeWord = document.createTextNode("прилагателно");
+              break;
+            case 'verb':
+              newRow.setAttribute("class", "table-danger");
+              typeWord = document.createTextNode("глгол");
+              break;
+            case 'otherW':
+              newRow.setAttribute("class", "table-secondary");
+              typeWord = document.createTextNode("други");
+              break;
+            default:
+              newRow.setAttribute("class", "table-primary");
+              typeWord = document.createTextNode("съществително");
+          }
 
           typeCell.appendChild(typeWord);
   }
