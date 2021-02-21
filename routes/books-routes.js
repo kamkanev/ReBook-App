@@ -30,7 +30,8 @@ router.get("/ebooks", (req, res) => {
           len: (filesInNbook.length-1),
           opened: JSON.parse(data[3].toLowerCase()),
           openPage: parseInt(data[4]),
-          fullLink: ( directoryPathNBooks + '/' + file)
+          fullLink: ( directoryPathNBooks + '/' + file),
+          backgrounds: data[5]
         });
 
       }
@@ -143,7 +144,7 @@ router.post("/createBook", (req, res) => {
         var seitePath = dir + "/" + "seite0.html";
         var dataPath = dir + "/" + "data.json";
 
-        let info = req.body.title+"\n"+req.body.type+"\n"+"../img/books/covers/"+req.body.icon+"\n"+req.body.opened+"\n"+0;
+        let info = req.body.title+"\n"+req.body.type+"\n"+"../img/books/covers/"+req.body.icon+"\n"+req.body.opened+"\n"+0+'\n'+0;
 
         if(!fs.existsSync(directoryPathNBooks + "/" + req.body.title)){
           if(!fs.existsSync(directoryPathVBooks + "/" + req.body.title)){
@@ -246,7 +247,7 @@ router.post("/editBooks", (req, res) => {
 
       var fullIconLink = "../img/books/covers/"+newicon;
 
-      var newInfo = newtit+"\n"+fileData[1]+"\n"+fullIconLink+"\n"+fileData[3]+"\n"+fileData[4];
+      var newInfo = newtit+"\n"+fileData[1]+"\n"+fullIconLink+"\n"+fileData[3]+"\n"+fileData[4]+"\n"+fileData[5];
 
       fs.writeFileSync(fileDir, newInfo);
 
@@ -266,12 +267,24 @@ router.post("/savePage", (req, res) => {
     var fileDir = directoryPath +"/"+req.body.title+"/info.txt";
     var filePage = directoryPath +"/"+req.body.title+"/seite"+req.body.page+".html";
 
-    // var fileData = fs.readFileSync(fileDir,
-    //                             {encoding:'utf8', flag:'r'}).split('\n');
-    //
-    // var newInfo = fileData[0]+"\n"+fileData[1]+"\n"+fileData[2]+"\n"+req.body.opened+"\n"+(req.body.page);
+    var fileData = fs.readFileSync(fileDir,
+                                {encoding:'utf8', flag:'r'}).split('\n');
+
+    var bags = fileData[5].split(" ");
+    bags[parseInt(fileData[4])] = req.body.backgr;
+
+    var str = "";
+    for(var i = 0; i < bags.length; i++){
+      str+= bags[i];
+      if(i < bags.length - 1){
+        str+= " ";
+      }
+    }
+
+    fileData[5] = str;
 
     fs.writeFileSync(filePage, req.body.text);
+    fs.writeFileSync(fileDir, fileData[0]+"\n"+fileData[1]+"\n"+fileData[2]+"\n"+fileData[3]+"\n"+fileData[4]+"\n"+fileData[5]);
 
   }
 
@@ -291,8 +304,21 @@ router.post("/createPage", (req, res) => {
 
     var fileDir = directoryPath +"/"+req.body.title+"/info.txt";
 
-    var data = fs.readFileSync(fileDir,
-                                {encoding:'utf8', flag:'r'}).split('\n');
+    var data = fs.readFileSync(fileDir,{encoding:'utf8', flag:'r'}).split('\n');
+
+
+        var bags = data[5].split(" ");
+        bags[parseInt(data[4])] = req.body.backgr;
+
+        var str = "";
+        for(var i = 0; i < bags.length; i++){
+          str+= bags[i];
+            str+= " ";
+        }
+
+        str+="0";
+
+        data[5] = str;
 
         data[4] = parseInt(data[4])+1;
 
@@ -306,7 +332,7 @@ router.post("/createPage", (req, res) => {
 
     fs.writeFileSync(filePage, req.body.text);
     fs.writeFileSync(fileNextPage, "");
-    fs.writeFileSync(fileDir, data[0]+"\n"+data[1]+"\n"+data[2]+"\n"+data[3]+"\n"+data[4]+"\n");
+    fs.writeFileSync(fileDir, data[0]+"\n"+data[1]+"\n"+data[2]+"\n"+data[3]+"\n"+data[4]+"\n"+data[5]);
 
   }
 
@@ -337,7 +363,7 @@ router.post("/goToPage", (req, res) => {
           data[4] = 0;
         }
 
-      fs.writeFileSync(fileDir, data[0]+"\n"+data[1]+"\n"+data[2]+"\n"+data[3]+"\n"+data[4]+"\n");
+      fs.writeFileSync(fileDir, data[0]+"\n"+data[1]+"\n"+data[2]+"\n"+data[3]+"\n"+data[4]+"\n"+data[5]);
   }
 
   res.redirect('/profile/ebooks');
@@ -357,7 +383,7 @@ if(req.user){
   var fileData = fs.readFileSync(fileDir,
                               {encoding:'utf8', flag:'r'}).split('\n');
 
-  var newInfo = fileData[0]+"\n"+fileData[1]+"\n"+fileData[2]+"\n"+req.body.opened+"\n"+req.body.page;
+  var newInfo = fileData[0]+"\n"+fileData[1]+"\n"+fileData[2]+"\n"+req.body.opened+"\n"+req.body.page+"\n"+fileData[5];
 
   fs.writeFileSync(fileDir, newInfo);
 

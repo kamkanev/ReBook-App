@@ -142,7 +142,7 @@
 			<div class="card-header">
 
           <div class="btn-group mr-2" role="group" aria-label="First group">
-            <button id="backToAll" style="display: none;" onclick="exitBook()" type="button" class="btn btn-info"><i class="fas fa-chevron-left"></i></button>
+            <button id="backToAll" style="display: none;" onclick="backButt()" type="button" class="btn btn-info"><i class="fas fa-chevron-left"></i></button>
             <h4 id="titleBook" class="card-title" style="display: none;">Тетрадки</h4>
           </div>
                   <button id="deleteBooks" type="button" onclick="deleteBooks()" style="display:none; background-color: #c91616;" class="btn btn-danger float-right"><i class="fas fa-trash"></i></button>
@@ -190,9 +190,14 @@
               </div>
               <div id="notebooks" style="display: none;" class="row">
               </div>
+
+
               <div id="notebook" style="display: none;" class="row">
+
                       <div class="col-lg-3" style="margin-left: 20px;">
-                        <button style = "color: white; background-color: #368f1b;" id="selectBookPages" type="button" onclick="enablePageSelection()" class="btn btn-success float-right">Упр. Страници</button>
+
+                        <button style = "color: white; background-color: #368f1b;" id="selectBookPages" type="button" onclick="pageSelctor()" class="btn btn-success float-right">Упр. Страници</button>
+
                 <button style="margin-bottom: 10px;" type="button" onclick="execCmd('undo');"><i class="fas fa-undo"></i></button>
                         <button style="margin-bottom: 10px;" type="button" onclick="execCmd('redo');"><i class="fas fa-redo"></i></button>
                 <br>
@@ -253,7 +258,7 @@
                           <option value="7">7</option>
                         </select>
                 <br>
-                        Вид на листа: <select style="margin-bottom: 10px;" onchange="changeBackground(this.value);">
+                        Вид на листа: <select style="margin-bottom: 10px;" id="listChange" onchange="changeBackground(this.value);">
                           <option value="0">Лист</option>
                           <option value="1">Жълт лист</option>
                           <option value="2">Бял лист без редове</option>

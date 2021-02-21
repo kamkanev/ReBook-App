@@ -2,6 +2,8 @@ var isInEditMode = true;
 
 var isInSelectMode = false;
 
+var isInPageSelectMode = false;
+
 var bookTitles = [];
 
 function enableEditMode() {
@@ -51,61 +53,7 @@ function changeBackground(val) {
 
   console.log(val);
 
-   if(val == 0){
-     document.getElementById('textEditor').style = "";
-   }else if(val == 1){
-    document.getElementById('textEditor').style.cssText = "background: url('../img/books/backgrounds/bgBook1.png') repeat-y;"+
-     "line-height: 25px;"+
-     "padding: 2px 10px;"+
-     "display: block;"+
-     "resize: none;"+
-     "height: 800px;"+
-     "width: 630px;"+
-     "margin: 2% auto;"+
-     "-webkit-background-size:  100% 50px;"+
-     "background-size: 100% 50px;"+
-     "border: solid 1px #ddd;";
-  }else if(val == 2){
-    document.getElementById('textEditor').style.cssText = "background: url('../img/books/backgrounds/bgBook2.png') repeat-y;"+
-     "line-height: 25px;"+
-     "padding: 2px 10px;"+
-     "display: block;"+
-     "resize: none;"+
-     "height: 800px;"+
-     "width: 630px;"+
-     "margin: 2% auto;"+
-     "-webkit-background-size:  100% 50px;"+
-     "background-size: 100% 50px;"+
-     "border: solid 1px #ddd;";
-  }else if(val == 3){
-    document.getElementById('textEditor').style.cssText = "background: url('../img/books/backgrounds/bgBook3.png') repeat-y;"+
-     "line-height: 25px;"+
-     "padding: 2px 10px;"+
-     "display: block;"+
-     "resize: none;"+
-     "height: 800px;"+
-     "width: 630px;"+
-     "margin: 2% auto;"+
-     "-webkit-background-size:  100% 50px;"+
-     "background-size: 100% 50px;"+
-     "border: solid 1px #ddd;";
-  }else if(val == 4){
-    document.getElementById('textEditor').style = "border: 1px solid #EEEEEE;"+
-        "box-shadow: 1px 1px 0 #DDDDDD;"+
-        "display: block;"+
-        "font-family: 'Marck Script',cursive;"+
-        "font-size: 22px;"+
-        "line-height: 50px;"+
-        "margin: 2% auto;"+
-        "padding: 11px 20px 0 70px;"+
-        "resize: none;"+
-        "height: 800px;"+
-        "width: 630px;"+
-        "background-image: -moz-linear-gradient(top , transparent, transparent 49px,#E7EFF8 0px), -moz-radial-gradient(4% 50%, circle closest-corner, #f5f5f5, #f5f5f5 39%, transparent 0%), -moz-radial-gradient(3.9% 46% , circle closest-corner, #CCCCCC, #CCCCCC 43.5%, transparent 0%);"+
-        "background-image: -webkit-linear-gradient(top , transparent, transparent 49px,#E7EFF8 0), -webkit-radial-gradient(4% 50%, circle closest-corner, #f5f5f5, #f5f5f5 39%, transparent 0%), -webkit-radial-gradient(3.9% 46%, circle closest-corner, #cccccc, #cccccc 43.5%, transparent 0%);"+
-        "-webkit-background-size:  100% 50px;"+
-        "background-size: 100% 50px;";
-  }
+  changeBackgroundById(val, 'textEditor');
 
 }
 
@@ -248,13 +196,17 @@ async function createNewBook(){
 })
 }
 
-function showAllPages(link, page, len){
+function showAllPages(link, page, len, backs){
 
   var notebook = document.getElementById("notebooks");
+
+
 
   var selPId = "page"+page;
 
   for(var i = 0; i < len; i++){
+
+    var note = document.createElement("div");
 
     var fr = document.createElement("iframe");
 
@@ -268,6 +220,59 @@ function showAllPages(link, page, len){
     }else{
       fr.style.border = "solid #000000";
     }
+    //console.log(fr.id, backs[i]);
+    fr.addEventListener("load",function(event) {
+
+      var val = backs[parseInt(event.target.id.split("page")[1])];
+      console.log(val);
+      if(val == 0){
+        event.target.style = "";
+      }else if(val == 1){
+       event.target.style.cssText = "background: url('../img/books/backgrounds/bgBook1.png') repeat-y;"+
+        "line-height: 25px;"+
+        "padding: 2px 10px;"+
+        "display: block;"+
+        "resize: none;"+
+        "margin: 2% auto;"+
+        "-webkit-background-size:  100% 50px;"+
+        "background-size: 100% 50px;"+
+        "border: solid 1px #ddd;";
+     }else if(val == 2){
+       event.target.style.cssText = "background: url('../img/books/backgrounds/bgBook2.png') repeat-y;"+
+        "line-height: 25px;"+
+        "padding: 2px 10px;"+
+        "display: block;"+
+        "resize: none;"+
+        "margin: 2% auto;"+
+        "-webkit-background-size:  100% 50px;"+
+        "background-size: 100% 50px;"+
+        "border: solid 1px #ddd;";
+     }else if(val == 3){
+       event.target.style.cssText = "background: url('../img/books/backgrounds/bgBook3.png') repeat-y;"+
+        "line-height: 25px;"+
+        "padding: 2px 10px;"+
+        "display: block;"+
+        "resize: none;"+
+        "margin: 2% auto;"+
+        "-webkit-background-size:  100% 50px;"+
+        "background-size: 100% 50px;"+
+        "border: solid 1px #ddd;";
+     }else if(val == 4){
+       event.target.style = "border: 1px solid #EEEEEE;"+
+           "box-shadow: 1px 1px 0 #DDDDDD;"+
+           "display: block;"+
+           "font-family: 'Marck Script',cursive;"+
+           "font-size: 22px;"+
+           "line-height: 50px;"+
+           "margin: 2% auto;"+
+           "padding: 11px 20px 0 70px;"+
+           "resize: none;"+
+           "background-image: -moz-linear-gradient(top , transparent, transparent 49px,#E7EFF8 0px), -moz-radial-gradient(4% 50%, circle closest-corner, #f5f5f5, #f5f5f5 39%, transparent 0%), -moz-radial-gradient(3.9% 46% , circle closest-corner, #CCCCCC, #CCCCCC 43.5%, transparent 0%);"+
+           "background-image: -webkit-linear-gradient(top , transparent, transparent 49px,#E7EFF8 0), -webkit-radial-gradient(4% 50%, circle closest-corner, #f5f5f5, #f5f5f5 39%, transparent 0%), -webkit-radial-gradient(3.9% 46%, circle closest-corner, #cccccc, #cccccc 43.5%, transparent 0%);"+
+           "-webkit-background-size:  100% 50px;"+
+           "background-size: 100% 50px;";
+     }
+     });
 
     fr.addEventListener("mouseenter", function(event){
 
@@ -283,14 +288,20 @@ function showAllPages(link, page, len){
 
     });
 
-    fr.addEventListener("click", function() {
 
-      console.log(a);
-      console.log(event.target.id.split("page")[1]);
+
+    note.addEventListener("click", function() {
+
+      //console.log(a);
+      console.log("uvhkjl");
 
     });
 
-    notebook.appendChild(fr);
+    note.appendChild(fr);
+
+    note.style.margin = "20px 10px 20px 30px";
+
+    notebook.appendChild(note);
   }
 
 }
@@ -298,9 +309,22 @@ function showAllPages(link, page, len){
 function enablePageSelection(){
   document.getElementById("notebooks").style.display = "";
   document.getElementById("notebook").style.display = "none"; // edit pages
+  isInPageSelectMode = true;
 }
 
-function goToBook(link, title, type, icon, length, page, data) {
+function disablePageSelection(){
+  document.getElementById("notebooks").style.display = "none";
+  document.getElementById("notebook").style.display = ""; // edit pages
+
+  isInPageSelectMode = false;
+}
+
+function pageSelctor() {
+  document.getElementById("notebook").style.display == "" ? enablePageSelection() :disablePageSelection();
+
+}
+
+function goToBook(link, title, type, icon, length, page, backgrounds = "", data) {
   console.log(title, type, icon, length, page);
 
   document.getElementById("booksLoader").style.display = "none";
@@ -312,9 +336,17 @@ function goToBook(link, title, type, icon, length, page, data) {
   document.getElementById('titleBook').innerHTML = title;
   document.getElementById('backToAll').style.display = "";
 
+  var backs = backgrounds.split(' ');
+
   if(type == "nbook"){
 
-    showAllPages(link, page, length);
+
+
+    showAllPages(link, page, length, backs);
+
+    for(var i = 0; i <= length; i++){
+      changeBackgroundById(("page"+i), backs[i]);
+    }
 
     document.getElementById('savePage').style.display = "";
 
@@ -340,7 +372,9 @@ function goToBook(link, title, type, icon, length, page, data) {
 
     if(length <= 0){
     }else{
-        document.getElementById("textEditor").src = "." + link + "/seite"+page+".html"
+        document.getElementById("textEditor").src = "." + link + "/seite"+page+".html";
+        changeBackground(backs[page]);
+        document.getElementById('listChange').selectedIndex = backs[page];
     }
   }else{
 
@@ -404,10 +438,16 @@ function goToBook(link, title, type, icon, length, page, data) {
   pag.setAttribute('value',page);
   pag.setAttribute('name',"page");
 
+  var backgr = document.createElement("input"); //input element, Submit button
+  backgr.setAttribute('type',"hidden");
+  backgr.setAttribute('value', backs[page]);
+  backgr.setAttribute('name',"backgr");
+
   f.appendChild(tit);
   f.appendChild(typ);
   f.appendChild(ope);
   f.appendChild(pag);
+  f.appendChild(backgr);
 
   document.body.appendChild(f);
 
@@ -541,6 +581,14 @@ function exitBook() {
   form.submit();
 }
 
+function backButt() {
+  if(isInPageSelectMode){
+    disablePageSelection();
+  }else{
+    exitBook();
+  }
+}
+
 function savePage() {
 
   var form = document.getElementById('exitForm');
@@ -554,8 +602,9 @@ function savePage() {
   text.setAttribute('name',"text");
 
   form.appendChild(text);
-
   // console.log(form);
+
+  document.getElementsByName('backgr')[0].setAttribute('value', document.getElementById("listChange").value);
 
   form.submit();
 
@@ -576,6 +625,7 @@ function createPage() {
   form.appendChild(text);
 
   // console.log(form);
+  document.getElementsByName('backgr')[0].setAttribute('value', document.getElementById("listChange").value);
 
   form.submit();
 
@@ -815,3 +865,72 @@ async function editBooks() {
   }
 
 }
+
+function changeBackgroundById(val = 0, id) {
+  if(val == 0){
+    document.getElementById(id).style = "";
+  }else if(val == 1){
+   document.getElementById(id).style.cssText = "background: url('../img/books/backgrounds/bgBook1.png') repeat-y;"+
+    "line-height: 25px;"+
+    "padding: 2px 10px;"+
+    "display: block;"+
+    "resize: none;"+
+    "height: 800px;"+
+    "width: 630px;"+
+    "margin: 2% auto;"+
+    "-webkit-background-size:  100% 50px;"+
+    "background-size: 100% 50px;"+
+    "border: solid 1px #ddd;";
+ }else if(val == 2){
+   document.getElementById(id).style.cssText = "background: url('../img/books/backgrounds/bgBook2.png') repeat-y;"+
+    "line-height: 25px;"+
+    "padding: 2px 10px;"+
+    "display: block;"+
+    "resize: none;"+
+    "height: 800px;"+
+    "width: 630px;"+
+    "margin: 2% auto;"+
+    "-webkit-background-size:  100% 50px;"+
+    "background-size: 100% 50px;"+
+    "border: solid 1px #ddd;";
+ }else if(val == 3){
+   document.getElementById(id).style.cssText = "background: url('../img/books/backgrounds/bgBook3.png') repeat-y;"+
+    "line-height: 25px;"+
+    "padding: 2px 10px;"+
+    "display: block;"+
+    "resize: none;"+
+    "height: 800px;"+
+    "width: 630px;"+
+    "margin: 2% auto;"+
+    "-webkit-background-size:  100% 50px;"+
+    "background-size: 100% 50px;"+
+    "border: solid 1px #ddd;";
+ }else if(val == 4){
+   document.getElementById(id).style = "border: 1px solid #EEEEEE;"+
+       "box-shadow: 1px 1px 0 #DDDDDD;"+
+       "display: block;"+
+       "font-family: 'Marck Script',cursive;"+
+       "font-size: 22px;"+
+       "line-height: 50px;"+
+       "margin: 2% auto;"+
+       "padding: 11px 20px 0 70px;"+
+       "resize: none;"+
+       "height: 800px;"+
+       "width: 630px;"+
+       "background-image: -moz-linear-gradient(top , transparent, transparent 49px,#E7EFF8 0px), -moz-radial-gradient(4% 50%, circle closest-corner, #f5f5f5, #f5f5f5 39%, transparent 0%), -moz-radial-gradient(3.9% 46% , circle closest-corner, #CCCCCC, #CCCCCC 43.5%, transparent 0%);"+
+       "background-image: -webkit-linear-gradient(top , transparent, transparent 49px,#E7EFF8 0), -webkit-radial-gradient(4% 50%, circle closest-corner, #f5f5f5, #f5f5f5 39%, transparent 0%), -webkit-radial-gradient(3.9% 46%, circle closest-corner, #cccccc, #cccccc 43.5%, transparent 0%);"+
+       "-webkit-background-size:  100% 50px;"+
+       "background-size: 100% 50px;";
+ }
+}
+
+var monitor = setInterval(function(){
+    var elem = document.activeElement;
+    if(elem && elem.tagName == 'IFRAME' && elem.id != "textEditor"){
+
+      var num = parseInt(elem.id.split("page")[1]) - (parseInt(document.getElementById('pageNum').innerHTML)-1);
+        clearInterval(monitor);
+
+        goToPage(num);
+    }
+}, 100);

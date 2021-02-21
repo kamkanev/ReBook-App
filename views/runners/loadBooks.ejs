@@ -22,11 +22,18 @@
 
 		<% if(book.opened){ %>
 
-				<script>
-					goToBook('<%= book.fullLink %>','<%= book.title %>', '<%= book.type %>', '<%= book.icon %>', <%= book.len %>, <%= book.openPage %>, <%- JSON.stringify(book.data ) %>)
-				</script>
-				<% return; %>
+				<% if(book.type == "nbook"){ %>
+						<script>
+							goToBook('<%= book.fullLink %>','<%= book.title %>', '<%= book.type %>', '<%= book.icon %>', <%= book.len %>, <%= book.openPage %>, <%- JSON.stringify(book.backgrounds ) %>, <%- JSON.stringify(book.data) %>)
+						</script>
+						<% return; %>
+					<% }else{ %>
 
+						<script>
+							goToBook('<%= book.fullLink %>','<%= book.title %>', '<%= book.type %>', '<%= book.icon %>', <%= book.len %>, <%= book.openPage %>, "", <%- JSON.stringify(book.data) %>)
+						</script>
+						<% return; %>
+					<% } %>
 		<% } %>
 	<% }); %>
 	</div>
