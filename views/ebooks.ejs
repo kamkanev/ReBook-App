@@ -153,10 +153,12 @@
               </div>
               <div id="vocabulary" style="display:none; padding: 20px;">
                 <form id="addWord" action="/profile/createNewWord" method="post">
-                  <input type="text" name="word" placeholder="Думата на чужд език." required>
-                  <input type="text" name="Mword" value="" placeholder="Множествено число(ако има).">
-                  <input type="text" name="trWord" placeholder="Думата на български." required>
-                  <input type="text" name="transcr" placeholder="Транскрипция.">
+				  <div style = "width:" class="form-group">
+					<input type="text" name="word" class="form-control" id="exampleInputPassword1" placeholder="Думата на чужд език" required>
+					<input type="text" name="Mword" class="form-control" id="exampleInputPassword1" value="" placeholder="Множествено число(ако има)">
+					<input type="text" name="trWord" class="form-control" id="exampleInputPassword1" placeholder="Думата на български" required>
+					<input type="text" name="transcr" class="form-control" id="exampleInputPassword1" placeholder="Транскрипция">
+				  </div>
                   <br><br>
                   <input type="radio" id="ajective" name="wType" value="ajective" checked>
                   <label for="ajective">Прилагателно</label><br>

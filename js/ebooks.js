@@ -211,8 +211,8 @@ function showAllPages(link, page, len, backs){
     var fr = document.createElement("iframe");
 
     fr.id = "page"+i;
-    fr.width = 400;
-    fr.height = 600;
+    fr.width = 300;
+    fr.height = 450;
     fr.src = "." + link + "/seite"+i+".html";
 
     if(i == page){
@@ -233,7 +233,7 @@ function showAllPages(link, page, len, backs){
         "padding: 2px 10px;"+
         "display: block;"+
         "resize: none;"+
-        "margin: 2% auto;"+
+        //"margin: 2% auto;"+
         "-webkit-background-size:  100% 50px;"+
         "background-size: 100% 50px;"+
         "border: solid 1px #ddd;";
@@ -243,7 +243,7 @@ function showAllPages(link, page, len, backs){
         "padding: 2px 10px;"+
         "display: block;"+
         "resize: none;"+
-        "margin: 2% auto;"+
+        //"margin: 2% auto;"+
         "-webkit-background-size:  100% 50px;"+
         "background-size: 100% 50px;"+
         "border: solid 1px #ddd;";
@@ -253,7 +253,7 @@ function showAllPages(link, page, len, backs){
         "padding: 2px 10px;"+
         "display: block;"+
         "resize: none;"+
-        "margin: 2% auto;"+
+        //"margin: 2% auto;"+
         "-webkit-background-size:  100% 50px;"+
         "background-size: 100% 50px;"+
         "border: solid 1px #ddd;";
@@ -264,7 +264,7 @@ function showAllPages(link, page, len, backs){
            "font-family: 'Marck Script',cursive;"+
            "font-size: 22px;"+
            "line-height: 50px;"+
-           "margin: 2% auto;"+
+           /*"margin: 2% auto;"+*/
            "padding: 11px 20px 0 70px;"+
            "resize: none;"+
            "background-image: -moz-linear-gradient(top , transparent, transparent 49px,#E7EFF8 0px), -moz-radial-gradient(4% 50%, circle closest-corner, #f5f5f5, #f5f5f5 39%, transparent 0%), -moz-radial-gradient(3.9% 46% , circle closest-corner, #CCCCCC, #CCCCCC 43.5%, transparent 0%);"+
@@ -272,6 +272,10 @@ function showAllPages(link, page, len, backs){
            "-webkit-background-size:  100% 50px;"+
            "background-size: 100% 50px;";
      }
+	 event.target.style.border = "solid #000000";
+      if(event.target.id == selPId){
+        event.target.style.border = "thick solid #00FF00";
+      }
      });
 
     fr.addEventListener("mouseenter", function(event){
@@ -475,7 +479,7 @@ function addAllWords(words) {
     var newWord = document.createTextNode(words[i].name);
 
     nameCell.appendChild(newWord);
-
+	
       var multCell = newRow.insertCell();
 
       var multWord = document.createTextNode(words[i].multiple);
