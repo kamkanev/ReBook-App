@@ -461,7 +461,7 @@ function addAllWords(words) {
   for(var i =0; i < words.length; i++){
     var newRow = tbodyRef.insertRow();
 
-
+	newRow.style = "text-align: center;";
 
     var numCell = newRow.insertCell();
 
@@ -470,6 +470,7 @@ function addAllWords(words) {
     numCell.appendChild(num);
 
     var nameCell = newRow.insertCell();
+
 
     var newWord = document.createTextNode(words[i].name);
 
@@ -504,7 +505,7 @@ function addAllWords(words) {
               break;
             case 'verb':
               newRow.setAttribute("class", "table-danger");
-              typeWord = document.createTextNode("глгол");
+              typeWord = document.createTextNode("глагол");
               break;
             case 'otherW':
               newRow.setAttribute("class", "table-secondary");

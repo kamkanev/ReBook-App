@@ -151,13 +151,13 @@
                   <button id="createBooks" type="button" onclick="createNewBook()" class="btn btn-outline-info float-right"><i class="fas fa-user-edit"></i><b>Създай тетрадка<b></button>
                   <button id="savePage" style="display:none;" type="button" onclick="savePage()" class="btn btn-success float-right"><i class="fas fa-save"></i> <b>Запази<b></button>
               </div>
-              <div id="vocabulary" style="display:none">
+              <div id="vocabulary" style="display:none; padding: 20px;">
                 <form id="addWord" action="/profile/createNewWord" method="post">
                   <input type="text" name="word" placeholder="Думата на чужд език." required>
                   <input type="text" name="Mword" value="" placeholder="Множествено число(ако има).">
                   <input type="text" name="trWord" placeholder="Думата на български." required>
                   <input type="text" name="transcr" placeholder="Транскрипция.">
-                  <br>
+                  <br><br>
                   <input type="radio" id="ajective" name="wType" value="ajective" checked>
                   <label for="ajective">Прилагателно</label><br>
                   <input type="radio" id="noun" name="wType" value="noun">
@@ -166,17 +166,18 @@
                   <label for="verb">Глагол</label><br>
                   <input type="radio" id="otherW" name="wType" value="otherW">
                   <label for="otherW">Други</label>
+				  <input style = "float: right; color: white; background-color: #368f1b; font-weight: bold;" type="submit" class="btn btn-success" value="Добави">
+				  <br><br>
                   <hr>
-                  <input type="submit" class="btn btn-success" value="Добави">
                 </form>
 
 
                 <table id="vkWords" class="table table-hover">
                   <thead>
-                    <tr>
+                    <tr style = "text-align: center;">
                       <th scope="col">№</th>
                       <th scope="col">Дума</th>
-                      <th scope="col">Множествено число</th>
+                      <th scope="col">Мн. число</th>
                       <th scope="col">Думата на български</th>
                       <th scope="col">Транскрипция</th>
                       <th scope="col">Вид</th>
