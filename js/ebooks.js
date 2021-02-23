@@ -464,6 +464,7 @@ function addAllWords(words) {
 
   for(var i =0; i < words.length; i++){
     var newRow = tbodyRef.insertRow();
+    newRow.id = "word"+i;
 
 	newRow.style = "text-align: center;";
 
@@ -971,6 +972,26 @@ function findBookByName() {
 
         }
       }
+  }else if(document.getElementById("vocabulary").style.display != "none"){
+
+    const table = document.getElementById("vkWords").getElementsByTagName('tbody')[0];
+
+    for (let i = 0; i < table.children.length; i++) {
+
+      if(table.children[i].tagName === "TR"){
+
+        var text = table.children[i].innerText;
+
+        if(!text.toLowerCase().includes(nameS)){
+          //console.log(nameBook);
+          table.children[i].style.display = "none";
+        }else{
+            table.children[i].style.display = "";
+        }
+
+      }
+    }
+
   }
 
 }
