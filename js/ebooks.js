@@ -935,17 +935,42 @@ function findBookByName() {
 
   var bnames = [];
 
-  const bookContainer = document.getElementById('booksLoader');
-  for (let i = 0; i < bookContainer.children.length; i++) {
-    if(bookContainer.children[i].tagName === "DIV"){
-      var nameBook = bookContainer.children[i].id.substring(1);
-      if(!nameBook.toLowerCase().includes(nameS)){
-        //console.log(nameBook);
-        bookContainer.children[i].style.display = "none";
-      }else{
-          bookContainer.children[i].style.display = "";
+  if(document.getElementById("booksLoader").style.display != "none"){
+    const bookContainer = document.getElementById('booksLoader');
+    for (let i = 0; i < bookContainer.children.length; i++) {
+      if(bookContainer.children[i].tagName === "DIV"){
+        var nameBook = bookContainer.children[i].id.substring(1);
+        if(!nameBook.toLowerCase().includes(nameS)){
+          //console.log(nameBook);
+          bookContainer.children[i].style.display = "none";
+        }else{
+            bookContainer.children[i].style.display = "";
+        }
       }
     }
+  }else if(document.getElementById("notebook").style.display == "" || document.getElementById("notebooks").style.display == ""){
+
+    enablePageSelection();
+
+      const notebook = document.getElementById("notebooks");
+      for (let i = 0; i < notebook.children.length; i++) {
+
+        if(notebook.children[i].children[0].tagName === "IFRAME"){
+          // console.log(notebook.children[i].children[0].contentWindow.document.body.innerText);
+
+            var text = notebook.children[i].children[0].contentWindow.document.body.innerText;
+
+            // console.log();
+
+            if(!text.toLowerCase().includes(nameS)){
+              //console.log(nameBook);
+              notebook.children[i].children[0].style.display = "none";
+            }else{
+                notebook.children[i].children[0].style.display = "";
+            }
+
+        }
+      }
   }
 
 }
