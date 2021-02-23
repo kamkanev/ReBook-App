@@ -479,7 +479,7 @@ function addAllWords(words) {
     var newWord = document.createTextNode(words[i].name);
 
     nameCell.appendChild(newWord);
-	
+
       var multCell = newRow.insertCell();
 
       var multWord = document.createTextNode(words[i].multiple);
@@ -927,6 +927,27 @@ function changeBackgroundById(val = 0, id) {
        "-webkit-background-size:  100% 50px;"+
        "background-size: 100% 50px;";
  }
+}
+
+function findBookByName() {
+
+  var nameS = document.getElementById('sBookName').value;
+
+  var bnames = [];
+
+  const bookContainer = document.getElementById('booksLoader');
+  for (let i = 0; i < bookContainer.children.length; i++) {
+    if(bookContainer.children[i].tagName === "DIV"){
+      var nameBook = bookContainer.children[i].id.substring(1);
+      if(!nameBook.toLowerCase().includes(nameS)){
+        //console.log(nameBook);
+        bookContainer.children[i].style.display = "none";
+      }else{
+          bookContainer.children[i].style.display = "";
+      }
+    }
+  }
+
 }
 
 var monitor = setInterval(function(){
