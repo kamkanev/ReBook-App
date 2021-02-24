@@ -96,7 +96,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" style = "font-size: 15pt"><b>Електронна тетрадка</b></a>
+            <a class="navbar-brand" style = "font-size: 15pt"><b>Е - тетрадка</b></a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -143,7 +143,7 @@
 
           <div class="btn-group mr-2" role="group" aria-label="First group">
             <button id="backToAll" style="display: none;" onclick="backButt()" type="button" class="btn btn-info"><i class="fas fa-chevron-left"></i></button>
-            <h4 id="titleBook" class="card-title" style="display: none;">Тетрадки</h4>
+            <h4 id="titleBook" class="card-title" style="display: none; margin: 10px">Тетрадки</h4>
           </div>
                   <button id="deleteBooks" type="button" onclick="deleteBooks()" style="display:none; background-color: #c91616;" class="btn btn-danger float-right"><i class="fas fa-trash"></i></button>
                   <button id="editBooks" type="button" onclick="editBooks()" style="display:none; background-color: #1771bf" class="btn btn-info float-right"><i class="fas fa-pen"></i></button>
@@ -153,7 +153,7 @@
               </div>
               <div id="vocabulary" style="display:none; padding: 20px;">
                 <form id="addWord" action="/profile/createNewWord" method="post">
-				  <div style = "width:" class="form-group">
+				  <div style = "width: 280px;" class="form-group">
 					<input type="text" name="word" class="form-control" id="exampleInputPassword1" placeholder="Думата на чужд език" required>
 					<input type="text" name="Mword" class="form-control" id="exampleInputPassword1" value="" placeholder="Множествено число(ако има)">
 					<input type="text" name="trWord" class="form-control" id="exampleInputPassword1" placeholder="Думата на български" required>
@@ -173,7 +173,7 @@
                   <hr>
                 </form>
 
-
+				<div style = "width: 100%;">
                 <table id="vkWords" class="table table-hover">
                   <thead>
                     <tr style = "text-align: center;">
@@ -186,9 +186,9 @@
                     </tr>
                   </thead>
                   <tbody>
-
                   </tbody>
                 </table>
+				</div>
 
               </div>
               <div id="notebooks" style="display: none;" class="row">

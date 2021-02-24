@@ -2,12 +2,15 @@ table.table tbody tr td{
   border-left: 1px solid black;
   border-right: 1px solid black;
 }
-/*@media only screen and (max-device-width: 600px) and (orientation: landscape) {
-  table.table tr td{
-    font-size: 10pt;
-	width: 50%;
-	}
-} */
+
+@media screen and (max-width: 600px) {
+  table.table tbody tr td{
+    font-size: 5pt;
+  }
+  table.table tr th{
+    font-size: 5pt;
+  }	
+}
 /* Slider switch */
 .switch {
   position: relative;
