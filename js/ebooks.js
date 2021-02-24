@@ -4,6 +4,8 @@ var isInSelectMode = false;
 
 var isInPageSelectMode = false;
 
+var isSelectingPages = false;
+
 var bookTitles = [];
 
 function enableEditMode() {
@@ -200,13 +202,23 @@ function showAllPages(link, page, len, backs){
 
   var notebook = document.getElementById("notebooks");
 
-
-
   var selPId = "page"+page;
+
 
   for(var i = 0; i < len; i++){
 
     var note = document.createElement("div");
+
+    var inPId = "iPage"+i;
+
+    var inputSelect = document.createElement('input');
+
+    inputSelect.setAttribute('type', 'checkbox');
+    inputSelect.setAttribute('id', inPId);
+    inputSelect.setAttribute('name', inPId);
+    inputSelect.style.display = "none";
+
+    note.appendChild(inputSelect)
 
     var fr = document.createElement("iframe");
 
@@ -312,12 +324,14 @@ function showAllPages(link, page, len, backs){
 
 function enablePageSelection(){
   document.getElementById("notebooks").style.display = "";
+  // document.getElementById('selectPage').style.display = "";
   document.getElementById("notebook").style.display = "none"; // edit pages
   isInPageSelectMode = true;
 }
 
 function disablePageSelection(){
   document.getElementById("notebooks").style.display = "none";
+  document.getElementById('selectPage').style.display = "none";
   document.getElementById("notebook").style.display = ""; // edit pages
 
   isInPageSelectMode = false;
@@ -353,6 +367,8 @@ function goToBook(link, title, type, icon, length, page, backgrounds = "", data)
     }
 
     document.getElementById('savePage').style.display = "";
+    //document.getElementById('selectPage').style.display = "";
+    document.getElementById('deletePage').style.display = "";
 
     document.getElementById("notebook").style.display = ""; // edit pages
 
@@ -996,13 +1012,65 @@ function findBookByName() {
 
 }
 
+function selectPage() {
+
+  //isSelectingPages = !isSelectingPages;
+
+}
+
+function onElementFocused(e)
+{
+    if (e && e.target){
+
+        document.activeElement = e.target == document ? null : e.target;
+        console.log(document.activeElement);
+      }
+}
+
+function onElementClick(e) {
+
+  console.log(e.target);
+
+}
+
+function deletePage() {
+
+  var number = parseInt(document.getElementById('pageNum').innerHTML)-1;
+
+  var f = document.getElementById('exitForm');
+
+    f.setAttribute('action',"/profile/deletePage");
+
+    f.submit();
+
+}
+
 var monitor = setInterval(function(){
-    var elem = document.activeElement;
-    if(elem && elem.tagName == 'IFRAME' && elem.id != "textEditor"){
 
-      var num = parseInt(elem.id.split("page")[1]) - (parseInt(document.getElementById('pageNum').innerHTML)-1);
+  var elem = document.activeElement;
+  //console.log(elem.parentElement);
+  var parent = document.activeElement.parentElement;
+
+  if(elem && elem.tagName == 'IFRAME' && elem.id != "textEditor"){
+
+    var num = parseInt(elem.id.split("page")[1]) - (parseInt(document.getElementById('pageNum').innerHTML)-1);
+
+
+      if(!isSelectingPages){
         clearInterval(monitor);
-
         goToPage(num);
-    }
+      }else{
+        // for(var i = 0; i < parent.children.length; i++){
+        //
+        //   if(parent.children[i].tagName === "INPUT"){
+        //       parent.children[i].checked = true;
+        //       parent.children[i].style.display = "none"
+        //       //  elem.addEventListener("focus", onElementFocused, true);
+        //       break;
+        //   }
+        //
+        // }
+      }
+  }
+
 }, 100);

@@ -150,6 +150,9 @@
                   <button style = "color: white; background-color: #368f1b;" id="selectBooks" type="button" onclick="enableSelectModeBooks()" class="btn btn-success float-right"><b>Избери<b></button>
                   <button id="createBooks" type="button" onclick="createNewBook()" class="btn btn-outline-info float-right"><i class="fas fa-user-edit"></i><b>Създай тетрадка<b></button>
                   <button id="savePage" style="display:none;" type="button" onclick="savePage()" class="btn btn-success float-right"><i class="fas fa-save"></i> <b>Запази<b></button>
+                    <button id="selectPage" style="display:none;" type="button" onclick="selectPage()" class="btn btn-info float-right"><i class="fas fa-pen"></i> <b>Избери<b></button>
+                  <button id="deletePage" style="display:none;" type="button" onclick="deletePage()" class="btn btn-danger float-right"><i class="fas fa-trash"></i> <b>Изтрий<b></button>
+
               </div>
               <div id="vocabulary" style="display:none; padding: 20px;">
                 <form id="addWord" action="/profile/createNewWord" method="post">

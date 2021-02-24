@@ -370,6 +370,22 @@ router.post("/goToPage", (req, res) => {
 
 });
 
+router.post('/deletePage', (req, res) =>{
+
+  if(req.user){
+
+    console.log("Delete page: ", req.body);
+
+      const dir = './users/'+req.user.id+'/'+req.body.type+"/"+req.body.title+"";
+
+      deletePageByNumber(req.body.page, dir);
+
+  }
+
+  res.redirect('/profile/ebooks');
+
+});
+
 router.post('/openBook', (req, res) =>{
 
 if(req.user){
@@ -392,5 +408,58 @@ if(req.user){
   res.redirect('/profile/ebooks');
 
 });
+
+function deletePageByNumber(number, dir) {
+
+  var data = fs.readFileSync(dir+"/info.txt",
+                              {encoding:'utf8', flag:'r'}).split('\n');
+
+  var filesInbook = fs.readdirSync(dir);
+
+
+
+  rimraf.sync(dir+"/seite"+number+".html");
+  var backs = data[5].split(" ");
+  var newBacks = [];
+  var backStr = "";
+
+  if(filesInbook.length > 2){
+    for(var i = 0; i < filesInbook.length-1; i++){
+      console.log(dir+'/seite'+i+'.html', dir+'/seite'+(i-1)+'.html');
+      if(i > parseInt(number)){
+        fs.renameSync(dir+'/seite'+i+'.html', dir+'/seite'+((i-1) < 0 ? (0) : (i-1))+'.html');
+        newBacks[i-1] = backs[i];
+      }else if(i < parseInt(number)){
+        newBacks[i] = backs[i];
+      }
+    }
+
+    backStr = ""
+
+    for(var i = 0; i < newBacks.length; i++){
+      backStr += newBacks[i];
+      if(i != newBacks.length-1){
+        backStr+=" ";
+      }
+    }
+
+  }else{
+
+    backStr = "0"
+
+    //fs.writeFileSync(dir+"/seite0.html", "");
+
+  }
+  //data[4] = (parseInt(req.body.page)>=0 && parseInt(req.body.page)<filesInbook.length-1) ? parseInt(req.body.page)
+
+  if(data[4] >= filesInbook.length-2){
+    data[4] = filesInbook.length-2-1;
+  }else if(data[4] <= 0){
+    data[4] = 0;
+  }
+
+  fs.writeFileSync(dir+"/info.txt", data[0]+"\n"+data[1]+"\n"+data[2]+"\n"+data[3]+"\n"+data[4]+"\n"+backStr);
+
+}
 
 module.exports = router;
