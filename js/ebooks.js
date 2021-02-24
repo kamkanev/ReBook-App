@@ -425,7 +425,7 @@ function goToBook(link, title, type, icon, length, page, backgrounds = "", data)
       let words = JSON.parse(data);
       console.log(words);
 
-      addAllWords(words);
+      addAllWords(words, title, type);
     }
 
   }
@@ -473,8 +473,7 @@ function goToBook(link, title, type, icon, length, page, backgrounds = "", data)
 
 }
 
-function addAllWords(words) {
-
+function addAllWords(words, title, type) {
 
   var tbodyRef = document.getElementById("vkWords").getElementsByTagName('tbody')[0];
 
@@ -484,11 +483,14 @@ function addAllWords(words) {
 
 	newRow.style = "text-align: center;";
 
-    var numCell = newRow.insertCell();
+    var selCell = newRow.insertCell();
 
-    var num = document.createTextNode(i+1);
+    var selWord = document.createElement("input");
 
-    numCell.appendChild(num);
+    selWord.setAttribute('type', 'checkbox');
+    selWord.setAttribute('id', 'sWord'+i);
+
+    selCell.appendChild(selWord);
 
     var nameCell = newRow.insertCell();
 
@@ -538,6 +540,40 @@ function addAllWords(words) {
           }
 
           typeCell.appendChild(typeWord);
+
+          var buttsCell = newRow.insertCell();
+
+          console.log(i, title, type);
+
+          var editButt = document.createElement("button");
+
+          editButt.setAttribute('class', 'btn btn-info');
+          editButt.setAttribute('id', 'eWord'+i);
+          editButt.setAttribute('onclick', 'editWord("'+title+'", "'+type+'", "'+words[i].name+'", "'+words[i].multiple+'", "'+words[i].translate+'", "'+words[i].transcr+'", "'+words[i].type+'", "'+i+'")');
+          editButt.innerHTML = '<i class="fas fa-pen"></i>';
+
+          console.log(editButt.id);
+
+          var currIndex = i;
+
+          // editButt.onclick = function (e) {
+          //
+          //   var num = (e.target.id.split('eWord')[1] != "") ? (e.target.id.split('eWord')[1]) : currIndex//parentNote.id.split('eWord')[1];
+          //   console.log(words, currIndex);
+          //   // console.log(num);
+            // editWord(words, num);
+          // }
+
+          // editButt.setAttribute('onclick')
+
+          var delButt = document.createElement("button");
+
+          delButt.setAttribute('class', 'btn btn-danger');
+          delButt.setAttribute('id', 'dWord'+i);
+          delButt.innerHTML = '<i class="fas fa-trash"></i>';
+
+          buttsCell.appendChild(editButt);
+          buttsCell.appendChild(delButt);
   }
 
 
@@ -885,6 +921,167 @@ async function editBooks() {
     }
 
   }
+
+}
+
+async function editWord(title, bType, name, multiple, translate, transcr, type, index) {
+
+  // console.log(words);
+  console.log(index, title, bType);
+
+    const inputOptionsIcons = new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({
+          'ajective': "Прилагателно",
+          'noun': 'Съществително',
+          'verb': 'Глагол',
+          'otherW': 'Друго'
+        })
+      }, 1000)
+    })
+
+    Swal.mixin({
+    input: 'text',
+    confirmButtonText: 'Next &rarr;',
+    showCancelButton: true,
+    progressSteps: ['1', '2', '3', '4', '5']
+  }).queue([
+    {
+      title: 'Въпрос 1',
+      text: 'Думата на чужд език:',
+      input: "text",
+      inputValue: name,
+      inputValidator: (value) => {
+        if(!value){
+
+          return "Не може полето да е празно!"
+
+        }
+      }
+    },
+    {
+      title: 'Въпрос 2',
+      input: 'text',
+      text: "Мн. число:",
+      inputValue: multiple,
+      //inputOptions: inputOptions,
+      // inputValidator: (value) => {
+      //   if (!value) {
+      //     return 'Трябва да изберете опция!'
+      //   }
+      //}
+    },
+    {
+      title: 'Въпрос 3',
+      text: 'Думата на български:',
+      input: "text",
+      inputValue: translate,
+      inputValidator: (value) => {
+        if(!value){
+
+          return "Не може полето да е празно!"
+
+        }
+      }
+    },
+    {
+      title: 'Въпрос 4',
+      input: 'text',
+      text: "Транскрипция на думата:",
+      inputValue: transcr,
+    },
+    {
+      title: 'Въпрос 5',
+      input: 'select',
+      inputPlaceholder: 'Изберете вид на думата',
+      text: 'Вид на думата:',
+      inputOptions: inputOptionsIcons,
+      inputValue: type,
+      inputValidator: (value) => {
+        if(! value || value == 'Изберете вид на думата'){
+          return 'Трябва да изберете опция!'
+        }
+      }
+    }
+  ]).then((result) => {
+    if (result.value) {
+      const answers = JSON.stringify(result.value)
+      // console.log(result.value);
+      console.log(answers, index);
+
+
+      var f = document.createElement("form");
+      f.setAttribute('method',"post");
+      f.setAttribute('action',"/profile/editWord");
+
+      var name = document.createElement("input"); //input element, text
+      name.setAttribute('type',"hidden");
+      name.setAttribute('value',result.value[0]);
+      name.setAttribute('name',"wordE");
+
+      var mul = document.createElement("input"); //input element, Submit button
+      mul.setAttribute('type',"hidden");
+      mul.setAttribute('value',result.value[1]);
+      mul.setAttribute('name',"MwordE");
+
+      var translateI = document.createElement("input"); //input element, Submit button
+      translateI.setAttribute('type',"hidden");
+      translateI.setAttribute('value',result.value[2]);
+      translateI.setAttribute('name',"trWordE");
+
+      var transcrI = document.createElement("input"); //input element, Submit button
+      transcrI.setAttribute('type',"hidden");
+      transcrI.setAttribute('value',result.value[3]);
+      transcrI.setAttribute('name',"transcrE");
+
+      var typ = document.createElement("input"); //input element, Submit button
+      typ.setAttribute('type',"hidden");
+      typ.setAttribute('value',result.value[4]);
+      typ.setAttribute('name',"wTypeE");
+
+      var ind = document.createElement("input"); //input element, Submit button
+      ind.setAttribute('type',"hidden");
+      ind.setAttribute('value',index);
+      ind.setAttribute('name',"indexEWord");
+
+      var bTypeI = document.createElement("input");
+
+      bTypeI.setAttribute('type', 'hidden');
+      bTypeI.setAttribute('name', 'bookTypeE');
+      bTypeI.setAttribute('value', ""+bType);
+
+      var bTit = document.createElement("input");
+
+      bTit.setAttribute('type', 'hidden');
+      bTit.setAttribute('name', 'bookTitleE');
+      bTit.setAttribute('value', ""+title);
+
+      f.appendChild(bTypeI);
+      f.appendChild(bTit);
+
+      f.appendChild(translateI);
+      f.appendChild(name);
+      f.appendChild(typ);
+      f.appendChild(mul);
+      f.appendChild(ind);
+      f.appendChild(transcrI);
+
+      document.body.appendChild(f);
+
+      console.log(f);
+
+      f.submit();
+
+      Swal.fire({
+        title: 'All done!',
+        html: `
+          Your answers:
+          <pre><code>${answers}</code></pre>
+        `,
+        confirmButtonText: 'Lovely!'
+      })
+    }
+  });
 
 }
 

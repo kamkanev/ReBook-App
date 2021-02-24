@@ -126,6 +126,46 @@ router.post("/createNewWord", (req, res) => {
   }
 });
 
+router.post('/editWord', (req, res) => {
+
+  if(req.user){
+
+    console.log("edit words ---------", req.body);
+
+    const directoryPath = './users/'+req.user.id+'/'+req.body.bookTypeE + '/' + req.body.bookTitleE;
+
+    var word = {
+      name: req.body.wordE,
+      multiple: req.body.MwordE,
+      translate: req.body.trWordE,
+      transcr: req.body.transcrE,
+      type: "" + req.body.wTypeE
+    }
+
+    var ind = parseInt(req.body.indexEWord)
+
+    var fileData = fs.readFileSync(directoryPath+"/data.json",{encoding:'utf8', flag:'r'});
+
+    var words = JSON.parse(fileData);
+
+    //console.log(word);
+
+    words[ind] = word;
+
+    console.log(words);
+
+    console.log("updateEditFIle");
+
+    let data = JSON.stringify(words);
+
+    fs.writeFileSync(directoryPath+"/data.json", data);
+
+  }
+
+  res.redirect('/profile/ebooks');
+
+});
+
 router.post("/createBook", (req, res) => {
   if(req.user){
 
