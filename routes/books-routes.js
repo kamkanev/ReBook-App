@@ -416,14 +416,14 @@ function deletePageByNumber(number, dir) {
 
   var filesInbook = fs.readdirSync(dir);
 
-
-
-  rimraf.sync(dir+"/seite"+number+".html");
   var backs = data[5].split(" ");
   var newBacks = [];
-  var backStr = "";
+  var backStr = "0";
 
-  if(filesInbook.length > 2){
+  if(filesInbook.length-1 > 1){
+    //fs.writeFileSync(dir+"/seite0.html", "");
+    rimraf.sync(dir+"/seite"+number+".html");
+
     for(var i = 0; i < filesInbook.length-1; i++){
       console.log(dir+'/seite'+i+'.html', dir+'/seite'+(i-1)+'.html');
       if(i > parseInt(number)){
@@ -443,20 +443,20 @@ function deletePageByNumber(number, dir) {
       }
     }
 
+    if(data[4] >= filesInbook.length-2){
+      data[4] = filesInbook.length-2-1;
+    }else if(data[4] <= 0){
+      data[4] = 0;
+    }
+
   }else{
-
-    backStr = "0"
-
-    //fs.writeFileSync(dir+"/seite0.html", "");
-
-  }
-  //data[4] = (parseInt(req.body.page)>=0 && parseInt(req.body.page)<filesInbook.length-1) ? parseInt(req.body.page)
-
-  if(data[4] >= filesInbook.length-2){
-    data[4] = filesInbook.length-2-1;
-  }else if(data[4] <= 0){
+    fs.writeFileSync(dir+"/seite0.html", "");
     data[4] = 0;
   }
+
+  //data[4] = (parseInt(req.body.page)>=0 && parseInt(req.body.page)<filesInbook.length-1) ? parseInt(req.body.page)
+
+
 
   fs.writeFileSync(dir+"/info.txt", data[0]+"\n"+data[1]+"\n"+data[2]+"\n"+data[3]+"\n"+data[4]+"\n"+backStr);
 
