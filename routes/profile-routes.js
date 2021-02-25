@@ -7,9 +7,11 @@ const rimraf = require("rimraf");
 
 const booksRoutes = require('./books-routes');
 const tasksRoutes = require('./tasks-routes');
+const classRoomRoutes = require('./classroom-routes');
 
 router.use('', tasksRoutes);
 router.use('', booksRoutes);
+router.use('', classRoomRoutes);
 
 router.get('/', (req, res) => {
   if(req.user){
@@ -77,7 +79,7 @@ router.post("/edit", (req, res) => {
 
       }
 
-      console.log(req.body);
+      // console.log(req.body);
 
       if(errs.length <= 0){
 
@@ -185,18 +187,6 @@ router.post("/edit", (req, res) => {
     }
 
 
-});
-
-router.get("/classrooms", (req, res) => {
-    if(req.user){
-
-        res.render("classrooms", {
-            user: req.user
-        });
-
-    }else{
-        res.redirect('/');
-    }
 });
 
 router.get("/calendar", (req, res) => {

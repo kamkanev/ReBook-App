@@ -45,7 +45,7 @@ router.get("/ebooks", (req, res) => {
 
         var bookData = fs.readFileSync(filebookDir,{encoding:'utf8', flag:'r'});
 
-        console.log("bookData: "+bookData);
+        // console.log("bookData: "+bookData);
 
                                     books.push({
                                       title: data[0],
@@ -60,7 +60,7 @@ router.get("/ebooks", (req, res) => {
 
       }
 
-      console.log(books);
+      // console.log(books);
 
         res.render("ebooks", {
             user: req.user,
@@ -88,7 +88,7 @@ router.post("/createNewWord", (req, res) => {
     }
 
     if(readDir1.length - 1 <= 0){
-      console.log("create FIle");
+      // console.log("create FIle");
 
       //console.log(req.body.wType);
 
@@ -113,9 +113,9 @@ router.post("/createNewWord", (req, res) => {
 
       }
 
-      console.log(words);
+      // console.log(words);
 
-      console.log("updateFIle");
+      // console.log("updateFIle");
 
       let data = JSON.stringify(words);
 
@@ -130,7 +130,7 @@ router.post('/editWord', (req, res) => {
 
   if(req.user){
 
-    console.log("edit words ---------", req.body);
+    // console.log("edit words ---------", req.body);
 
     const directoryPath = './users/'+req.user.id+'/'+req.body.bookTypeE + '/' + req.body.bookTitleE;
 
@@ -152,9 +152,9 @@ router.post('/editWord', (req, res) => {
 
     words[ind] = word;
 
-    console.log(words);
+    // console.log(words);
 
-    console.log("updateEditFIle");
+    // console.log("updateEditFIle");
 
     let data = JSON.stringify(words);
 
@@ -209,7 +209,7 @@ router.post('/deleteWord', (req, res) => {
 
       // console.log(words);
 
-      console.log("updateDeleteFIle");
+      // console.log("updateDeleteFIle");
 
     }
 
@@ -276,32 +276,32 @@ router.post("/deleteBooks", (req, res) => {
 
         var books = data.titles[i];
 
-        console.log(books);
+        // console.log(books);
 
         var tit = books.split("|")[0];
         var typ = books.split("|")[1];
 
-        console.log(tit, typ);
+        // console.log(tit, typ);
 
-        console.log(directoryPath+typ+"/"+tit);
+        // console.log(directoryPath+typ+"/"+tit);
         rimraf.sync(directoryPath+typ+"/"+tit);
       }
     }else{
 
       var books = data.titles;
 
-      console.log(books);
+      // console.log(books);
 
       var tit = books.split("|")[0];
       var typ = books.split("|")[1];
 
-      console.log(tit, typ);
+      // console.log(tit, typ);
 
-      console.log(directoryPath+typ+"/"+tit);
+      // console.log(directoryPath+typ+"/"+tit);
       rimraf.sync(directoryPath+typ+"/"+tit);
 
     }
-        console.log("data delete - ", data);
+        // console.log("data delete - ", data);
 
   }
 
@@ -320,7 +320,7 @@ router.post("/editBooks", (req, res) => {
       var books = data.titles;
       var newbooks = data.newtitles;
 
-      console.log(books);
+      // console.log(books);
 
       var tit = books.split("|")[0];
       var typ = books.split("|")[1];
@@ -330,9 +330,9 @@ router.post("/editBooks", (req, res) => {
       var newtyp = newbooks.split("|")[1];
       var newicon = newbooks.split("|")[2];
 
-      console.log(tit, typ, icon);
+      // console.log(tit, typ, icon);
 
-      console.log(directoryPath+typ+"/"+tit);
+      // console.log(directoryPath+typ+"/"+tit);
       fs.renameSync(directoryPath+typ+"/"+tit, directoryPath+typ+"/"+newtit);
 
       const directoryPath2 = directoryPath+typ;
@@ -471,7 +471,7 @@ router.post('/deletePage', (req, res) =>{
 
   if(req.user){
 
-    console.log("Delete page: ", req.body);
+    // console.log("Delete page: ", req.body);
 
       const dir = './users/'+req.user.id+'/'+req.body.type+"/"+req.body.title+"";
 
@@ -522,7 +522,7 @@ function deletePageByNumber(number, dir) {
     rimraf.sync(dir+"/seite"+number+".html");
 
     for(var i = 0; i < filesInbook.length-1; i++){
-      console.log(dir+'/seite'+i+'.html', dir+'/seite'+(i-1)+'.html');
+      // console.log(dir+'/seite'+i+'.html', dir+'/seite'+(i-1)+'.html');
       if(i > parseInt(number)){
         fs.renameSync(dir+'/seite'+i+'.html', dir+'/seite'+((i-1) < 0 ? (0) : (i-1))+'.html');
         newBacks[i-1] = backs[i];
