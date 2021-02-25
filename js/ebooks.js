@@ -1043,7 +1043,7 @@ async function editWord(title, bType, name, multiple, translate, transcr, type, 
     {
       title: 'Въпрос 4',
       input: 'text',
-      text: "Транскрипция на думата:",
+      text: "Доп. инфо. за думата:",
       inputValue: transcr,
     },
     {
