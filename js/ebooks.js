@@ -473,6 +473,60 @@ function goToBook(link, title, type, icon, length, page, backgrounds = "", data)
 
 }
 
+function selectAllWords() {
+
+  var selectedWords = document.getElementsByName('sWord');
+
+  for (var i = 0; i < selectedWords.length; i++) {
+    selectedWords[i].checked = !selectedWords[i].checked;
+  }
+
+}
+
+function deleteSelected() {
+
+  var f = document.createElement("form");
+  f.setAttribute('method',"post");
+  f.setAttribute('action',"/profile/deleteWord");
+
+  var title = document.getElementById('titleBook').innerText;
+
+  var selectedWords = document.getElementsByName('sWord');
+
+  for (var i = 0; i < selectedWords.length; i++) {
+    if(selectedWords[i].checked){
+
+      var ind = document.createElement("input"); //input element, Submit button
+      ind.setAttribute('type',"hidden");
+      ind.setAttribute('value',i);
+      ind.setAttribute('name',"indexDWord");
+
+      f.appendChild(ind);
+
+    }
+  }
+
+  var bTypeI = document.createElement("input");
+
+  bTypeI.setAttribute('type', 'hidden');
+  bTypeI.setAttribute('name', 'bookTypeD');
+  bTypeI.setAttribute('value', "vbook");
+
+  var bTit = document.createElement("input");
+
+  bTit.setAttribute('type', 'hidden');
+  bTit.setAttribute('name', 'bookTitleD');
+  bTit.setAttribute('value', ""+title);
+
+  f.appendChild(bTypeI);
+  f.appendChild(bTit);
+
+  document.body.appendChild(f);
+
+  f.submit();
+
+}
+
 function addAllWords(words, title, type) {
 
   var tbodyRef = document.getElementById("vkWords").getElementsByTagName('tbody')[0];
@@ -489,6 +543,7 @@ function addAllWords(words, title, type) {
 
     selWord.setAttribute('type', 'checkbox');
     selWord.setAttribute('id', 'sWord'+i);
+    selWord.setAttribute('name', 'sWord');
 
     selCell.appendChild(selWord);
 
@@ -570,6 +625,7 @@ function addAllWords(words, title, type) {
 
           delButt.setAttribute('class', 'btn btn-danger');
           delButt.setAttribute('id', 'dWord'+i);
+          delButt.setAttribute('onclick', 'deleteWord("'+title+'", "'+type+'", "'+i+'")');
           delButt.innerHTML = '<i class="fas fa-trash"></i>';
 
           buttsCell.appendChild(editButt);
@@ -1075,13 +1131,67 @@ async function editWord(title, bType, name, multiple, translate, transcr, type, 
       Swal.fire({
         title: 'All done!',
         html: `
-          Your answers:
+          Твоите отговори:
           <pre><code>${answers}</code></pre>
         `,
         confirmButtonText: 'Lovely!'
       })
     }
   });
+
+}
+
+async function deleteWord(title, bType, index) {
+
+  console.log(index);
+
+  Swal.fire({
+  title: 'Сигурнили сте?',
+  text: "Няма да можете да възтоновите данните!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Да, изтрий го!'
+}).then((result) => {
+  if (result.isConfirmed) {
+
+    var f = document.createElement("form");
+    f.setAttribute('method',"post");
+    f.setAttribute('action',"/profile/deleteWord");
+
+    var ind = document.createElement("input"); //input element, Submit button
+    ind.setAttribute('type',"hidden");
+    ind.setAttribute('value',index);
+    ind.setAttribute('name',"indexDWord");
+
+    var bTypeI = document.createElement("input");
+
+    bTypeI.setAttribute('type', 'hidden');
+    bTypeI.setAttribute('name', 'bookTypeD');
+    bTypeI.setAttribute('value', ""+bType);
+
+    var bTit = document.createElement("input");
+
+    bTit.setAttribute('type', 'hidden');
+    bTit.setAttribute('name', 'bookTitleD');
+    bTit.setAttribute('value', ""+title);
+
+    f.appendChild(bTypeI);
+    f.appendChild(bTit);
+    f.appendChild(ind);
+
+    document.body.appendChild(f);
+
+    f.submit();
+
+    Swal.fire(
+      'Изтрито!',
+      'Файлът е изтрит!',
+      'success'
+    )
+  }
+});
 
 }
 

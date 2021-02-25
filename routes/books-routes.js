@@ -166,6 +166,63 @@ router.post('/editWord', (req, res) => {
 
 });
 
+router.post('/deleteWord', (req, res) => {
+
+  if(req.user){
+
+    const directoryPath = './users/'+req.user.id+'/'+req.body.bookTypeD + '/' + req.body.bookTitleD;
+
+    var fileData = fs.readFileSync(directoryPath+"/data.json",{encoding:'utf8', flag:'r'});
+
+    var words = JSON.parse(fileData);
+
+    var indecies = [];
+
+    if(req.body.indexDWord instanceof Array){
+
+      for(var i = 0; i < req.body.indexDWord.length; i++){
+
+        var index = parseInt(req.body.indexDWord[i]);
+
+        indecies.push(index);
+
+      }
+
+      for (var j = 0; j < indecies.length-1; j++) {
+
+        words.splice(indecies[j], 1);
+
+        for (var i = j+1; i < indecies.length; i++) {
+          indecies[i]--;
+        }
+
+      }
+
+      words.splice(indecies[indecies.length-1], 1);
+
+    }else{
+
+      var ind = parseInt(req.body.indexDWord)
+      //console.log(word);
+
+      words.splice(ind, 1);
+
+      // console.log(words);
+
+      console.log("updateDeleteFIle");
+
+    }
+
+    let data = JSON.stringify(words);
+
+    fs.writeFileSync(directoryPath+"/data.json", data);
+
+  }
+
+  res.redirect('/profile/ebooks');
+
+});
+
 router.post("/createBook", (req, res) => {
   if(req.user){
 

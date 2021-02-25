@@ -22,6 +22,7 @@
   <link href="../css/sweetalert2.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
   <script type="text/javascript" src="../js/ebooks.js"></script>
+  <script type="text/javascript" src="../js/sorting.js"></script>
 </head>
 
 <body onload="enableEditMode()">
@@ -175,17 +176,18 @@
 				  <br><br>
                   <hr>
                 </form>
+                <button type="button" class="btn btn-danger" onclick="deleteSelected()"><i class="fas fa-trash"></i></button>
 
 				<div style = "width: 100%;">
-                <table id="vkWords" class="table table-hover">
+                <table id="vkWords" class="table table-hover" style="cursor: pointer;">
                   <thead>
                     <tr style = "text-align: center;">
-                      <th scope="col">№</th>
-                      <th scope="col">Дума</th>
-                      <th scope="col">Мн. число</th>
-                      <th scope="col">Думата на български</th>
-                      <th scope="col">Транскрипция</th>
-                      <th scope="col">Вид</th>
+                      <th style="-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;" scope="col"><button class="btn btn-info" onclick="selectAllWords()"><i class="fas fa-check-square"></i></button></th>
+                      <th style="-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;"  onclick="sortTable(1)" scope="col">Дума<!--i onclick="sortTableAZ(this)" class="fas fa-sort-up"></i--></th>
+                      <th style="-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;"  onclick="sortTable(2)" scope="col">Мн. число</th>
+                      <th style="-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;"  onclick="sortTable(3)" scope="col">Думата на български</th>
+                      <th style="-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;"  onclick="sortTable(4)" scope="col">Транскрипция</th>
+                      <th style="-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;"  onclick="sortTable(5)" scope="col">Вид</th>
                     </tr>
                   </thead>
                   <tbody>
