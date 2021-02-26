@@ -1,13 +1,13 @@
-table.table tbody tr td{
+#vkWords tbody tr td{
   border-left: 1px solid black;
   border-right: 1px solid black;
 }
 
 @media screen and (max-width: 600px) {
-  table.table tbody tr td{
+  #vkWords tbody tr td{
     font-size: 5pt;
   }
-  table.table tr th{
+  #vkWords tr th{
     font-size: 5pt;
   }	
 }

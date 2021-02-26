@@ -150,20 +150,20 @@
                   <button id="editBooks" type="button" onclick="editBooks()" style="display:none; background-color: #1771bf" class="btn btn-info float-right"><i class="fas fa-pen"></i></button>
                   <button style = "color: white; background-color: #368f1b;" id="selectBooks" type="button" onclick="enableSelectModeBooks()" class="btn btn-success float-right"><b>Избери<b></button>
                   <button id="createBooks" type="button" onclick="createNewBook()" class="btn btn-outline-info float-right"><i class="fas fa-user-edit"></i><b>Създай тетрадка<b></button>
-                  <button id="savePage" style="display:none;" type="button" onclick="savePage()" class="btn btn-success float-right"><i class="fas fa-save"></i> <b>Запази<b></button>
-                    <button id="selectPage" style="display:none;" type="button" onclick="selectPage()" class="btn btn-info float-right"><i class="fas fa-pen"></i> <b>Избери<b></button>
-                  <button id="deletePage" style="display:none;" type="button" onclick="deletePage()" class="btn btn-danger float-right"><i class="fas fa-trash"></i> <b>Изтрий<b></button>
+                  <button id="savePage" style="display:none; background-color: #368f1b;" type="button" onclick="savePage()" class="btn btn-success float-right"><i class="fas fa-save"></i> <b>Запази<b></button>
+                  <button id="selectPage" style="display:none;" type="button" onclick="selectPage()" class="btn btn-info float-right"><i class="fas fa-pen"></i> <b>Избери<b></button>
+                  <button id="deletePage" style="display:none; background-color: rgb(201, 22, 22);" type="button" onclick="deletePage()" class="btn btn-danger float-right"><i class="fas fa-trash"></i> <b>Изтрий<b></button>
 
               </div>
               <div id="vocabulary" style="display:none; padding: 20px;">
                 <form id="addWord" action="/profile/createNewWord" method="post">
 				  <div style = "width: 280px;" class="form-group">
-					<input type="text" name="word" class="form-control" id="exampleInputPassword1" placeholder="Думата на чужд език" required>
-					<input type="text" name="Mword" class="form-control" id="exampleInputPassword1" value="" placeholder="Множествено число(ако има)">
-					<input type="text" name="trWord" class="form-control" id="exampleInputPassword1" placeholder="Думата на български" required>
-					<input type="text" name="transcr" class="form-control" id="exampleInputPassword1" placeholder="Доп. информация(ако има)">
+					<input style = "margin-bottom: 2px;" type="text" name="word" class="form-control" id="exampleInputPassword1" placeholder="Думата на чужд език" required>
+					<input style = "margin-bottom: 2px;" type="text" name="Mword" class="form-control" id="exampleInputPassword1" value="" placeholder="Множествено число(ако има)">
+					<input style = "margin-bottom: 2px;" type="text" name="trWord" class="form-control" id="exampleInputPassword1" placeholder="Думата на български" required>
+					<input style = "margin-bottom: 2px;" type="text" name="transcr" class="form-control" id="exampleInputPassword1" placeholder="Доп. информация(ако има)">
 				  </div>
-                  <br><br>
+                  <br>
                   <input type="radio" id="ajective" name="wType" value="ajective" checked>
                   <label for="ajective">Прилагателно</label><br>
                   <input type="radio" id="noun" name="wType" value="noun">
@@ -176,7 +176,7 @@
 				  <br><br>
                   <hr>
                 </form>
-                <button type="button" class="btn btn-danger" onclick="deleteSelected()"><i class="fas fa-trash"></i></button>
+                
 
 				<div style = "width: 100%;">
                 <table id="vkWords" class="table table-hover" style="cursor: pointer;">
@@ -188,6 +188,7 @@
                       <th style="-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;"  onclick="sortTable(3)" scope="col">Думата на български</th>
                       <th style="-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;"  onclick="sortTable(4)" scope="col">Доп. информация</th>
                       <th style="-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;"  onclick="sortTable(5)" scope="col">Вид</th>
+					  <th><button type="button" class="btn btn-danger" onclick="deleteSelected()"><i class="fas fa-trash"></i></button></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -204,11 +205,11 @@
 
                       <div class="col-lg-3" style="margin-left: 20px;">
 
-                        <button style = "color: white; background-color: #368f1b;" id="selectBookPages" type="button" onclick="pageSelctor()" class="btn btn-success float-right">Упр. Страници</button>
+                        <button style = "width:200px; float: right; color: white; background-color: #368f1b;" id="selectBookPages" type="button" onclick="pageSelctor()" class="btn btn-success float-right"><b>Упр. Страници</b></button>
 
-                <button style="margin-bottom: 10px;" type="button" onclick="execCmd('undo');"><i class="fas fa-undo"></i></button>
+						<button style="margin-bottom: 10px;" type="button" onclick="execCmd('undo');"><i class="fas fa-undo"></i></button>
                         <button style="margin-bottom: 10px;" type="button" onclick="execCmd('redo');"><i class="fas fa-redo"></i></button>
-                <br>
+						<br>
                         <button style="margin-bottom: 10px;" type="button" onclick="execCmd('bold');"><i class="fas fa-bold"></i></button>
                         <button style="margin-bottom: 10px;" type="button" onclick="execCmd('italic');"><i class="fas fa-italic"></i></button>
                         <button style="margin-bottom: 10px;" type="button" onclick="execCmd('underline');"><i class="fas fa-underline"></i></button>
@@ -280,19 +281,21 @@
                         Фон на текста: <input style="margin-bottom: 10px;" type="color" onchange="execCommandWithArg('hiliteColor', this.value);">
                         <!-- <button type="button" onclick="execCommandWithArg()"><i class="far fa-file-image"></i></button> -->
                         <br>
-                <button type="button" onclick="execCmd('selectAll')">Маркирай всичко</button>
+                
+				<button style = "width:200px; float: right; color: white; background-color: #368f1b;" id="selectBookPages" type="button" onclick="execCmd('selectAll')" class="btn btn-success float-right"><b>Маркирай всичко</b></button>
                 <div class="btn-group mr-2" role="group" aria-label="Second group">
                   <button id="prevPage" type="button" class="btn btn-secondary"><i class="fas fa-chevron-left"></i></button>
                   <button id="pageNum" type="button" class="btn btn-secondary">0</button>
                   <button id="nextPage" type="button" class="btn btn-secondary"><i class="fas fa-chevron-right"></i></button>
                 </div>
-                      </div>
+              </div>
+			
               <div style="margin-left: 70px; margin-top: -30px;" class="col-lg-3">
                       <iframe id="textEditor" name="textEditor" width="1000" height="500"></iframe>
                     </div>
-
+					
                </div>
-
+			   
               <%- include('./runners/loadBooks') %>
 
           </div>

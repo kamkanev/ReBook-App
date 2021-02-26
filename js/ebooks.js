@@ -601,6 +601,7 @@ function addAllWords(words, title, type) {
           console.log(i, title, type);
 
           var editButt = document.createElement("button");
+		  editButt.style = 'margin: 2px;';
 
           editButt.setAttribute('class', 'btn btn-info');
           editButt.setAttribute('id', 'eWord'+i);
