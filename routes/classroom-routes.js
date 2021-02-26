@@ -10,9 +10,23 @@ const rimraf = require("rimraf");
 router.get("/classrooms", (req, res) => {
     if(req.user){
 
-        res.render("classrooms", {
-            user: req.user
+      ClassRoom.find({}, (err, classes) => {
+
+        var classMap = [];
+
+        classes.forEach((classRoom) => {
+          classMap.push(classRoom);
         });
+
+        res.render("classrooms", {
+            user: req.user,
+            classes: classMap
+        });
+
+
+      });
+
+
 
     }else{
         res.redirect('/');
@@ -95,6 +109,49 @@ router.post('/createClassRoom', (req, res) => {
 
 
 
+
+  }else{
+    res.redirect('/profile/classrooms');
+  }
+
+
+
+});
+
+router.post("/joinClassRoom", (req, res) => {
+
+  if(req.user){
+
+    var errs = [];
+
+    ClassRoom.findOne({name: req.body.name}).then((currClass) => {
+
+      if(currClass){
+
+        if(!currClass.members.includes(req.user.id)){
+          currClass.members.push(req.user.id);
+
+          currClass.save((err) => {
+            if(err){
+                return console.log("Error saving: " + err);
+            }
+            res.redirect('/profile/classrooms');
+          });
+        }else{
+          errs.push({
+            msg: "Ти вече си в тази стая!"
+          });
+
+          res.render("classrooms", {
+            user: req.user,
+            errs
+          });
+
+        }
+
+      }
+
+    });
 
   }else{
     res.redirect('/profile/classrooms');

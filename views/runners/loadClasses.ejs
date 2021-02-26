@@ -1,0 +1,54 @@
+<% if(classes.length > 0){ %>
+  <div class="container">
+    <% classes.forEach((classRoom) => { %>
+
+        <% if(classRoom.members.includes(user.id)){ %>
+
+          <!-- Join Group -->
+          <div class="card mb-3" style="max-width: 540px;">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <!-- <svg class="bd-placeholder-img" width="100%" height="250" xmlns="" aria-label="Placeholder: Image" preserveAspectRatio="xMidYMid slice" role="img"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"/><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image</text></svg> -->
+              <img width="50%" height="100" src="<%= classRoom.icon %>" alt="">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title"><%= classRoom.name %></h5>
+                <p class="card-text"><%= classRoom.description %></p>
+                <p class="card-text"><small class="text-muted">Създадена на: <%= new Date(classRoom.timeOfCreation).toISOString().split('T')[0] %></small></p>
+                <small class="cardd-members"><%= classRoom.members.length %> Members</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+          <% return; %>
+
+      <% }else{ %>
+
+        <div class="card mb-3" style="max-width: 540px;">
+        <div class="row no-gutters">
+          <div class="col-md-4">
+            <!-- <svg class="bd-placeholder-img" width="100%" height="250" xmlns="" aria-label="Placeholder: Image" preserveAspectRatio="xMidYMid slice" role="img"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"/><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image</text></svg> -->
+            <img width="50%" height="100" src="<%= classRoom.icon %>" alt="">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title"><%= classRoom.name %></h5>
+              <p class="card-text"><%= classRoom.description %></p>
+              <p class="card-text"><small class="text-muted">Създадена на: <%= new Date(classRoom.timeOfCreation).toISOString().split('T')[0] %></small></p>
+              <small class="cardd-members"><%= classRoom.members.length %> Members</small>
+              <button type="button" onclick="addToClass('<%= classRoom.name %>')" class="bttn btn-danger -small card-bttn">Join Group</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <% } %>
+
+    <% }); %>
+  </div>
+<% }else{ %>
+      <h1 style = "text-align: center; margin: auto; padding: 350px 0 350px 0">Няма съществуващи стаи</h1>
+<% } %>

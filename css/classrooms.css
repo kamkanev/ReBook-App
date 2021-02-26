@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to left, rgb(207, 216, 220) 0%, rgb(96, 125, 139) 100%);
+}
+
+/* COLORS */
+.bg-primary {background: #1565C0;}
+.bg-safe {background: #4CAF50;}
+.bg-info {background: #03A9F4;}
+
+/* ============= Card =============== */
+/* Card - base */
+.cardd {
+    display: inline-block;
+    position: relative;
+    height: 102px;
+    width: 312px;
+    background: #fff;
+    border: 0.5px solid #dedede;
+    border-radius: 2px;
+    margin: 20px 0;
+    transition: 0.2s linear;
+}
+.cardd:hover {box-shadow: 1px 1px 10px;}
+
+/* Card - Imagem do grupo */
+.cardd-img {
+    position: absolute;
+    float: left;
+    left: 0;
+    top: 0;
+    height: 100px;
+    width: 100px;
+    border-radius: 0px;
+    border: none;
+}
+
+/* Card - Cabeçalho/Título */
+.cardd-header {
+    position: absolute;
+    float: right;
+    left: 100px;
+    top: 0;
+    height: 35px;
+    width: 210px;
+    overflow: hidden;
+    background: #fff;
+    padding: 5px 8px 5px 8px;
+    box-sizing: border-box;
+    border-radius: 0px;
+}
+.cardd-title {
+  margin-top: 0;
+  margin-bottom: 5px;
+  color: #444;
+}
+
+/* Card - Etiqueta */
+.cardd-label {
+    position: absolute;
+    float: right;
+    left: 100px;
+    top: 35px;
+    height: 30px;
+    width: 210px;
+    background: #fff;
+    padding: 0px 8px;
+    overflow: hidden;
+    white-space: nowrap;
+    line-height: 2;
+}
+.-label {
+    display: inline;
+    padding: 3px 6px;
+    font-size: 75%;
+    font-weight: 400;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 2px;
+}
+
+/* Card - Membros, botão e badge*/
+.cardd-bottom {
+    position: absolute;
+    float: right;
+    left: 100px;
+    top: 65px;
+    height: 35px;
+    width: 210px;
+    background: #fff;
+    padding: 8px;
+}
+.cardd-members {
+  color: #999;
+}
+
+.cardd-badge {
+    display: inline-block;
+    padding: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-color: #00C853;
+    border-radius: 10px;
+}
+
+/* ============= BOTÕES ============== */
+.bttn {
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    border: 1px solid transparent;
+    font-size: 14px;
+    border-radius: 2px;
+    cursor: pointer;
+    padding: 6px 12px;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
+    transition: 0.1s linear;
+    outline: none;
+}
+/*  DANGER - RED  */
+.bttn-danger {
+    background: #F44336;
+    color: #fff;
+    border-color: #F44336;
+}
+.bttn-danger:hover {
+    background: #D32F2F;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+}
+.-small {
+    padding: 4px 12px;
+    font-size: 12px;
+}
+
+/*  PRIMARY - BLUE  */
+.bttn-primary {
+    background: #2962FF;
+    color: #fff;
+    border-color: #2962FF;
+}
+.bttn-primary:hover {
+    background: #1565C0;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+.card-bttn {
+    float: right;
+    margin-top: -10px;
+}

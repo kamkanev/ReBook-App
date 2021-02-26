@@ -158,3 +158,24 @@ async function createClassRoom() {
 })
 
 }
+
+function addToClass(className) {
+
+  var f = document.createElement("form");
+  f.setAttribute('method',"post");
+  f.setAttribute('action',"/profile/joinClassRoom");
+  //
+  var tit = document.createElement("input"); //input element, text
+  tit.setAttribute('type',"hidden");
+  tit.setAttribute('value',className);
+  tit.setAttribute('name',"name");
+
+  f.appendChild(tit);
+  //
+  document.body.appendChild(f);
+  //
+  // console.log(f);
+  //
+  f.submit();
+
+}
