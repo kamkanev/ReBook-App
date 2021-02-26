@@ -9,12 +9,12 @@ const classRoom = new Schema({
     index: {unique: true}
   },
   timeOfCreation:{
-    type: Date,
+    type: Number,
     required: true
   },
   description:{
     type: String,
-    required: true
+    // required: true
   },
   icon:{
     type: String,
@@ -26,8 +26,8 @@ const classRoom = new Schema({
   },
   password:{
     type: String
-  }.
-  creator:{//user id
+  },
+  creator:{
     type: String,
     required: true
   },

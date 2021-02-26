@@ -84,8 +84,8 @@ async function createClassRoom() {
       }else if(value == "public"){
 
         if(document.getElementById('swal-pass').value.length >0){
-
-          valueType = document.getElementById('swal-pass').value;
+          return 'Публичните стаи не могат да имат парола!';
+          //valueType = document.getElementById('swal-pass').value;
 
         }
 
