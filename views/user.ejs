@@ -251,7 +251,18 @@
                         <i class="fab fa-google-plus-g"> Свързан</i>
                     </button>
                 <% } %>
+
+                <% if(typeof user.facebookid == "undefined"){ %>
+                    <button href="/auth/facebook/link" style = "color: blue" class="btn btn-neutral btn-icon btn-round btn-lg">
+                        <i class="fab fa-3x fa-facebook"></i>
+                    </button>
+                <% }else{ %>
+                    <button style = "background-color: blue; color: white;" class="btn btn-neutral disabled btn-round btn-lg">
+                        <i class="fab fa-facebook"> Свързан</i>
+                    </button>
+                <% } %>
               </div>
+
             </div>
           </div>
         </div>

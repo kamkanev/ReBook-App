@@ -35,6 +35,9 @@ const userSchema = new Schema({
   googleid: {
     type: String
   },
+  facebookid:{
+    type: String
+  },
     school: {
         type: String
     }

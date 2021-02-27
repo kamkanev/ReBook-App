@@ -133,7 +133,22 @@ router.post('/login',
           'https://www.googleapis.com/auth/userinfo.email']
   }));
 
+  router.get('/facebook', passport.authenticate('facebook', {
+    scope: ['email', 'public_profile', 'user_photos']
+  }));
+
   router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
+    //res.send(req.user);
+
+    //fs create folder
+    createUserFolder(req.user.id);
+    updateUserLogin(req.user.id);
+
+    res.redirect('/profile/')
+  })
+
+  router.get('/facebook/redirect', passport.authenticate('facebook', { failureRedirect: '/login' }),
+   (req, res) => {
     //res.send(req.user);
 
     //fs create folder

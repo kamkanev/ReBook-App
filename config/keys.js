@@ -3,6 +3,10 @@ module.exports = {
     clientID: "311628842870-f5o6kc2afsefnr7top74nmh2j1ukm3a7.apps.googleusercontent.com",
     clientSecret: "RTXnXhtAfWpLben3zNgUmdFH"
   },
+  facebook:{
+    clientID: "2980897918812011",
+    clientSecret: "36fadcc566ae9de4d1f3b83c6a30f120"
+  },
   mongodb: {
     // dbURI: "mongodb://admin:password1@ds263137.mlab.com:63137/rebook-app"
     //mongodb+srv://admin:<password>@rebook-app.d6koz.mongodb.net/test
