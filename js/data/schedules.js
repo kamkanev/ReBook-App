@@ -91,6 +91,8 @@ function generateTime(schedule, renderStart, renderEnd) {
             schedule.end = schedule.start;
         }
     }
+
+    // console.log(schedule);
 }
 
 function generateNames() {
@@ -147,6 +149,7 @@ function generateRandomSchedule(calendar, renderStart, renderEnd) {
     }
 
     ScheduleList.push(schedule);
+    // console.log(schedule);
 }
 
 function generateSchedule(viewName, renderStart, renderEnd) {
@@ -162,4 +165,17 @@ function generateSchedule(viewName, renderStart, renderEnd) {
             generateRandomSchedule(calendar, renderStart, renderEnd);
         }
     });
+}
+
+function getSavedScheds() {
+  var evs = JSON.parse(document.getElementById("events").value);
+
+  for(var i = 0; i < evs.length; i++){
+
+    evs[i].start = new Date(evs[i].start._date);
+    evs[i].end = new Date(evs[i].end._date);
+  }
+
+  console.log(evs);
+  ScheduleList = evs;
 }

@@ -66,10 +66,14 @@ var sch = null;
             }
 
             cal.updateSchedule(schedule.id, schedule.calendarId, changes);
+            editSavedScheds((cal.getSchedule(schedule.id, changes.calendarId) != undefined) ? cal.getSchedule(schedule.id, changes.calendarId) : cal.getSchedule(schedule.id, schedule.calendarId));
+            // console.log("edit", schedule.id, schedule);
             refreshScheduleVisibility();
+            // console.log("edit", schedule.id, schedule.calendarId, cal.getSchedule(schedule.id, changes.calendarId));
         },
         'beforeDeleteSchedule': function(e) {
             console.log('beforeDeleteSchedule', e);
+            deleteSavedScheds(e.schedule);
             cal.deleteSchedule(e.schedule.id, e.schedule.calendarId);
         },
         'afterRenderSchedule': function(e) {
@@ -289,7 +293,9 @@ var sch = null;
         }
         sch = schedule;
         cal.createSchedules([schedule]);
-
+        console.log([schedule]);
+        console.log(ScheduleList);
+        saveSchedToArray(schedule);
         refreshScheduleVisibility();
     }
 
@@ -400,7 +406,8 @@ var sch = null;
     function setSchedules() {
         cal.clear();
         generateSchedule(cal.getViewName(), cal.getDateRangeStart(), cal.getDateRangeEnd());
-//        cal.createSchedules(ScheduleList);
+        getSavedScheds();
+       cal.createSchedules(ScheduleList);
 
         refreshScheduleVisibility();
     }
@@ -448,3 +455,72 @@ var sch = null;
     });
     calendarList.innerHTML = html.join('\n');
 })();
+
+function saveSchedToArray(sched) {
+  var to_str = JSON.stringify(sched);
+
+  // console.log(to_str);
+
+  var f = document.createElement("form");
+  f.setAttribute('method',"post");
+  f.setAttribute('action',"/profile/saveSched");
+  //
+  var scheds = document.createElement("input"); //input element, text
+  scheds.setAttribute('type',"hidden");
+  scheds.setAttribute('value',to_str);
+  scheds.setAttribute('name',"scheds");
+
+  f.appendChild(scheds);
+  //
+  document.body.appendChild(f);
+  //
+  // console.log(f);
+  //
+  f.submit();
+}
+
+function editSavedScheds(sched) {
+
+  var to_str = JSON.stringify(sched);
+
+  // console.log(to_str);
+
+  var f = document.createElement("form");
+  f.setAttribute('method',"post");
+  f.setAttribute('action',"/profile/editSched");
+  //
+  var scheds = document.createElement("input"); //input element, text
+  scheds.setAttribute('type',"hidden");
+  scheds.setAttribute('value',to_str);
+  scheds.setAttribute('name',"scheds");
+
+  f.appendChild(scheds);
+  //
+  document.body.appendChild(f);
+  //
+  // console.log(f);
+  //
+  f.submit();
+
+}
+
+function deleteSavedScheds(sch) {
+
+  var f = document.createElement("form");
+  f.setAttribute('method',"post");
+  f.setAttribute('action',"/profile/delSched");
+  //
+  var id = document.createElement("input"); //input element, text
+  id.setAttribute('type',"hidden");
+  id.setAttribute('value',JSON.stringify(sch));
+  id.setAttribute('name',"scheds");
+
+  f.appendChild(id);
+  //
+  document.body.appendChild(f);
+  //
+  // console.log(f);
+  //
+  f.submit();
+
+}

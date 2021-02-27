@@ -192,16 +192,122 @@ router.post("/edit", (req, res) => {
 router.get("/calendar", (req, res) => {
     if(req.user){
 
+      const directoryPath = './users/'+req.user.id;
 
-            res.render("calendar", {
-                user: req.user
-            });
+      var fileData = fs.readFileSync(directoryPath+"/calendar.json",{encoding:'utf8', flag:'r'});
 
+      var savedSched = "[]";
 
+      if(fileData.length > 0){
+        savedSched = fileData;
+
+      }
+
+      res.render("calendar", {
+          user: req.user,
+          events: savedSched
+      });
 
     }else{
         res.redirect('/');
     }
+});
+
+router.post('/saveSched', (req, res) => {
+    if(req.user){
+
+      const directoryPath = './users/'+req.user.id;
+
+      var fileData = fs.readFileSync(directoryPath+"/calendar.json",{encoding:'utf8', flag:'r'});
+
+      var savedSched = [];
+
+      var scheds = JSON.parse(req.body.scheds);
+
+      if(fileData.length > 0){
+        savedSched = JSON.parse(fileData);
+
+      }
+
+        savedSched.push(scheds);
+
+        var newData = JSON.stringify(savedSched);
+
+        fs.writeFileSync(directoryPath+"/calendar.json", newData);
+
+    }
+
+    res.redirect('/profile/calendar');
+});
+
+router.post('/editSched', (req, res) => {
+    if(req.user){
+
+      const directoryPath = './users/'+req.user.id;
+
+      var fileData = fs.readFileSync(directoryPath+"/calendar.json",{encoding:'utf8', flag:'r'});
+
+      var savedSched = [];
+
+      var scheds = JSON.parse(req.body.scheds);
+
+      if(fileData.length > 0){
+        savedSched = JSON.parse(fileData);
+
+        for(var i = 0; i < savedSched.length; i++){
+            if(savedSched[i].id == scheds.id){
+              savedSched[i] = scheds;
+              break;
+            }
+        }
+
+      }
+
+        var newData = JSON.stringify(savedSched);
+
+        fs.writeFileSync(directoryPath+"/calendar.json", newData);
+
+    }
+
+    res.redirect('/profile/calendar');
+});
+
+router.post('/delSched', (req, res) => {
+    if(req.user){
+
+      const directoryPath = './users/'+req.user.id;
+
+      var fileData = fs.readFileSync(directoryPath+"/calendar.json",{encoding:'utf8', flag:'r'});
+
+      var savedSched = [];
+
+      var delInd = -1;
+
+      var scheds = JSON.parse(req.body.scheds);
+
+      if(fileData.length > 0){
+        savedSched = JSON.parse(fileData);
+
+        for(var i = 0; i < savedSched.length; i++){
+            if(savedSched[i].id == scheds.id){
+              delInd = i;
+              break;
+            }
+        }
+
+        if(delInd >= 0){
+          savedSched.splice(i, 1);
+        }
+
+      }
+
+        var newData = JSON.stringify(savedSched);
+
+        fs.writeFileSync(directoryPath+"/calendar.json", newData);
+
+    }
+
+    res.redirect('/profile/calendar');
 });
 
 router.get("/user", (req, res) => {
@@ -340,6 +446,14 @@ function createUserFolder(id) {
   if(!fs.existsSync((dir+"/logins.txt"))){
     try{
         fs.writeFileSync(dir+'/logins.txt', "0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0");
+    }catch (e){
+        console.log("Cannot write file ", e);
+    }
+  }
+
+  if(!fs.existsSync((dir+"/calendar.json"))){
+    try{
+        fs.writeFileSync(dir+'/calendar.json', "");
     }catch (e){
         console.log("Cannot write file ", e);
     }

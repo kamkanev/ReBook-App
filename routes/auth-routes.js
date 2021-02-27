@@ -173,6 +173,14 @@ function createUserFolder(id) {
         console.log("Cannot write file ", e);
     }
   }
+
+  if(!fs.existsSync((dir+"/calendar.json"))){
+    try{
+        fs.writeFileSync(dir+'/calendar.json', "");
+    }catch (e){
+        console.log("Cannot write file ", e);
+    }
+  }
 }
 
 function updateUserLogin(id) {
