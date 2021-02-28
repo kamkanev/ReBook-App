@@ -22,6 +22,14 @@ Licensed under the MIT license - http://opensource.org/licenses/MIT
 
 Copyright (c) 2015 Daniel Eden
 */
+.nonselect {
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}
 .animated {
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
@@ -4075,77 +4083,77 @@ Created using IcoMoon - icomoon.io
 
 .sidebar[data-color="blue"]:after,
 .off-canvas-sidebar[data-color="blue"]:after {
-  background: #2CA8FF;
+  background: #1d6fc2;
 }
 
 .sidebar[data-color="blue"] .nav li.active>a:not([data-toggle="collapse"]),
 .off-canvas-sidebar[data-color="blue"] .nav li.active>a:not([data-toggle="collapse"]) {
-  color: #2CA8FF;
+  color: #f96332;
 }
 
 .sidebar[data-color="blue"] .nav li.active>a:not([data-toggle="collapse"]) i,
 .off-canvas-sidebar[data-color="blue"] .nav li.active>a:not([data-toggle="collapse"]) i {
-  color: #2CA8FF;
+  color: #f96332;
 }
 
 .sidebar[data-color="green"]:after,
 .off-canvas-sidebar[data-color="green"]:after {
-  background: #18ce0f;
+  background: #1e9111;
 }
 
 .sidebar[data-color="green"] .nav li.active>a:not([data-toggle="collapse"]),
 .off-canvas-sidebar[data-color="green"] .nav li.active>a:not([data-toggle="collapse"]) {
-  color: #18ce0f;
+  color: #1d0b61;
 }
 
 .sidebar[data-color="green"] .nav li.active>a:not([data-toggle="collapse"]) i,
 .off-canvas-sidebar[data-color="green"] .nav li.active>a:not([data-toggle="collapse"]) i {
-  color: #18ce0f;
+  color: #1d0b61;
 }
 
 .sidebar[data-color="orange"]:after,
 .off-canvas-sidebar[data-color="orange"]:after {
-  background: #1d6fc2;
+  background: #f96332;
 }
 
 .sidebar[data-color="orange"] .nav li.active>a:not([data-toggle="collapse"]),
 .off-canvas-sidebar[data-color="orange"] .nav li.active>a:not([data-toggle="collapse"]) {
-  color: #f96332;
+  color: #1d6fc2;
 }
 
 .sidebar[data-color="orange"] .nav li.active>a:not([data-toggle="collapse"]) i,
 .off-canvas-sidebar[data-color="orange"] .nav li.active>a:not([data-toggle="collapse"]) i {
-  color: #f96332;
+  color: #1d6fc2;
 }
 
 .sidebar[data-color="red"]:after,
 .off-canvas-sidebar[data-color="red"]:after {
-  background: #FF3636;
+  background: #d62b2b;
 }
 
 .sidebar[data-color="red"] .nav li.active>a:not([data-toggle="collapse"]),
 .off-canvas-sidebar[data-color="red"] .nav li.active>a:not([data-toggle="collapse"]) {
-  color: #FF3636;
+  color: #52504d;
 }
 
 .sidebar[data-color="red"] .nav li.active>a:not([data-toggle="collapse"]) i,
 .off-canvas-sidebar[data-color="red"] .nav li.active>a:not([data-toggle="collapse"]) i {
-  color: #FF3636;
+  color: #52504d;
 }
 
 .sidebar[data-color="yellow"]:after,
 .off-canvas-sidebar[data-color="yellow"]:after {
-  background: #FFB236;
+  background: #d99a09;
 }
 
 .sidebar[data-color="yellow"] .nav li.active>a:not([data-toggle="collapse"]),
 .off-canvas-sidebar[data-color="yellow"] .nav li.active>a:not([data-toggle="collapse"]) {
-  color: #FFB236;
+  color: #2633c7;
 }
 
 .sidebar[data-color="yellow"] .nav li.active>a:not([data-toggle="collapse"]) i,
 .off-canvas-sidebar[data-color="yellow"] .nav li.active>a:not([data-toggle="collapse"]) i {
-  color: #FFB236;
+  color: #2633c7;
 }
 
 .visible-on-sidebar-regular {

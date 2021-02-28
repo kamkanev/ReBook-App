@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
-body {
+.container {
     font-family: 'Roboto', sans-serif;
-    background: linear-gradient(to left, rgb(207, 216, 220) 0%, rgb(96, 125, 139) 100%);
 }
 
 /* COLORS */
