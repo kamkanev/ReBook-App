@@ -18,7 +18,7 @@ const classRoom = new Schema({
   },
   icon:{
     type: String,
-    default: "../img/favicon.png"
+    default: "../img/rebook_main_logo.png"
   },
   type:{
     type: String,
