@@ -9,6 +9,8 @@
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
         <link href="/css/stylesheet1.css" rel="stylesheet" />
+				<link href="../css/sweetalert2.css" rel="stylesheet"/>
+			<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 <body>
   <div class="container">
@@ -28,7 +30,8 @@
               </div>
               <button class="btn btn-success btn-primary btn-block text-uppercase" type="submit">ВЛЕЗ</button>
 			  <a href="/auth/google" class="btn btn-block btn-outline-danger"><i class="fab fa-google" style = "font-size: 15pt;"></i>  ВЛЕЗ С GOOGLE</a>
-			  <a href="/auth/facebook" class="btn btn-block btn-outline-primary"><i class="fab fa-facebook" style = "font-size: 15pt;"></i>  ВЛЕЗ С FACEBOOK</a>
+			  <a onclick="soonCom()" class="btn btn-block btn-outline-primary"><i class="fab fa-facebook" style = "font-size: 15pt;"></i>  ВЛЕЗ С FACEBOOK</a>
+			  <a href="/auth/twitter" class="btn btn-block btn-outline-info"><i class="fab fa-twitter" style = "font-size: 15pt;"></i>  ВЛЕЗ С TWITTER</a>
               <hr class="my-4">
 			  <div class="a-divider a-divider-break" style = "font-size: 10pt; text-align: center;"><a href = "/auth/signup"><h5>РЕГИСТРИРАЙ СЕ</h5></a></div>
 
@@ -38,5 +41,18 @@
       </div>
     </div>
   </div>
+	<script type="text/javascript">
+
+	//href="/auth/facebook"
+	async function soonCom() {
+
+		Swal.fire({
+			icon: "info",
+			title: "Скоро"
+		});
+
+	}
+
+	</script>
 </body>
 </html>

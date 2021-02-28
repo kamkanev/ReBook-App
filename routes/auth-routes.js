@@ -137,6 +137,10 @@ router.post('/login',
     scope: ['email', 'public_profile', 'user_photos']
   }));
 
+  router.get('/twitter', passport.authenticate('twitter', {
+    scope: ['email']
+  }));
+
   router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
     //res.send(req.user);
 
@@ -148,6 +152,18 @@ router.post('/login',
   })
 
   router.get('/facebook/redirect', passport.authenticate('facebook', { failureRedirect: '/login' }),
+   (req, res) => {
+    //res.send(req.user);
+
+    //fs create folder
+    createUserFolder(req.user.id);
+    updateUserLogin(req.user.id);
+
+    res.redirect('/profile/')
+  })
+
+  router.get('/twitter/redirect', passport.authenticate('twitter', { successRedirect: '/',
+                                     failureRedirect: '/login' }),
    (req, res) => {
     //res.send(req.user);
 

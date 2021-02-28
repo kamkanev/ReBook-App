@@ -2,6 +2,7 @@ const passport = require('passport');
 const GoogleStrategy = require("passport-google-oauth20");
 const LocalStrategy = require('passport-local').Strategy;
 const FacebookStrategy = require('passport-facebook');
+const TwitterStrategy = require('passport-twitter').Strategy;
 const keys = require('./keys');
 const User = require('../models/user');
 const md5 = require('md5');
@@ -138,6 +139,70 @@ passport.use(
                 email: email,
                 friends: [],
                 facebookid: profile.id
+              }).save().then((newUser) => {
+              //  console.log('new User created' + newUser);
+
+                done(null, newUser);
+              });
+
+            }
+
+          });
+
+
+        }
+
+      });
+    }
+  )
+);
+
+passport.use(
+  new TwitterStrategy(
+    {
+      callbackURL: '/auth/twitter/redirect',
+      consumerKey: keys.twitter.clientID,
+      consumerSecret: keys.twitter.clientSecret,
+      userProfileURL: "https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true"
+    },
+    function(accessToken, refreshToken, profile, done) {
+      const { email, name, profile_image_url, screen_name} = profile._json;
+      var names = name.split(" ");
+      console.log(profile);
+      User.findOne({twitterid: profile.id}).then((currentUser) => {
+
+        if(currentUser){
+          //already exists
+        //  console.log(`user is: ${currentUser}`);
+    //        console.log();
+
+
+          done(null, currentUser);
+        }else{
+          // console.log(profile);
+          //not exist
+          User.findOne({email: email}).then((eUser) => {
+
+            if(eUser){
+
+              eUser.twitterid = profile.id;
+
+              eUser.save().then((newUser) => {
+              //  console.log('new User created' + newUser);
+
+                done(null, newUser);
+              });
+
+            }else{
+
+              new User({
+                first_name: names[0],
+                last_name: names[names.length-1],
+                username: screen_name,
+                image: profile_image_url,
+                email: email,
+                friends: [],
+                twitterid: profile.id
               }).save().then((newUser) => {
               //  console.log('new User created' + newUser);
 

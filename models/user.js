@@ -38,6 +38,9 @@ const userSchema = new Schema({
   facebookid:{
     type: String
   },
+  twitterid:{
+    type: String
+  },
     school: {
         type: String
     }

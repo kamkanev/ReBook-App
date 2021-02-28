@@ -7,6 +7,10 @@ module.exports = {
     clientID: "2980897918812011",
     clientSecret: "36fadcc566ae9de4d1f3b83c6a30f120"
   },
+  twitter:{
+    clientID: "7tQLMwEFoclUMRl9dIgGQinEX",
+    clientSecret: "DQ3BARpDKOc7xT7D0EcNvoTud6pVXZWLZdvbopoK4AiWeBOrGr"
+  },
   mongodb: {
     // dbURI: "mongodb://admin:password1@ds263137.mlab.com:63137/rebook-app"
     //mongodb+srv://admin:<password>@rebook-app.d6koz.mongodb.net/test
