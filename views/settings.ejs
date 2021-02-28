@@ -18,6 +18,7 @@
   <link href="../css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../css/demo.css" rel="stylesheet" />
+
 </head>
 
 <body class="">
@@ -168,15 +169,15 @@
         </div><br>-->
       <div class = "nonselect">
         <label><b>Цвят на менюто</b></label><br>
-        <input type="radio" id="blue" name="color" value="blue" checked>
+        <input type="radio" id="blue" name="color" value="blue" checked="<%= user.menucolor == 'blue'%>">
         <label style = "background-color: #1d6fc2; color: #1d6fc2;" for="blue">Цвят.</label><br>
-        <input type="radio" id="green" name="color" value="green">
+        <input type="radio" id="green" name="color" value="green" checked="<%= user.menucolor == 'green'%>">
         <label style = "background-color: #1e9111; color: #1e9111;" for="green">Цвят.</label><br>
-        <input type="radio" id="orange" name="color" value="orange">
+        <input type="radio" id="orange" name="color" value="orange" checked="<%= user.menucolor == 'orange'%>">
         <label style = "background-color: #f96332; color: #f96332;" for="orange">Цвят.</label><br>
-        <input type="radio" id="red" name="color" value="red">
+        <input type="radio" id="red" name="color" value="red" checked="<%= user.menucolor == 'red'%>">
         <label style = "background-color: #d62b2b; color: #d62b2b;" for="red">Цвят.</label><br>
-        <input type="radio" id="yellow" name="color" value="yellow">
+        <input type="radio" id="yellow" name="color" value="yellow" checked="<%= user.menucolor == 'yellow'%>">
         <label style = "background-color: #d99a09; color: #d99a09;" for="yellow">Цвят.</label><br>
       </div>
 
