@@ -28,7 +28,7 @@
 <body onload="enableEditMode()">
   <div class="wrapper ">
       <b>
-    <div class="sidebar" data-color="blue">
+    <div class="sidebar" data-color="<%= typeof user.menucolor != 'undefined' ? user.menucolor : 'blue' %>">
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
@@ -176,7 +176,7 @@
 				  <br><br>
                   <hr>
                 </form>
-                
+
 
 				<div style = "width: 100%;">
                 <table id="vkWords" class="table table-hover" style="cursor: pointer;">
@@ -281,7 +281,7 @@
                         Фон на текста: <input style="margin-bottom: 10px;" type="color" onchange="execCommandWithArg('hiliteColor', this.value);">
                         <!-- <button type="button" onclick="execCommandWithArg()"><i class="far fa-file-image"></i></button> -->
                         <br>
-                
+
 				<button style = "width:200px; float: right; color: white; background-color: #368f1b;" id="selectBookPages" type="button" onclick="execCmd('selectAll')" class="btn btn-success float-right"><b>Маркирай всичко</b></button>
                 <div class="btn-group mr-2" role="group" aria-label="Second group">
                   <button id="prevPage" type="button" class="btn btn-secondary"><i class="fas fa-chevron-left"></i></button>
@@ -289,13 +289,13 @@
                   <button id="nextPage" type="button" class="btn btn-secondary"><i class="fas fa-chevron-right"></i></button>
                 </div>
               </div>
-			
+
               <div style="margin-left: 70px; margin-top: -30px;" class="col-lg-3">
                       <iframe id="textEditor" name="textEditor" width="1000" height="500"></iframe>
                     </div>
-					
+
                </div>
-			   
+
               <%- include('./runners/loadBooks') %>
 
           </div>

@@ -41,9 +41,14 @@ const userSchema = new Schema({
   twitterid:{
     type: String
   },
-    school: {
-        type: String
-    }
+  school: {
+      type: String
+  },
+  menucolor: {
+    type: String,
+    default: "blue"
+  }
+
 });
 
 const User = mongoose.model('user', userSchema);

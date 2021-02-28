@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const User = require("../models/user");
 const fs = require('fs');
+const md5 = require('md5');
 const multer = require('multer');
 const path = require('path');
 const rimraf = require("rimraf");
@@ -414,6 +415,100 @@ router.get("/settings", (req, res) => {
     }else{
         res.redirect('/');
     }
+});
+
+router.post("/changeSettings", (req, res) => {
+  if(req.user){
+
+    var errs = [];
+
+    const { pass, passconf, color } = req.body;
+
+    if(pass.length <= 0 && passconf.length <= 0){
+      User.findById(req.user.id).then((currUser) => {
+
+        if(currUser){
+
+          req.user.menucolor = color;
+          currUser.menucolor = color;
+
+          currUser.save((err) => {
+
+              if(err){
+                  return console.log("Error saving: " + err);
+              }
+              res.render("settings", {
+                user: currUser,
+                compMessage: {
+                  msg: "Промените са запазени успешно!"
+                }
+              });
+// res.redirect('/profile/settings');
+          });
+
+        }
+
+      });
+    }else{
+
+      if(pass.length < 6){
+        errs.push({ msg: "Паролата трябва да е поне 6 символа." });
+      }
+
+      if(pass != passconf){
+        errs.push({
+          msg: "Паролите не съвпадат"
+        });
+      }
+
+      if(md5(pass) == req.user.password){
+        errs.push({
+          msg: "Паролата е подобна на предишната!"
+        });
+      }
+
+      if(errs.length > 0){
+
+        res.render("settings", {
+          user: req.user,
+          pass,
+          passconf,
+          errs
+        });
+
+      }else{
+        User.findById(req.user.id).then((currUser) => {
+
+          if(currUser){
+
+            currUser.menucolor = color;
+            req.user.menucolor = color;
+            currUser.password = md5(pass);
+            req.user.password = md5(pass);
+
+            currUser.save((err) => {
+
+                if(err){
+                    return console.log("Error saving: " + err);
+                }
+                res.render("settings", {
+                  user: currUser,
+                  compMessage: {
+                    msg: "Промените са запазени успешно!"
+                  }
+                });
+                // res.redirect('/profile/settings');
+            });
+
+          }
+
+        });
+      }
+
+    }
+
+  }
+  res.redirect('/profile/settings');
 });
 
 router.get("/tools", (req, res) => {

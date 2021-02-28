@@ -23,7 +23,7 @@
 <body class="">
   <div class="wrapper ">
       <b>
-    <div class="sidebar" data-color="blue">
+    <div class="sidebar" data-color="<%= typeof user.menucolor != 'undefined' ? user.menucolor : 'blue' %>">
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
@@ -143,43 +143,48 @@
               </div>-->
               <div class="card-body">
                 <div class="table-responsive table-upgrade">
+                  <p>
+    	        <%- include('./runners/messages') %>
+    	            </p>
                 </div>
-                    <div class="col-md-6 pl-1">
-                      <div class="form-group">
-                        <label><b>Парола</b></label>
-                        <input type="password" class="form-control" required name="pass" value=""><br>
-						<label><b>Потвърди парола</b></label>
-                        <input type="password" class="form-control" required name="passconf" value="">
-                      </div>
-                    </div>
-					<br>
-                   
-					<!--<div>
-						<label><b>Тъмна тема</b></label><br>
-						<label class="switch">
-							<input type="checkbox">
-							<span class="slider round"></span>
-						</label>
-					</div><br>-->
-				<div class = "nonselect">
-					<label><b>Цвят на менюто</b></label><br>
-					<input type="radio" id="blue" name="color" value="blue" checked>
-					<label style = "background-color: #1d6fc2; color: #1d6fc2;" for="blue">Цвят.</label><br>
-					<input type="radio" id="green" name="color" value="green">
-					<label style = "background-color: #1e9111; color: #1e9111;" for="green">Цвят.</label><br>
-					<input type="radio" id="orange" name="color" value="orange">
-					<label style = "background-color: #f96332; color: #f96332;" for="orange">Цвят.</label><br>
-					<input type="radio" id="red" name="color" value="red">
-					<label style = "background-color: #d62b2b; color: #d62b2b;" for="red">Цвят.</label><br>
-					<input type="radio" id="yellow" name="color" value="yellow">
-					<label style = "background-color: #d99a09; color: #d99a09;" for="yellow">Цвят.</label><br>
-				</div>
-				
-					
-					
-					<button class="btn btn-primary btn-block text-uppercase" style = "background-color: #409131;" type="submit"><b>ЗАПАЗИ ПРОМЕНИТЕ</b></button>
 
-                  
+                <form action="/profile/changeSettings" method="post">
+                  <div class="col-md-6 pl-1">
+                    <div class="form-group">
+                      <label><b>Парола</b></label>
+                      <input type="password" class="form-control" name="pass" value="<%= typeof pass != 'undefined' ? pass : '' %>"><br>
+          <label><b>Потвърди парола</b></label>
+                      <input type="password" class="form-control" name="passconf" value="<%= typeof passconf != 'undefined' ? passconf : '' %>">
+                    </div>
+                  </div>
+        <br>
+
+        <!--<div>
+          <label><b>Тъмна тема</b></label><br>
+          <label class="switch">
+            <input type="checkbox">
+            <span class="slider round"></span>
+          </label>
+        </div><br>-->
+      <div class = "nonselect">
+        <label><b>Цвят на менюто</b></label><br>
+        <input type="radio" id="blue" name="color" value="blue" checked>
+        <label style = "background-color: #1d6fc2; color: #1d6fc2;" for="blue">Цвят.</label><br>
+        <input type="radio" id="green" name="color" value="green">
+        <label style = "background-color: #1e9111; color: #1e9111;" for="green">Цвят.</label><br>
+        <input type="radio" id="orange" name="color" value="orange">
+        <label style = "background-color: #f96332; color: #f96332;" for="orange">Цвят.</label><br>
+        <input type="radio" id="red" name="color" value="red">
+        <label style = "background-color: #d62b2b; color: #d62b2b;" for="red">Цвят.</label><br>
+        <input type="radio" id="yellow" name="color" value="yellow">
+        <label style = "background-color: #d99a09; color: #d99a09;" for="yellow">Цвят.</label><br>
+      </div>
+
+
+
+        <button class="btn btn-primary btn-block text-uppercase" style = "background-color: #409131;" type="submit"><b>ЗАПАЗИ ПРОМЕНИТЕ</b></button>
+                </form>
+
 
   <%- include('./runners/daylilogin') %>
   <script src="../js/demo.js"></script>

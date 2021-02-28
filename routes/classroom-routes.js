@@ -41,6 +41,8 @@ router.post('/createClassRoom', (req, res) => {
 
     var errs = [];
 
+    var classMap = [];
+
     if(req.body.type == "private" && req.body.password.length<=0){
       errs.push({
           msg: "Частни стаи трябва да имат парола!"
@@ -53,6 +55,15 @@ router.post('/createClassRoom', (req, res) => {
       });
     }
 
+    ClassRoom.find({}, (err, classes) => {
+
+      classes.forEach((classRoom) => {
+        classMap.push(classRoom);
+      });
+
+
+    });
+
     ClassRoom.findOne({name: req.body.name}).then((currClass) => {
 
       if(currClass){
@@ -62,6 +73,7 @@ router.post('/createClassRoom', (req, res) => {
 
         res.render("classrooms", {
           user: req.user,
+          classes: classMap,
           errs
         });
       }else{
@@ -88,6 +100,7 @@ router.post('/createClassRoom', (req, res) => {
 
             res.render("classrooms", {
               user: req.user,
+              classes: classMap,
               errs
             });
 
