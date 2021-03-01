@@ -261,7 +261,7 @@
 
                       function callupdate() {
                         glWid = document.getElementsByClassName("card-body all-icons")[0].getBoundingClientRect().x;
-                        canvas.width = document.getElementsByClassName("card-body all-icons")[0].getBoundingClientRect().width;
+                        canvas.width = document.getElementsByClassName("card-body all-icons")[0].getBoundingClientRect().width - 30;
                         //glWid = (document.getElementById("sidebar-wrapper").getBoundingClientRect().x < 0) ? 0 : document.getElementById("sidebar-wrapper").getBoundingClientRect().width;
                           update(); // call programmer's update() function
                           setTimeout(callupdate, 10); // and 10 ms after that ...
