@@ -211,14 +211,14 @@ function showAllPages(link, page, len, backs){
 
     var inPId = "iPage"+i;
 
-    var inputSelect = document.createElement('input');
-
-    inputSelect.setAttribute('type', 'checkbox');
-    inputSelect.setAttribute('id', inPId);
-    inputSelect.setAttribute('name', inPId);
-    inputSelect.style.display = "none";
-
-    note.appendChild(inputSelect)
+    // var inputSelect = document.createElement('input');
+    //
+    // inputSelect.setAttribute('type', 'checkbox');
+    // inputSelect.setAttribute('id', inPId);
+    // inputSelect.setAttribute('name', inPId);
+    // inputSelect.style.display = "none";
+    //
+    // note.appendChild(inputSelect)
 
     var fr = document.createElement("iframe");
 
@@ -1281,7 +1281,7 @@ function findBookByName() {
       for (let i = 0; i < notebook.children.length; i++) {
 
         if(notebook.children[i].children[0].tagName === "IFRAME"){
-          // console.log(notebook.children[i].children[0].contentWindow.document.body.innerText);
+          console.log(notebook.children[i].children[0]);
 
             var text = notebook.children[i].children[0].contentWindow.document.body.innerText;
 
