@@ -20,7 +20,7 @@
   <link href="../css/demo.css" rel="stylesheet" />
 </head>
 
-<body class="">
+<body class="" onload="init()">
   <div class="wrapper ">
       <b>
     <div class="sidebar" data-color="<%= typeof user.menucolor != 'undefined' ? user.menucolor : 'blue' %>">
@@ -82,8 +82,9 @@
     </div>
 	</b>
     <div class="main-panel" id="main-panel">
+
       <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-transparent  bg-primary  navbar-absolute">
+      <nav class="navbar navbar-expand-lg navbar-transparent  bg-primary  navbar-absolute" id="goren_bar">
         <div class="container-fluid">
           <div class="navbar-wrapper">
             <div class="navbar-toggle">
@@ -140,6 +141,7 @@
                 <h5 class="title"></h5>
                 <!--<p class="category"><a href=""></a></p>-->
               </div>
+
               <div class="card-body all-icons">
                   <!--<div class="font-icon-list col-lg-12 col-md-3 col-sm-4 col-xs-6 col-xs-6">
                     <!--<div class="font-icon-detail">
@@ -147,7 +149,212 @@
                       <!--<p>arrows-1_cloud-download-93</p>
                     <!--</div>
                   <!--</div><br>-->
-                  
+
+                  <canvas style="border: 1px solid black;" id="canvas-id"></canvas>
+
+                  <br>
+                  <div id="context-menu">
+                      <div class="item">
+                        <input type="color" id="colorP" value="#000000">
+                      </div>
+                      <div class="item">
+                        <input type="number" id="sizeP" value="1">
+                      </div>
+                      <div class="item">
+                        <input type="radio" name="brushType" value="-1" checked>
+                        <input type="radio" name="brushType" value="0">
+                        <input type="radio" name="brushType" value="1">
+                        <input type="radio" name="brushType" value="2">
+                      </div>
+                    </div>
+                  <script>
+                      window.addEventListener("contextmenu",function(event){
+                      event.preventDefault();
+                      var contextElement = document.getElementById("context-menu");
+                      contextElement.style.top = event.offsetY + "px";
+                      contextElement.style.left = event.offsetX + "px";
+                      contextElement.classList.add("active");
+                      });
+                      window.addEventListener("click",function(){
+                      document.getElementById("context-menu").classList.remove("active");
+                      });
+                  </script>
+                  <script>
+                      if(endlessCanvas == undefined){
+                          var endlessCanvas = false;
+                      }
+                      var canvas = document.getElementById("canvas-id");
+                      if(endlessCanvas){
+                          canvas.width = window.innerWidth;
+                          canvas.height = window.innerHeight;
+
+                          window.onresize = function (){
+                              canvas.width = window.innerWidth;
+                              canvas.height = window.innerHeight;
+                          };
+                      }
+                      else
+                      {
+                          canvas.width = document.getElementsByClassName("card-body all-icons")[0].getBoundingClientRect().width;
+                          canvas.height = 600;
+                      }
+                      var context = canvas.getContext("2d");
+                      context.fillStyle = "#0000ff";
+                      // global variables with mouse coordinates
+                      var mouseX = 0;
+                      var mouseY = 0;
+                      var globHei = document.getElementsByClassName("card-body all-icons")[0].offsetHeight - canvas.height;//main-panel
+                      var glWid = document.getElementsByClassName("card-body all-icons")[0].getBoundingClientRect().x;
+                      //(document.getElementById("sidebar-wrapper").getBoundingClientRect().x < 0) ? 0 : document.getElementById("sidebar-wrapper").getBoundingClientRect().width;
+
+                      // some keycodes
+                      var key_left = 37;
+                      var key_up = 38;
+                      var key_right = 39;
+                      var key_down = 40;
+                      var key_a = 65;
+                      var key_z = 90;
+
+                      var isKeyPressed = [];
+                      for (i = 0; i < 256; ++i) {
+                          isKeyPressed.push(0);
+                      }
+
+                      // gridSize = 50; // uncomment or add to game.js if you want a grid
+
+                      var reqAnimationFrame =
+                          window.requestAnimationFrame ||
+                          window.mozRequestAnimationFrame ||
+                          window.webkitRequestAnimationFrame ||
+                          window.msRequestAnimationFrame ||
+                          function (callback) {
+                              setTimeout(callback, 1000 / 30);
+                          };
+
+                      function redraw() {
+                          context.clearRect(0, 0, canvas.width, canvas.height);
+                          context.globalAlpha = 1;
+
+                          // draw grid
+                          //context.fillStyle = "#FF0000";
+                          context.font = "10px Arial";
+                          if (typeof gridSize != "undefined" && gridSize >= 25) {
+                              context.fillText(0, 4, 10);
+                              context.beginPath();
+                              for (i = gridSize; i < canvas.width; i += gridSize) {
+                                  context.moveTo(i, 0);
+                                  context.lineTo(i, canvas.height);
+                                  context.fillText(i, i + 4, 10);
+                              }
+                              for (i = gridSize; i < canvas.height; i += gridSize) {
+                                  context.moveTo(0, i);
+                                  context.lineTo(canvas.width, i);
+                                  context.fillText(i, 4, i + 10);
+                              }
+                              context.stroke();
+                          }
+
+                          draw(); // call progammer's draw() function
+
+                          reqAnimationFrame(redraw);
+                      };
+
+                      function callupdate() {
+                        glWid = document.getElementsByClassName("card-body all-icons")[0].getBoundingClientRect().x;
+                        canvas.width = document.getElementsByClassName("card-body all-icons")[0].getBoundingClientRect().width;
+                        //glWid = (document.getElementById("sidebar-wrapper").getBoundingClientRect().x < 0) ? 0 : document.getElementById("sidebar-wrapper").getBoundingClientRect().width;
+                          update(); // call programmer's update() function
+                          setTimeout(callupdate, 10); // and 10 ms after that ...
+                      };
+
+                      function areColliding(Ax, Ay, Awidth, Aheight, Bx, By, Bwidth, Bheight) {
+                          if (Bx <= Ax + Awidth) {
+                              if (Ax <= Bx + Bwidth) {
+                                  if (By <= Ay + Aheight) {
+                                      if (Ay <= By + Bheight) {
+                                          return 1;
+                                      }
+                                  }
+                              }
+                          }
+                          return 0;
+                      };
+
+                      function init() {
+                          if ('ontouchstart' in window || navigator.maxTouchPoints) {
+                            isMobile = true;
+                              window.addEventListener("touchstart", function (e) {
+                                  var touchobj = e.changedTouches[0];
+                                  mouseX = parseInt(touchobj.pageX - canvas.offsetLeft)-glWid;
+                                  mouseY = parseInt(touchobj.pageY - canvas.offsetTop) - globHei;
+                                  mousedown();
+                              });
+
+                              window.addEventListener("touchend", function (e) {
+                                  var touchobj = e.changedTouches[0];
+                                  mouseX = parseInt(touchobj.pageX - canvas.offsetLeft)-glWid;
+                                  mouseY = parseInt(touchobj.pageY - canvas.offsetTop) - globHei;
+                                  mouseup();
+                              });
+                              window.addEventListener("touchmove", function (e) {
+                                  var touchobj = e.changedTouches[0];
+                                  mouseX = parseInt(touchobj.pageX - canvas.offsetLeft)-glWid;
+                                  mouseY = parseInt(touchobj.pageY - canvas.offsetTop) - globHei;
+                              });
+                          } else {
+                              window.addEventListener("mousemove", function (e) {
+                                  mouseX = e.pageX - canvas.offsetLeft - glWid;
+                                  mouseY = e.pageY - canvas.offsetTop - globHei;
+                              });
+
+                              if (typeof mousemove != "undefined") {
+                                  window.addEventListener("mousemove", mousemove);
+                              }
+                              if (typeof mouseup != "undefined") {
+                                  window.addEventListener("mouseup", mouseup);
+                              }
+                              if (typeof mousedown != "undefined") {
+                                  window.addEventListener("mousedown", mousedown);
+                              }
+
+                              if (typeof keydown != "undefined") {
+                                  window.addEventListener("keydown", function (e) {
+                                      isKeyPressed[e.keyCode] = 1;
+                                      keydown(e.keyCode);
+                                  });
+                              } else {
+                                  window.addEventListener("keydown", function (e) {
+                                      isKeyPressed[e.keyCode] = 1;
+                                  });
+                              }
+                              if (typeof keyup != "undefined") {
+                                  window.addEventListener("keyup", function (e) {
+                                      isKeyPressed[e.keyCode] = 0;
+                                      keyup(e.keyCode);
+                                  });
+                              } else {
+                                  window.addEventListener("keyup", function (e) {
+                                      isKeyPressed[e.keyCode] = 0;
+                                  });
+                              }
+                          }
+                          if (typeof draw == "undefined") {
+                              redraw = function () {
+                                  context.clearRect(0, 0, canvas.width, canvas.height);
+                                  context.globalAlpha = 1;
+                                  context.fillStyle = "#FF0000";
+                                  context.font = "20px Arial";
+                                  context.fillText("Press <F12> for error info!", 40, 40);
+                              };
+                          }
+                          redraw();
+                          callupdate();
+                      };
+
+                  </script>
+                  <script src="../js/classes.js"></script>
+                  <script src="../js/functions.js"></script>
+                  <script src="../js/game.js"></script>
               </div>
             </div>
           </div>
