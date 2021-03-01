@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 .container {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Arial';
+	float-right:auto;
+	float-left:auto;
 }
 
 /* COLORS */
