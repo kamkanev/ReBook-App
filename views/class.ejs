@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" href="../img/rebook_main_logo.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Начало
+    Класни стаи
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -18,13 +18,15 @@
   <link href="../css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../css/demo.css" rel="stylesheet" />
-      <link href="../css/sweetalert2.css" rel="stylesheet"/>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <link href="../css/sweetalert2.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/classrooms.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <script type="text/javascript" src="../js/roomFunks.js"></script>
 </head>
 
 <body>
-  <div class="wrapper">
-    <b>
+  <div class="wrapper ">
+      <b>
     <div class="sidebar" data-color="<%= typeof user.menucolor != 'undefined' ? user.menucolor : 'blue' %>">
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
@@ -37,13 +39,13 @@
       </div>
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
-          <li class="active ">
+          <li>
             <a href="/profile">
               <i class="now-ui-icons design_app"></i>
               <p>Начало</p>
             </a>
           </li>
-          <li>
+          <li  class="active ">
             <a href=<%= typeof user.inClassRoom == 'undefined' ? "/profile/classrooms" : "/class/"+user.inClassRoom %>>
               <i class="fas fa-comments"></i>
               <p>Класни стаи</p>
@@ -95,7 +97,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" style = "font-size: 15pt"><b>Начало</b></a>
+            <a class="navbar-brand" style = "font-size: 15pt"><b>Класни стаи</b></a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -132,152 +134,52 @@
         </div>
       </nav>
       <!-- End Navbar -->
-      <div class="panel-header panel-header-lg">
-        <canvas id="bigDashboardChart"></canvas>
+      <div class="panel-header panel-header-sm">
       </div>
+
       <div class="content">
         <div class="row">
-          <div class="col-lg-4">
-            <div class="card card-chart">
-
-
-
-            </div>
-          </div>
-
-
-
-
-            <div class="card card-chart">
-              <div class="card-header ">
-                <h4 class="card-title">Задачи</h4>
-                  <div class="dropdown">
-                  <button type="button" class="btn btn-round btn-outline-default dropdown-toggle btn-simple btn-icon no-caret" data-toggle="dropdown" onclick="createTask()">
-                    <b><i class="now-ui-icons ui-1_simple-add"></i></b>
-                  </button>
-                </div>
-              </div>
-              <div class="card-body ">
-                <div class="max-table-hight table-full-width table-responsive">
-                  <table  id="task-table" class="table">
-                    <tbody>
-                      <%- include('./runners/tasks') %>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-              <div class="card-footer ">
-                <hr>
-              </div>
-            </div>
-          </div>
-          <!-- <div class="col-md-6">
+          <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h5 class="card-category">All Persons List</h5>
-                <h4 class="card-title"> Employees Stats</h4>
+                <h5 class="title">
+                  <a href="/class/<%= room.id %>/exit"><button type="button" class="btn btn-info"><i class="fas fa-chevron-left"></i></button></a>
+                  <%= room.name %>
+                </h5>
+                <!--<p class="category"><a href=""></a></p>-->
+                <% if(user.id != room.creator){ %>
+                  <button style = "margin-right: 15px; margin-top: -5px;" type="button" onclick="leaveRoom('<%= room.id %>')" class="btn btn-danger float-right"><i class="fas fa-sign-out-alt"> Напусни стаята</i></button>
+                <% } %>
               </div>
-              <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table">
-                    <thead class=" text-primary">
-                      <th>
-                        Name
-                      </th>
-                      <th>
-                        Country
-                      </th>
-                      <th>
-                        City
-                      </th>
-                      <th class="text-right">
-                        Salary
-                      </th>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          Dakota Rice
-                        </td>
-                        <td>
-                          Nigga
-                        </td>
-                        <td>
-                          Oud-Turnhout
-                        </td>
-                        <td class="text-right">
-                          $36,738
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Minerva Hooper
-                        </td>
-                        <td>
-                          Curaçao
-                        </td>
-                        <td>
-                          Sinaai-Waas
-                        </td>
-                        <td class="text-right">
-                          $23,789
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Sage Rodriguez
-                        </td>
-                        <td>
-                          Netherlands
-                        </td>
-                        <td>
-                          Baileux
-                        </td>
-                        <td class="text-right">
-                          $56,142
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Doris Greene
-                        </td>
-                        <td>
-                          Malawi
-                        </td>
-                        <td>
-                          Feldkirchen in Kärnten
-                        </td>
-                        <td class="text-right">
-                          $63,542
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Mason Porter
-                        </td>
-                        <td>
-                          Chile
-                        </td>
-                        <td>
-                          Gloucester
-                        </td>
-                        <td class="text-right">
-                          $78,615
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+              <div class="card-body all-icons">
+
+                  <!-- <div class="font-icon-list col-lg-12 col-md-3 col-sm-4 col-xs-6 col-xs-6">
+                    <div class="font-icon-detail">
+                      <i class="now-ui-icons arrows-1_cloud-download-93"></i>
+                      <p>arrows-1_cloud-download-93</p>
+                    </div>
+                  </div><br>
+                  <div class="font-icon-list col-lg-12 col-md-3 col-sm-4 col-xs-6 col-xs-6">
+                    <div class="font-icon-detail">
+                      <i class="now-ui-icons arrows-1_cloud-upload-94"></i>
+                      <p>arrows-1_cloud-upload-94shshshshdfhrhjewhgdfdjsfhdfhfdjdrbgfjgsfbbfgbkjbybbibdkdbk</p>
+                    </div><br>
+                  </div>
+                  <div class="font-icon-list col-lg-12 col-md-3 col-sm-4 col-xs-6 col-xs-6">
+                    <div class="font-icon-detail">
+                      <i class="now-ui-icons arrows-1_minimal-down"></i>
+                      <p>arrows-1_minimal-down</p>
+                    </div><br>
+                  </div> -->
               </div>
             </div>
-          </div>-->
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <%- include('./runners/daylilogin') %>
-
   <!--   Core JS Files   -->
   <script src="../js/core/jquery.min.js"></script>
   <script src="../js/core/popper.min.js"></script>
@@ -288,17 +190,6 @@
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../js/now-ui-dashboard.min.js?v=1.5.0" type="text/javascript"></script><!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
   <script src="../js/demo.js"></script>
-    <script src="../js/main.js"></script>
-  <script>
-
-//      console.log("<%# user.id %>" );
-
-    $(document).ready(function() {
-      // Javascript method's body can be found in assets/js/demos.js
-      demo.initDashboardPageCharts();
-
-    });
-  </script>
 </body>
 
 </html>

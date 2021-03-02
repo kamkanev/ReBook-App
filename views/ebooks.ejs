@@ -47,7 +47,7 @@
             </a>
           </li>
           <li>
-            <a href="/profile/classrooms">
+            <a href=<%= typeof user.inClassRoom == 'undefined' ? "/profile/classrooms" : "/class/"+user.inClassRoom %>>
               <i class="fas fa-comments"></i>
               <p>Класни стаи</p>
             </a>

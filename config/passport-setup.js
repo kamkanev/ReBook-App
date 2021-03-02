@@ -168,7 +168,7 @@ passport.use(
     function(accessToken, refreshToken, profile, done) {
       const { email, name, profile_image_url, screen_name} = profile._json;
       var names = name.split(" ");
-      console.log(profile);
+      // console.log(profile);
       User.findOne({twitterid: profile.id}).then((currentUser) => {
 
         if(currentUser){

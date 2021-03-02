@@ -159,7 +159,9 @@ async function createClassRoom() {
 
 }
 
-function addToClass(className) {
+async function addToClass(className, password) {
+
+  if(password.length <= 0){
 
   var f = document.createElement("form");
   f.setAttribute('method',"post");
@@ -177,5 +179,47 @@ function addToClass(className) {
   // console.log(f);
   //
   f.submit();
+
+}else{
+
+    Swal.fire({
+      title: 'Въведете парола на стая:',
+      input: "password",
+      inputValidator: (value) => {
+        if(!value){
+
+          return "Не може полето да е празно!";
+
+        }else if(password != value){
+
+          Swal.fire({
+            icon: 'error',
+            title: "Паролата не съвпада!"
+          })
+          //return "Паролата не съвпада!";
+
+        }else if(password == value){
+
+          var f = document.createElement("form");
+          f.setAttribute('method',"post");
+          f.setAttribute('action',"/profile/joinClassRoom");
+          //
+          var tit = document.createElement("input"); //input element, text
+          tit.setAttribute('type',"hidden");
+          tit.setAttribute('value',className);
+          tit.setAttribute('name',"name");
+
+          f.appendChild(tit);
+          //
+          document.body.appendChild(f);
+          //
+          // console.log(f);
+          //
+          f.submit();
+
+        }
+      }
+    });
+  }
 
 }

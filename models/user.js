@@ -47,6 +47,9 @@ const userSchema = new Schema({
   menucolor: {
     type: String,
     default: "blue"
+  },
+  inClassRoom:{
+    type: String
   }
 
 });
