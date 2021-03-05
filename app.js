@@ -21,6 +21,7 @@ app.use('/users', express.static(__dirname + '/users'));
 app.use('/css', express.static(__dirname + '/css'));
 app.use('/js', express.static(__dirname + '/js'));
 app.use('/fonts', express.static(__dirname + '/fonts'));
+app.use('/userguide/user_guide.pdf', express.static(__dirname + '/userguide/user_guide.pdf'));
 app.use('/.well-known/pki-validation/E145ACDF98808A5F525AA35493BF1480.txt', express.static(__dirname + '/E145ACDF98808A5F525AA35493BF1480.txt'));
 //app.use('/users', express.static(__dirname + '/users'));
 
