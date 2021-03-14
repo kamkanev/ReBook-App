@@ -1,3 +1,4 @@
+const http = require('http');
 const express = require('express');
 const authRoutes = require('./routes/auth-routes');
 const profileRoutes = require('./routes/profile-routes');
@@ -7,8 +8,12 @@ const mongoose = require('mongoose');
 const keys = require('./config/keys');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
+const socketio = require('socket.io');
 
 const app = express();
+const server = http.createServer(app);
+const io = socketio(server);
+
 const port = process.env.PORT || 1025;
 
 //set up view engine
@@ -65,7 +70,21 @@ app.get('/', (req, res) => {
   }
 });
 
-app.listen(port, ()=>{
+//run when client connects
+io.on('connection', socket => {
+	console.log('New WS connection');
+
+	socket.emit('message', 'Добре дошъл, приятел!');
+
+	socket.broadcast.emit('message', 'Нов потребител дойде!');
+
+	socket.on('disconnect', () => {
+		io.emit('message', 'Някой си тръгна!!!');
+	});
+
+});
+
+server.listen(port, ()=>{
   console.log(`Server started on port ${port}`);
     console.log(`http://localhost:${port}`);
   //console.log(authRoutes);

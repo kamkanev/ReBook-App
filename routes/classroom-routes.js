@@ -37,7 +37,7 @@ router.post('/createClassRoom', (req, res) => {
 
   if(req.user){
 
-    console.log(req.body);
+    // console.log(req.body);
 
     var errs = [];
 
