@@ -9,6 +9,8 @@ const keys = require('./config/keys');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 const socketio = require('socket.io');
+const moment = require('moment');
+const User = require("./models/user");
 
 const app = express();
 const server = http.createServer(app);
@@ -74,9 +76,19 @@ app.get('/', (req, res) => {
 io.on('connection', socket => {
 	console.log('New WS connection');
 
-	socket.emit('message', 'Добре дошъл, приятел!');
+	// socket.emit('message', 'Добре дошъл, приятел!');
 
-	socket.broadcast.emit('message', 'Нов потребител дойде!');
+	// socket.broadcast.emit('message', 'Нов потребител дойде!');
+
+	socket.on('chatMessage', (msg) => {
+
+		User.findOne({username: msg.user}).then((currU) => {
+
+			// console.log(createNewMessage(msg, currU));
+			io.emit('message', createNewMessage(msg, currU));
+		});
+
+	});
 
 	socket.on('disconnect', () => {
 		io.emit('message', 'Някой си тръгна!!!');
@@ -89,3 +101,22 @@ server.listen(port, ()=>{
     console.log(`http://localhost:${port}`);
   //console.log(authRoutes);
 });
+
+function createNewMessage(msg, currU) {
+
+
+
+		if(currU){
+			return {
+				text: msg.text,
+				time: moment().format('h:mm'),
+				sender: {
+					username: currU.username,
+					pic: currU.image
+				}
+			};
+		}
+
+
+
+}

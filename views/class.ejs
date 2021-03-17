@@ -19,7 +19,7 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../css/demo.css" rel="stylesheet" />
   <link href="../css/sweetalert2.css" rel="stylesheet"/>
-  <link rel="stylesheet" href="../css/classrooms.css">
+  <link rel="stylesheet" href="../css/room.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 </head>
@@ -153,6 +153,27 @@
               </div>
               <div class="card-body all-icons">
 
+    <ol class="chat">
+    <!-- <li class="self">
+        <div class="avatar"><img src="https://i.imgur.com/HYcn9xO.png" draggable="false"/></div>
+      <div class="msg">
+        <img src="https://i.imgur.com/QAROObc.jpg" draggable="false"/>
+        <time>20:19</time>
+      </div>
+    </li> -->
+    <!-- <li class="self">
+        <div class="avatar"><img src="https://i.imgur.com/HYcn9xO.png" draggable="false"/></div>
+      <div class="msg">
+        <p>Es broma</p>
+        <p>Ataque Moai!</p>
+        <p><span><emoji class="moai"/></span><span><emoji class="moai"/></span><span><emoji class="moai"/></span><span><emoji class="moai"/></span><span><emoji class="moai"/></span><span><emoji class="moai"/></span></p>
+        <time>18:09</time>
+      </div>
+    </li> -->
+    </li>
+    </ol>
+    <input type="hidden" id="uname" value="<%= user.username %>">
+    <input class="textarea" name="msg" id="sendMsg" type="text" placeholder="Type here!"/><div class="emojis"></div>
                   <!-- <div class="font-icon-list col-lg-12 col-md-3 col-sm-4 col-xs-6 col-xs-6">
                     <div class="font-icon-detail">
                       <i class="now-ui-icons arrows-1_cloud-download-93"></i>

@@ -44,6 +44,55 @@ swalWithBootstrapButtons.fire({
 
 const socket = io();
 
+const chatBox = document.getElementsByClassName('chat')[0];
+  const username = document.getElementById('uname').value;
+
 socket.on('message', msg => {
+  outputMessage(msg);
   console.log(msg);
+  // console.log(chatBox);
+  window.scrollTo(0,document.body.scrollHeight);
 });
+
+var sendMsgIn = document.getElementById("sendMsg");
+
+// Execute a function when the user releases a key on the keyboard
+sendMsgIn.addEventListener("keyup", function(event) {
+  // Number 13 is the "Enter" key on the keyboard
+  if (event.keyCode === 13) {
+    // Cancel the default action, if needed
+    event.preventDefault();
+
+    const text = event.target.value;
+
+    var msg = {
+      text: text,
+      user: username
+    }
+
+    socket.emit('chatMessage', msg);
+
+    event.target.value = '';
+    event.target.focus();
+  }
+});
+
+function outputMessage(msg) {
+
+
+
+  var li = document.createElement('li');
+
+  if(msg.sender.username == username){
+    li.classList.add('self');
+  }else{
+    li.classList.add('other');
+  }
+  li.innerHTML = `<div class="avatar"><img src="${msg.sender.pic}" draggable="false"/></div>
+<div class="msg">
+    <p>${msg.text}</p>
+  <time>${msg.time}</time>
+</div>`
+
+  document.querySelector('.chat').appendChild(li);
+}
