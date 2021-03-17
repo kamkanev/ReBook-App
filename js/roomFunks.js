@@ -65,12 +65,14 @@ sendMsgIn.addEventListener("keyup", function(event) {
 
     const text = event.target.value;
 
-    var msg = {
-      text: text,
-      user: username
-    }
+    if(text.length > 0){
+      var msg = {
+        text: text,
+        user: username
+      }
 
-    socket.emit('chatMessage', msg);
+      socket.emit('chatMessage', msg);
+    }
 
     event.target.value = '';
     event.target.focus();
@@ -79,9 +81,9 @@ sendMsgIn.addEventListener("keyup", function(event) {
 
 function outputMessage(msg) {
 
-
-
   var li = document.createElement('li');
+
+  console.log(createMutipleRows(msg.text));
 
   if(msg.sender.username == username){
     li.classList.add('self');
@@ -90,9 +92,44 @@ function outputMessage(msg) {
   }
   li.innerHTML = `<div class="avatar"><img src="${msg.sender.pic}" draggable="false"/></div>
 <div class="msg">
-    <p>${msg.text}</p>
+    ${createMutipleRows(msg.text)}
   <time>${msg.time}</time>
 </div>`
 
   document.querySelector('.chat').appendChild(li);
+}
+
+function createMutipleRows(text) {
+
+  var str = "";
+
+  var num = Math.ceil(text.length/100);
+
+  for(var i = 0; i < num; i++){
+    var from = i * (text.length/num);
+    var to = from + text.length/num;
+
+    str += `<p>${text.substring(from, to)}</p>`
+
+  }
+
+  return str;
+
+}
+
+function sendEmoji() {
+
+  const text = "<emoji class='happy'>";
+
+  if(text.length > 0){
+    var msg = {
+      text: text,
+      user: username
+    }
+
+    socket.emit('chatMessage', msg);
+  }
+
+  sendMsgIn.focus();
+
 }

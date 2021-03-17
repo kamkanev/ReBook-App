@@ -109,7 +109,7 @@ function createNewMessage(msg, currU) {
 		if(currU){
 			return {
 				text: msg.text,
-				time: moment().format('h:mm'),
+				time: moment().format('H:mm'),
 				sender: {
 					username: currU.username,
 					pic: currU.image
