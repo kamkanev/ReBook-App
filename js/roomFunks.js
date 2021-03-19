@@ -83,14 +83,16 @@ function outputMessage(msg) {
 
   var li = document.createElement('li');
 
-  console.log(createMutipleRows(msg.text));
+  // console.log(createMutipleRows(msg.text));
+
+  var picture = msg.sender.pic != undefined ? ''+ msg.sender.pic : '../img/default-avatar.png'
 
   if(msg.sender.username == username){
     li.classList.add('self');
   }else{
     li.classList.add('other');
   }
-  li.innerHTML = `<div class="avatar"><img src="${msg.sender.pic}" draggable="false"/></div>
+  li.innerHTML = `<div class="avatar"><img src="${picture}" alt="..." onerror="this.onerror=null; this.src = '../img/default-avatar.png'" draggable="false"/></div>
 <div class="msg">
     ${createMutipleRows(msg.text)}
   <time>${msg.time}</time>
