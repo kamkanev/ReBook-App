@@ -3,7 +3,6 @@
 
 html, body {
     background: #e5e5e5;
-    font-family: 'Lato', sans-serif;
     margin: 0px auto;
 }
 ::selection{
@@ -15,7 +14,9 @@ a{
 }
 
 /* M E N U */
-
+.navstyle{
+	font-family: 'Arial', sans-serif;
+}
 .menu {
     position: fixed;
     top: 0px;
@@ -39,7 +40,6 @@ a{
     left: 0px;
     color: #fff;
     line-height: 50px;
-    font-size: 30px;
     padding-left: 10px;
     cursor: pointer;
 }
@@ -63,9 +63,6 @@ a{
     position: absolute;
     top: 3px;
     left: 110px;
-    font-family: 'Lato';
-    font-size: 25px;
-    font-weight: 300;
     color: rgba(255,255,255,0.98);
     cursor: default;
 }
@@ -73,9 +70,6 @@ a{
     position: absolute;
     top: 30px;
     left: 115px;
-    font-family: 'Lato';
-    font-size: 11px;
-    font-weight: 400;
     color: rgba(255,255,255,0.6);
     cursor: default;
 }
@@ -193,7 +187,6 @@ a{
     box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.07);
 }
 .msg p {
-    font-size: 0.8rem;
     margin: 0 0 0.2rem 0;
     color: #777;
 }
@@ -222,7 +215,6 @@ a{
 }
 
 .msg time {
-    font-size: 0.7rem;
     color: #ccc;
     margin-top: 3px;
     float: right;
@@ -235,7 +227,6 @@ a{
 .msg time:before{
     content:"\f017";
     color: #ddd;
-    font-family: FontAwesome;
     display: inline-block;
     margin-right: 4px;
 }
@@ -317,7 +308,6 @@ input.textarea {
     padding-left: 55px;
     padding-right: 55px;
     color: #666;
-    font-weight: 400;
 }
 .emojis {
     position: fixed;
